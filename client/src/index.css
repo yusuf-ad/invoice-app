@@ -1,0 +1,59 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply relative bg-whisper min-h-screen text-vulcan;
+  }
+
+  * {
+    font-family: "Spartan", -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
+      Oxygen, Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue,
+      sans-serif;
+  }
+}
+
+@layer components {
+  .btn-sm {
+    @apply text-xs font-bold py-4 px-6 rounded-full transition-colors-2;
+  }
+
+  .btn-md {
+    @apply font-bold text-sm py-4 px-8 rounded-2xl transition-opacity duration-300 hover:opacity-85;
+  }
+}
+
+@layer utilities {
+  .center-xy {
+    @apply top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2;
+  }
+
+  .center-x {
+    @apply left-1/2 -translate-x-1/2;
+  }
+
+  .center-y {
+    @apply top-1/2 -translate-y-1/2;
+  }
+
+  .transition-1 {
+    @apply duration-100 transition-all;
+  }
+  .transition-2 {
+    @apply duration-200 transition-all;
+  }
+  .transition-3 {
+    @apply duration-300 transition-all;
+  }
+
+  .transition-colors-1 {
+    @apply duration-100 transition-colors;
+  }
+  .transition-colors-2 {
+    @apply duration-200 transition-colors;
+  }
+  .transition-colors-3 {
+    @apply duration-300 transition-colors;
+  }
+}
