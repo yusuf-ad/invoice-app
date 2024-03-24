@@ -3,6 +3,7 @@ import { useForm } from "react-hook-form";
 import FormCol from "../../components/UI/FormCol";
 import FormInput from "../../components/UI/FormInput";
 import FormRow from "../../components/UI/FormRow";
+import ItemsList from "../../components/UI/ItemsList";
 
 function CreateInvoiceForm() {
   const {
@@ -16,7 +17,7 @@ function CreateInvoiceForm() {
   }
 
   function onError(errors) {
-    console.log(errors);
+    // console.log(errors);
   }
 
   return (
@@ -103,6 +104,12 @@ function CreateInvoiceForm() {
       >
         <FormInput register={register} name={"description"} />
       </FormCol>
+
+      <h3 className="mt-6 text-baliHai font-bold text-lg capitalize">
+        Item list
+      </h3>
+
+      <ItemsList register={register} errors={errors} />
 
       <FormRow classes={"justify-between mt-12"}>
         <div>
