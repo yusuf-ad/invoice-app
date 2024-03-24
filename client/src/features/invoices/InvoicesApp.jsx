@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { InvoicesList } from "../../components/UI/InvoicesList";
 import { ButtonFilter } from "../../components/UI/ButtonFilter";
 import { ButtonNewInvoice } from "../../components/UI/ButtonNewInvoice";
-import { Header } from "../../components/Layout/Header";
+import { Header } from "../../components/UI/Header";
 import { InvoicesCount } from "../../components/UI/InvoicesCount";
 
 import { toggleModal } from "../modalSlice";

@@ -14,7 +14,7 @@ import { useDispatch } from "react-redux";
 import { loggedInUser, isUserLoading } from "./features/users/userSlice";
 import InvoiceDetails from "./features/invoices/InvoiceDetails";
 import InvoicesApp from "./features/invoices/InvoicesApp";
-import AppLayout from "./components/Layout/AppLayout";
+import AppLayout from "./components/UI/AppLayout";
 
 const cookies = new Cookies();
 
