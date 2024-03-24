@@ -10,15 +10,30 @@ function CreateInvoiceForm() {
     register,
     handleSubmit,
     formState: { errors },
+    watch,
   } = useForm();
 
   function onSubmit(data) {
-    console.log(data);
+    const { itemFields, nonItemFields } = Object.keys(data).reduce(
+      (result, key) => {
+        if (key.startsWith("item")) {
+          result.itemFields[key] = data[key];
+          result.itemFields[key].total =
+            +result.itemFields[key].itemQty.replace(",", ".") *
+            +result.itemFields[key].itemPrice.replace(",", ".");
+        } else {
+          result.nonItemFields[key] = data[key];
+        }
+        return result;
+      },
+      { itemFields: [], nonItemFields: {} }
+    );
+
+    console.log(itemFields);
+    console.log({ ...nonItemFields, items: itemFields });
   }
 
-  function onError(errors) {
-    // console.log(errors);
-  }
+  function onError() {}
 
   return (
     <form
@@ -109,7 +124,7 @@ function CreateInvoiceForm() {
         Item list
       </h3>
 
-      <ItemsList register={register} errors={errors} />
+      <ItemsList watch={watch} register={register} errors={errors} />
 
       <FormRow classes={"justify-between mt-12"}>
         <div>

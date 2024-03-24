@@ -1,13 +1,13 @@
-import generateUniqueId from "generate-unique-id";
 import FormCol from "./FormCol";
 import FormInput from "./FormInput";
 import FormRow from "./FormRow";
 
-function ItemsList({ register, errors }) {
+function ItemsList({ register, errors, watch }) {
   return (
     <div>
-      <ItemRow errors={errors} register={register} />
-      {/* <ItemRow errors={errors} register={register} /> */}
+      <ItemRow watch={watch} errors={errors} register={register} id={1} />
+      <ItemRow watch={watch} errors={errors} register={register} id={2} />
+      <ItemRow watch={watch} errors={errors} register={register} id={3} />
 
       <button
         type="button"
@@ -22,28 +22,34 @@ function ItemsList({ register, errors }) {
 
 export default ItemsList;
 
-function ItemRow({ errors, register }) {
-  const item = {
-    id: generateUniqueId(),
-    itemName: "New Item",
-    itemQty: 1,
-    itemPrice: 0,
-  };
+function ItemRow({ errors, register, watch, id }) {
+  const itemQty = watch(`item${id}.itemQty`).replace(",", ".");
+  const itemPrice = watch(`item${id}.itemPrice`).replace(",", ".");
+
+  const total = +itemQty * +itemPrice;
 
   return (
     <FormRow classes={"mt-4 gap-4"}>
       <FormCol label={"Item name"} error={errors?.itemName}>
         <FormInput
           register={register}
-          name={"itemName"}
+          name={`item${id}.itemName`}
           defaultValue="New Item"
         />
       </FormCol>
       <FormCol classes={"w-24"} label={"Qty"}>
-        <FormInput register={register} name={"itemQty"} defaultValue={1} />
+        <FormInput
+          register={register}
+          name={`item${id}.itemQty`}
+          defaultValue={1}
+        />
       </FormCol>
       <FormCol classes={"w-24"} label={"Price"}>
-        <FormInput register={register} name={"itemPrice"} defaultValue={0} />
+        <FormInput
+          register={register}
+          name={`item${id}.itemPrice`}
+          defaultValue={0}
+        />
       </FormCol>
 
       <div className="flex justify-around flex-1  gap-6">
@@ -51,7 +57,9 @@ function ItemRow({ errors, register }) {
           <label className="text-gray-400 text-xs font-medium capitalize">
             Total
           </label>
-          <span className="mb-3 text-shipCove font-bold">0.00</span>
+          <span className="mb-3 text-shipCove font-bold">
+            {total.toFixed(2)}
+          </span>
         </div>
 
         <button type="button">
