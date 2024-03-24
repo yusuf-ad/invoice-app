@@ -2,6 +2,7 @@ import { useEffect, useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { NewInvoiceForm } from "./NewInvoiceForm";
 import { closeModal } from "../../features/modalSlice";
+import CreateInvoiceForm from "../../features/invoices/CreateInvoiceForm";
 
 export function NewInvoiceModal() {
   const { isModalActive } = useSelector((state) => state.modal);
@@ -31,7 +32,8 @@ export function NewInvoiceModal() {
             : "opacity-0 -translate-x-full"
         } fixed h-[100vh-20rem] inset-0 z-20 top-20 w-full md:w-2/3 xl:w-1/2 xl:pl-28 xl:top-0  transition-all duration-300 bg-white overflow-y-scroll`}
       >
-        <NewInvoiceForm closeModal={closeModal} />
+        {/* <NewInvoiceForm closeModal={closeModal} /> */}
+        <CreateInvoiceForm />
       </div>
       {/* overlay */}
       <div

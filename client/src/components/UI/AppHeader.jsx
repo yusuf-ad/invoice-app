@@ -1,8 +1,8 @@
 import { useSelector } from "react-redux";
 
-import { HeaderLogo } from "../UI/HeaderLogo";
-import { DarkModeButton } from "../UI/DarkModeButton";
-import { UserAvatar } from "../UI/UserAvatar";
+import { HeaderLogo } from "./HeaderLogo";
+import { DarkModeButton } from "./DarkModeButton";
+import { UserAvatar } from "./UserAvatar";
 
 function AppHeader() {
   const { token: isAuthenticated, photo } = useSelector((state) => state.user);

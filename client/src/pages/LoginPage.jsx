@@ -7,8 +7,8 @@ import { useNavigate } from "react-router-dom";
 
 function LoginPage() {
   const [user, setUser] = useState({
-    username: "",
-    password: "",
+    username: "ali",
+    password: "ali",
   });
 
   const token = useSelector((state) => state.user.token);

@@ -49,7 +49,6 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
     senderAddress: req.body.senderAddress,
     clientAddress: req.body.clientAddress,
     items: req.body.items,
-    total: req.body.total,
   };
 
   const newInvoice = await Invoice.create({ ...invoiceTemplate });

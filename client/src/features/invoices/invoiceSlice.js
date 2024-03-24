@@ -62,8 +62,6 @@ export function getAllInvoices(token) {
 
       const { data } = await res.json();
 
-      console.log(data);
-
       dispatch({ type: "invoice/getAllInvoices", payload: data.invoices });
     } catch (err) {
       console.log(err.message);
