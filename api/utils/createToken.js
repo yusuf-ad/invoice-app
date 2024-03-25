@@ -1,7 +1,7 @@
 const jwt = require("jsonwebtoken");
 
-const createToken = (userId) => {
-  return jwt.sign(
+const createToken = (res, userId) => {
+  const token = jwt.sign(
     // payload
     {
       userId,
@@ -13,6 +13,14 @@ const createToken = (userId) => {
       expiresIn: process.env.JWT_EXPIRES_IN,
     }
   );
+
+  // set JWT as HTTP-only cookie
+  res.cookie("jwt", token, {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+    expire: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // 1 day
+  });
 };
 
 module.exports = createToken;

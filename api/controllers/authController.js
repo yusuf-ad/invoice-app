@@ -6,12 +6,9 @@ const catchAsync = require("../utils/catchAsync");
 exports.protect = catchAsync(async (req, res, next) => {
   let token;
 
-  const authHeader = req.headers["authorization"];
+  token = req.cookies.jwt;
 
-  // 1) Getting token and check if it's exist
-  if (authHeader && authHeader.startsWith("Bearer")) {
-    token = authHeader.split(" ").at(1);
-  }
+  console.log(token);
 
   if (!token)
     return res.status(401).json({
@@ -30,6 +27,8 @@ exports.protect = catchAsync(async (req, res, next) => {
       status: "fail",
       message: "The user belonging to this token doesn't exist!",
     });
+
+  console.log(currentUser);
 
   req.user = currentUser;
 

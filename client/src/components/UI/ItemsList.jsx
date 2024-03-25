@@ -23,8 +23,8 @@ function ItemsList({ register, errors, watch }) {
 export default ItemsList;
 
 function ItemRow({ errors, register, watch, id }) {
-  const itemQty = watch(`item${id}.itemQty`).replace(",", ".");
-  const itemPrice = watch(`item${id}.itemPrice`).replace(",", ".");
+  const itemQty = watch(`item${id}.itemQty`)?.replace(",", ".");
+  const itemPrice = watch(`item${id}.itemPrice`)?.replace(",", ".");
 
   const total = +itemQty * +itemPrice;
 

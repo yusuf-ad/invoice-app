@@ -43,7 +43,6 @@ exports.signup = catchAsync(async (req, res, next) => {
 
   res.status(201).json({
     status: "success",
-    token,
     data: {
       user: newUser,
     },
@@ -53,7 +52,7 @@ exports.signup = catchAsync(async (req, res, next) => {
 exports.login = catchAsync(async (req, res, next) => {
   const { username, password } = req.body;
 
-  // 1. Check if email and password exist
+  // 1. Check if username and password exist
   if (!username || !password) {
     return next(
       new AppError(`Please provide your username and password!`, 400)
@@ -72,15 +71,23 @@ exports.login = catchAsync(async (req, res, next) => {
   if (!(await user.correctPassword(password, user.password))) {
     return next(new AppError("You entered wrong password!", 401));
   }
-  // 3. Send token to client
-  const token = createToken(user._id);
 
-  // res.cookie(cookie_name , 'cookie_value', {expire : 24 * 60 * 60 * 1000 });
-  // res.cookie("jwt", token, { expire: 60 * 1000 * 60 });
+  // 3. Send token to client
+  createToken(res, user._id);
 
   res.status(200).json({
     status: "success",
     user,
-    token,
+  });
+});
+
+exports.logout = catchAsync(async (req, res, next) => {
+  res.clearCookie("jwt", {
+    httpOnly: true,
+  });
+
+  res.status(200).json({
+    status: "success",
+    message: "You are logged out!",
   });
 });
