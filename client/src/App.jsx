@@ -19,36 +19,36 @@ import AppLayout from "./components/UI/AppLayout";
 const cookies = new Cookies();
 
 function App() {
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const fetchLoggedInUser = useCallback(
-    async (userId, token) => {
-      try {
-        const res = await fetch(`${BASE_URL}/api/v1/users/${userId}`);
-        const { data } = await res.json();
-        const user = { ...data.user, token };
+  // const fetchLoggedInUser = useCallback(
+  //   async (userId, token) => {
+  //     try {
+  //       const res = await fetch(`${BASE_URL}/api/v1/users/${userId}`);
+  //       const { data } = await res.json();
+  //       const user = { ...data.user, token };
 
-        dispatch(loggedInUser(user));
-      } catch (err) {
-        alert("User doesn't exist anymore!");
+  //       dispatch(loggedInUser(user));
+  //     } catch (err) {
+  //       alert("User doesn't exist anymore!");
 
-        return cookies.remove("jwt");
-      }
-    },
-    [dispatch]
-  );
+  //       return cookies.remove("jwt");
+  //     }
+  //   },
+  //   [dispatch]
+  // );
 
-  const checkLoggedInUser = useCallback(() => {
-    if (cookies.get("jwt")) {
-      dispatch(isUserLoading());
-      const decoded = jwtDecode(cookies.get("jwt"));
-      fetchLoggedInUser(decoded.userId, cookies.get("jwt"));
-    }
-  }, [dispatch, fetchLoggedInUser]);
+  // const checkLoggedInUser = useCallback(() => {
+  //   if (cookies.get("jwt")) {
+  //     dispatch(isUserLoading());
+  //     const decoded = jwtDecode(cookies.get("jwt"));
+  //     fetchLoggedInUser(decoded.userId, cookies.get("jwt"));
+  //   }
+  // }, [dispatch, fetchLoggedInUser]);
 
-  useEffect(() => {
-    checkLoggedInUser();
-  }, [checkLoggedInUser]);
+  // useEffect(() => {
+  //   checkLoggedInUser();
+  // }, [checkLoggedInUser]);
 
   return (
     <BrowserRouter>
@@ -58,22 +58,8 @@ function App() {
         <Route path="signup" element={<SignUpPage />} />
         <Route path="/" element={<AppLayout />}>
           <Route index element={<HomePage />} />
-          <Route
-            path="app"
-            element={
-              <ProtectedRoute>
-                <InvoicesApp />
-              </ProtectedRoute>
-            }
-          />
-          <Route
-            path="app/invoice/:id"
-            element={
-              <ProtectedRoute>
-                <InvoiceDetails />
-              </ProtectedRoute>
-            }
-          />
+          <Route path="app" element={<InvoicesApp />} />
+          <Route path="app/invoice/:id" element={<InvoiceDetails />} />
         </Route>
       </Routes>
     </BrowserRouter>

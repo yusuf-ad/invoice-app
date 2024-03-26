@@ -39,10 +39,11 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
   });
 
-  const token = createToken(newUser._id);
+  const token = createToken(res, newUser._id);
 
   res.status(201).json({
     status: "success",
+    token,
     data: {
       user: newUser,
     },
@@ -73,16 +74,20 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3. Send token to client
-  createToken(res, user._id);
+  const token = createToken(res, user._id);
 
   res.status(200).json({
     status: "success",
-    user,
+    token,
+    data: {
+      user,
+    },
   });
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
-  res.clearCookie("jwt", {
+  res.cookie("jwt", "loggedout", {
+    expires: new Date(Date.now() + 10 * 1000),
     httpOnly: true,
   });
 

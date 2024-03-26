@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { InputField } from "../components/UI/InputField";
-import { useDispatch, useSelector } from "react-redux";
 
-import { login } from "../features/users/userSlice";
 import { useNavigate } from "react-router-dom";
+import { useLogin } from "../features/authentication/useLogin";
 
 function LoginPage() {
   const [user, setUser] = useState({
@@ -11,9 +10,8 @@ function LoginPage() {
     password: "ali",
   });
 
-  const token = useSelector((state) => state.user.token);
+  const { login, isLoading } = useLogin();
 
-  const dispatch = useDispatch();
   const navigate = useNavigate();
 
   function handleInputChange(e) {
@@ -25,16 +23,10 @@ function LoginPage() {
   function handleSubmit(e) {
     e.preventDefault();
 
-    dispatch(login(user));
+    login(user);
+
+    // navigate("/");
   }
-
-  useEffect(() => {
-    if (token) {
-      navigate("/app");
-
-      setUser((prevData) => ({ ...prevData, password: "" }));
-    }
-  }, [token, navigate]);
 
   return (
     <div

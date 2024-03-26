@@ -8,8 +8,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
   token = req.cookies.jwt;
 
-  console.log(token);
-
   if (!token)
     return res.status(401).json({
       status: "fail",
@@ -27,8 +25,6 @@ exports.protect = catchAsync(async (req, res, next) => {
       status: "fail",
       message: "The user belonging to this token doesn't exist!",
     });
-
-  console.log(currentUser);
 
   req.user = currentUser;
 
