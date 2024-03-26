@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-export function NotAuthenticatedMessage() {
+function NotAuthenticatedMessage() {
   return (
     <div className="text-center mt-24">
       <h1>You are not logged in. Please log in!</h1>
@@ -10,3 +10,5 @@ export function NotAuthenticatedMessage() {
     </div>
   );
 }
+
+export default NotAuthenticatedMessage;

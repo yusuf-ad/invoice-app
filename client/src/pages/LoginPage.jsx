@@ -1,8 +1,11 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { InputField } from "../components/UI/InputField";
 
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../features/authentication/useLogin";
+import Cookies from "universal-cookie";
+
+const cookies = new Cookies();
 
 function LoginPage() {
   const [user, setUser] = useState({
@@ -25,8 +28,14 @@ function LoginPage() {
 
     login(user);
 
-    // navigate("/");
+    navigate("/", { replace: true });
   }
+
+  useEffect(() => {
+    if (cookies.get("jwt")) {
+      navigate("/app");
+    }
+  }, [navigate]);
 
   return (
     <div

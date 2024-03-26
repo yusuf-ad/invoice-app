@@ -49,7 +49,7 @@ function SignUpPage() {
   }, [token, navigate]);
 
   return (
-    <div className="relative flex items-center justify-center min-h-screen px-8">
+    <div className="relative flex items-center justify-center mt-10 px-8">
       <div className="container max-w-2xl rounded-md shadow-md bg-white py-12 px-8">
         <h1 className="ml-8 font-extrabold mb-8 text-2xl">
           Sign up to Invoice App

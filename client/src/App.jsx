@@ -53,13 +53,16 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="*" element={<NotFound />} />
-        <Route path="login" element={<LoginPage />} />
-        <Route path="signup" element={<SignUpPage />} />
         <Route path="/" element={<AppLayout />}>
           <Route index element={<HomePage />} />
-          <Route path="app" element={<InvoicesApp />} />
-          <Route path="app/invoice/:id" element={<InvoiceDetails />} />
+          <Route path="*" element={<NotFound />} />
+          <Route path="login" element={<LoginPage />} />
+          <Route path="signup" element={<SignUpPage />} />
+
+          <Route path="" element={<ProtectedRoute />}>
+            <Route path="app" element={<InvoicesApp />} />
+            <Route path="app/invoice/:id" element={<InvoiceDetails />} />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>
