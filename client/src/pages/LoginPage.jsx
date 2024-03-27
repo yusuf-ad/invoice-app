@@ -1,10 +1,7 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { InputField } from "../components/UI/InputField";
 
-import { useNavigate } from "react-router-dom";
 import { useLogin } from "../features/authentication/useLogin";
-import Cookies from "universal-cookie";
-import { useIsAuthenticated } from "../features/authentication/useIsAuthenticated";
 
 function LoginPage() {
   const [user, setUser] = useState({
@@ -13,8 +10,6 @@ function LoginPage() {
   });
 
   const { login, isLoading } = useLogin();
-
-  const navigate = useNavigate();
 
   function handleInputChange(e) {
     const { id, value } = e.target;
@@ -26,11 +21,7 @@ function LoginPage() {
     e.preventDefault();
 
     login(user);
-
-    navigate("/", { replace: true });
   }
-
-  // useIsAuthenticated();
 
   return (
     <div
