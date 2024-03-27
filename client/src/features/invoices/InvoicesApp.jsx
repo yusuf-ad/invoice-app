@@ -8,7 +8,7 @@ import { Header } from "../../components/UI/Header";
 import { InvoicesCount } from "../../components/UI/InvoicesCount";
 
 import { toggleModal } from "../modalSlice";
-import { NewInvoiceModal } from "../../components/NewFeedbackComponents/NewInvoiceModal";
+import { NewInvoiceModal } from "./NewInvoiceModal";
 
 export default function InvoicesApp() {
   const dispatch = useDispatch();

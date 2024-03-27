@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { InputField } from "../components/UI/InputField";
 
 import { useLogin } from "../features/authentication/useLogin";
@@ -27,30 +28,40 @@ function LoginPage() {
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className=" bg-white mt-8 py-6 px-8 rounded-md flex flex-col  gap-10"
+        className=" bg-white mt-8 py-6 px-8 rounded-md flex flex-col"
       >
-        <InputField
-          label={"Username:"}
-          placeholder={"username"}
-          type="text"
-          id={"username"}
-          register={register}
-          options={{ required: "Can't be empty." }}
-          error={errors?.username?.message}
-        />
+        <div className="space-y-8">
+          <InputField
+            label={"Username:"}
+            placeholder={"username"}
+            type="text"
+            id={"username"}
+            register={register}
+            options={{ required: "Can't be empty." }}
+            error={errors?.username?.message}
+          />
+          <InputField
+            label={"Password:"}
+            type="password"
+            id={"password"}
+            register={register}
+            options={{ required: "Can't be empty." }}
+            error={errors?.password?.message}
+          />
+          <button className="btn-md bg-purple font-extrabold text-white w-full">
+            Log in
+          </button>
+        </div>
 
-        <InputField
-          label={"Password:"}
-          type="password"
-          id={"password"}
-          register={register}
-          options={{ required: "Can't be empty." }}
-          error={errors?.password?.message}
-        />
-
-        <button className="btn-md bg-purple font-extrabold text-white">
-          Log in
-        </button>
+        <p className="mt-8">
+          New Customer?{" "}
+          <Link
+            className="underline underline-offset-2 hover:text-purple"
+            to={"/signup"}
+          >
+            Click to Sign up
+          </Link>
+        </p>
       </form>
     </div>
   );

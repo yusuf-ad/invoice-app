@@ -11,8 +11,8 @@ import { formatDate } from "../../utils/formatDate";
 import { InvoiceAddress } from "./InvoiceAddress";
 import { TableItem } from "../../components/UI/TableItem";
 
-import { NewInvoiceModal } from "../../components/NewFeedbackComponents/NewInvoiceModal";
 import { toggleModal } from "../modalSlice";
+import CreateInvoiceForm from "./CreateInvoiceForm";
 
 function InvoiceDetails() {
   const navigate = useNavigate();
@@ -151,7 +151,7 @@ function InvoiceDetails() {
         </div>
       </div>
 
-      <NewInvoiceModal />
+      <CreateInvoiceForm />
     </>
   );
 }
