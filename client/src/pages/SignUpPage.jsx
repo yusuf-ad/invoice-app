@@ -1,7 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { signup } from "../features/users/userSlice";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import { InputField } from "../components/UI/InputField";
 
 const initialState = {
@@ -13,10 +12,6 @@ const initialState = {
 
 function SignUpPage() {
   const [newUser, setNewUser] = useState(initialState);
-
-  const { token } = useSelector((state) => state.user);
-
-  const navigate = useNavigate();
 
   const dispatch = useDispatch();
 
@@ -39,14 +34,6 @@ function SignUpPage() {
 
     dispatch(signup(newUser));
   }
-
-  useEffect(() => {
-    if (token) {
-      setNewUser(initialState);
-
-      navigate("/app");
-    }
-  }, [token, navigate]);
 
   return (
     <div className="relative flex items-center justify-center mt-10 px-8">

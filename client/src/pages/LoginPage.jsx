@@ -4,8 +4,7 @@ import { InputField } from "../components/UI/InputField";
 import { useNavigate } from "react-router-dom";
 import { useLogin } from "../features/authentication/useLogin";
 import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
+import { useIsAuthenticated } from "../features/authentication/useIsAuthenticated";
 
 function LoginPage() {
   const [user, setUser] = useState({
@@ -31,11 +30,7 @@ function LoginPage() {
     navigate("/", { replace: true });
   }
 
-  useEffect(() => {
-    if (cookies.get("jwt")) {
-      navigate("/app");
-    }
-  }, [navigate]);
+  // useIsAuthenticated();
 
   return (
     <div
