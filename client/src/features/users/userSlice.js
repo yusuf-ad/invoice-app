@@ -7,7 +7,6 @@ const initialState = {
   fullName: "",
   email: "",
   username: "",
-  password: "",
   photo: "",
   token: "",
   errorMsg: {},
@@ -22,7 +21,6 @@ const userSlice = createSlice({
       state.fullName = action.payload.fullName;
       state.email = action.payload.email;
       state.username = action.payload.username;
-      state.password = action.payload.password;
       state.photo = action.payload.photo;
       state.token = action.payload.token;
       state.isLoggedUserLoading = false;

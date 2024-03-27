@@ -13,16 +13,12 @@ function LoginPage() {
   const { login, isLoading } = useLogin();
 
   function onSuccess(data) {
-    console.log(data);
-  }
-
-  function onError(error) {
-    console.log(error);
+    login(data);
   }
 
   return (
     <div
-      onSubmit={handleSubmit(onSuccess, onError)}
+      onSubmit={handleSubmit(onSuccess)}
       className="absolute center-x top-1/4 container max-w-lg px-4"
     >
       <h1 className="text-center font-extrabold mb-16 text-2xl">
