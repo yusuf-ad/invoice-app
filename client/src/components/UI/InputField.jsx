@@ -32,6 +32,7 @@ export function InputField({
         {error && <ErrorMessage error={error} />}
 
         <ShowPasswordButton
+          type={type}
           inputElement={inputElement}
           isPassword={type === "password"}
         />

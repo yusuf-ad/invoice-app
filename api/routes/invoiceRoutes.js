@@ -11,8 +11,6 @@ router
   .get(authController.protect, invoiceController.getAllInvoices)
   .post(authController.protect, invoiceController.createInvoice);
 
-router.post("/logout", userController.logout);
-
 router
   .route("/:id")
   .get(authController.protect, invoiceController.getInvoice)

@@ -1,38 +1,16 @@
-import { useState } from "react";
-import { signup } from "../features/users/userSlice";
-import { useDispatch, useSelector } from "react-redux";
+import { useForm } from "react-hook-form";
 import { InputField } from "../components/UI/InputField";
-
-const initialState = {
-  fullName: "",
-  email: "",
-  username: "",
-  password: "",
-};
+import { Link } from "react-router-dom";
 
 function SignUpPage() {
-  const [newUser, setNewUser] = useState(initialState);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
-  const dispatch = useDispatch();
-
-  function handleInputChange(e) {
-    const { id, value } = e.target;
-
-    setNewUser((prevData) => ({
-      ...prevData,
-      [id]: value,
-    }));
-  }
-
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    for (const data in newUser) {
-      newUser[data] = newUser[data].trim();
-      if (!newUser[data]) return;
-    }
-
-    dispatch(signup(newUser));
+  function onSuccess(data) {
+    console.log(data);
   }
 
   return (
@@ -42,43 +20,59 @@ function SignUpPage() {
           Sign up to Invoice App
         </h1>
         <form
-          onSubmit={handleSubmit}
-          className=" bg-white mt-8 py-6 px-8 rounded-md flex flex-col  gap-8"
+          onSubmit={handleSubmit(onSuccess)}
+          className=" bg-white mt-8 py-6 px-8 rounded-md"
         >
-          <InputField
-            value={newUser.fullName}
-            onChange={handleInputChange}
-            label="Your fullname:"
-            placeholder="John Doe"
-            id="fullName"
-            type="text"
-          />
-          <InputField
-            value={newUser.email}
-            onChange={handleInputChange}
-            label="Your email:"
-            placeholder="email@gmail.com"
-            id="email"
-            type="email"
-          />
-          <InputField
-            value={newUser.username}
-            onChange={handleInputChange}
-            label="Create your username:"
-            placeholder="username"
-            id="username"
-            type="text"
-          />
-          <InputField
-            value={newUser.password}
-            onChange={handleInputChange}
-            label="Create your password:"
-            id="password"
-            type="password"
-          />
-          <button className="btn-md bg-purple font-extrabold text-white">
+          <div className="space-y-8">
+            <InputField
+              label="Your fullname:"
+              placeholder="John Doe"
+              id="fullName"
+              type="text"
+              register={register}
+              options={{ required: "Can't be empty." }}
+              error={errors?.fullName?.message}
+            />
+            <InputField
+              label="Your email:"
+              placeholder="email@gmail.com"
+              id="email"
+              type="email"
+              register={register}
+              options={{ required: "Can't be empty." }}
+              error={errors?.email?.message}
+            />
+            <InputField
+              label="Create your username:"
+              placeholder="username"
+              id="username"
+              type="text"
+              register={register}
+              options={{ required: "Can't be empty." }}
+              error={errors?.username?.message}
+            />
+            <InputField
+              label="Create your password:"
+              id="password"
+              type="password"
+              register={register}
+              options={{ required: "Can't be empty." }}
+              error={errors?.password?.message}
+            />
+          </div>
+          <button className="w-full mt-10 btn-md bg-purple font-extrabold text-white">
             Sign up
           </button>
+
+          <p className="mt-8">
+            Already a Customer?{" "}
+            <Link
+              className="underline underline-offset-2 hover:text-purple"
+              to={"/login"}
+            >
+              Click to Log in
+            </Link>
+          </p>
         </form>
       </div>
     </div>

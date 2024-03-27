@@ -48,6 +48,7 @@ function LoginPage() {
             options={{ required: "Can't be empty." }}
             error={errors?.password?.message}
           />
+
           <button className="btn-md bg-purple font-extrabold text-white w-full">
             Log in
           </button>

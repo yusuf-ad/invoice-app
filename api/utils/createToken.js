@@ -3,9 +3,7 @@ const jwt = require("jsonwebtoken");
 const createToken = (res, userId) => {
   const token = jwt.sign(
     // payload
-    {
-      userId,
-    },
+    { userId },
     // secret
     process.env.JWT_SECRET,
     // options
@@ -19,7 +17,7 @@ const createToken = (res, userId) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    expire: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // 1 day
+    expire: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // 10 days
   });
 
   return token;

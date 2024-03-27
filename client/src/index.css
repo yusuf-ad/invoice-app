@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply relative bg-whisper text-vulcan overflow-hidden;
+    @apply relative bg-whisper text-vulcan;
   }
 
   * {

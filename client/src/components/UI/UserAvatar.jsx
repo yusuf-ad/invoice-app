@@ -1,24 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 
-import { logOutUser } from "../../features/users/userSlice";
-import { useDispatch } from "react-redux";
-
-import Cookies from "universal-cookie";
 import { useNavigate } from "react-router-dom";
+import { useLogout } from "../../features/authentication/useLogout";
 
 export function UserAvatar({ photo }) {
   const [isActive, setIsActive] = useState(false);
 
-  const cookies = new Cookies();
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+
+  const { logout } = useLogout();
 
   const logOutButton = useRef(null);
   const avatar = useRef(null);
 
   function handleClick() {
-    dispatch(logOutUser());
-    cookies.remove("jwt");
+    console.log("logging out");
+    logout();
+
     navigate("/", { replace: true });
   }
 

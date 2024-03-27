@@ -23,3 +23,24 @@ export async function login({ username, password }) {
     throw new Error(`${error.message}`);
   }
 }
+
+export async function logout() {
+  try {
+    const res = await fetch(`${BASE_URL}/api/v1/users/logout`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    if (!res.ok) {
+      const { message } = await res.json();
+
+      throw new Error(message || "An error occurred!");
+    }
+
+    return await res.json();
+  } catch (error) {
+    throw new Error(`${error.message}`);
+  }
+}

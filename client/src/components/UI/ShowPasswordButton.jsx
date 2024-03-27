@@ -1,13 +1,13 @@
 import { useState } from "react";
 
-export function ShowPasswordButton({ isPassword, inputElement }) {
+export function ShowPasswordButton({ isPassword, inputElement, type }) {
   const [active, setActive] = useState(false);
 
   function handleToggle() {
     if (active) {
       inputElement.current.type = "password";
     } else {
-      inputElement.current.type = "text";
+      inputElement.current.type = type;
     }
 
     setActive(!active);
