@@ -3,6 +3,7 @@ import { login as loginAPI } from "../../services/apiAuth";
 
 import { setCookie } from "../../utils/setCookie";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function useLogin() {
   const queryClient = useQueryClient();
@@ -14,16 +15,18 @@ export function useLogin() {
 
     onSuccess: (data) => {
       const { data: user, token } = data;
-      console.log("shalom");
 
       setCookie(token);
 
       queryClient.setQueryData("user", user);
 
+      toast.success("Logged in successfully!");
+
       navigate("/app", { replace: true });
     },
 
     onError: (error) => {
+      toast.error(error.message);
       console.error("ERROR", error);
     },
   });

@@ -1,39 +1,35 @@
-import { useEffect, useRef } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useRef } from "react";
 import { ShowPasswordButton } from "./ShowPasswordButton";
+import ErrorMessage from "../UI/ErrorMessage";
 
 export function InputField({
   label,
   placeholder,
   id,
   type = "text",
-  value,
-  onChange,
+  register,
+  options,
+  error,
 }) {
   const inputElement = useRef(null);
-
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch({ type: "user/displayError", payload: "" });
-  }, [dispatch]);
 
   return (
     <div className="flex flex-col gap-2">
       <label htmlFor={id}>{label}</label>
+
       <div className="relative">
         <input
-          maxLength={32}
+          maxLength={24}
           ref={inputElement}
-          value={value}
-          onChange={onChange}
           className="w-full bg-selago py-2 px-4 rounded-lg outline-purple"
           placeholder={placeholder}
           autoComplete={`current-${id}`}
           id={id}
           type={type}
+          {...register(id, options)}
         />
-        <ErrorMessage type={type} />
+
+        {error && <ErrorMessage error={error} />}
 
         <ShowPasswordButton
           inputElement={inputElement}
@@ -41,29 +37,5 @@ export function InputField({
         />
       </div>
     </div>
-  );
-}
-
-function ErrorMessage({ type }) {
-  const { message: error, status } = useSelector(
-    (state) => state.user.errorMsg
-  );
-
-  const errorTypes = {
-    text404: status === 404 && type === "text",
-    password401: status === 401 && type === "password",
-    status400: status === 400,
-  };
-
-  return (
-    <>
-      {(errorTypes.text404 ||
-        errorTypes.password401 ||
-        errorTypes.status400) && (
-        <p className="absolute text-sm text-red-500 font-semibold mt-2">
-          {error}
-        </p>
-      )}
-    </>
   );
 }

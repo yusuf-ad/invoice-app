@@ -1,9 +1,14 @@
+import { useQueryClient } from "react-query";
 import { useIsAuthenticated } from "../../features/authentication/useIsAuthenticated";
 import AppHeader from "./AppHeader";
 
 import { Outlet } from "react-router-dom";
 
 function AppLayout() {
+  const queryClient = useQueryClient();
+  const data = queryClient.getQueryData("user");
+  console.log(data);
+
   useIsAuthenticated();
 
   return (

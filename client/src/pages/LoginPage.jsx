@@ -1,31 +1,28 @@
-import { useState } from "react";
 import { InputField } from "../components/UI/InputField";
 
 import { useLogin } from "../features/authentication/useLogin";
+import { useForm } from "react-hook-form";
 
 function LoginPage() {
-  const [user, setUser] = useState({
-    username: "ali",
-    password: "ali",
-  });
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
 
   const { login, isLoading } = useLogin();
 
-  function handleInputChange(e) {
-    const { id, value } = e.target;
-
-    setUser((prevData) => ({ ...prevData, [id]: value }));
+  function onSuccess(data) {
+    console.log(data);
   }
 
-  function handleSubmit(e) {
-    e.preventDefault();
-
-    login(user);
+  function onError(error) {
+    console.log(error);
   }
 
   return (
     <div
-      onSubmit={handleSubmit}
+      onSubmit={handleSubmit(onSuccess, onError)}
       className="absolute center-x top-1/4 container max-w-lg px-4"
     >
       <h1 className="text-center font-extrabold mb-16 text-2xl">
@@ -41,16 +38,18 @@ function LoginPage() {
           placeholder={"username"}
           type="text"
           id={"username"}
-          value={user.username}
-          onChange={handleInputChange}
+          register={register}
+          options={{ required: "Can't be empty." }}
+          error={errors?.username?.message}
         />
 
         <InputField
           label={"Password:"}
           type="password"
           id={"password"}
-          value={user.password}
-          onChange={handleInputChange}
+          register={register}
+          options={{ required: "Can't be empty." }}
+          error={errors?.password?.message}
         />
 
         <button className="btn-md bg-purple font-extrabold text-white">
