@@ -14,7 +14,6 @@ export function UserAvatar({ photo }) {
   const avatar = useRef(null);
 
   function handleClick() {
-    console.log("logging out");
     logout();
 
     navigate("/", { replace: true });

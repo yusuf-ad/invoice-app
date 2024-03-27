@@ -39,11 +39,13 @@ exports.signup = catchAsync(async (req, res, next) => {
     password: req.body.password,
   });
 
-  const token = createToken(res, newUser._id);
+  createToken(res, newUser._id);
+
+  newUser.password = undefined;
+  newUser.__v = undefined;
 
   res.status(201).json({
     status: "success",
-    token,
     data: {
       user: newUser,
     },
@@ -74,11 +76,13 @@ exports.login = catchAsync(async (req, res, next) => {
   }
 
   // 3. Send token to client
-  const token = createToken(res, user._id);
+  createToken(res, user._id);
+
+  user.password = undefined;
+  user.__v = undefined;
 
   res.status(200).json({
     status: "success",
-    token,
     data: {
       user,
     },

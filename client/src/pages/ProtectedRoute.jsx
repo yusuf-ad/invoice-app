@@ -1,11 +1,13 @@
 import NotAuthenticatedMessage from "./NotAuthenticatedMessage";
-import Cookies from "universal-cookie";
 import { Outlet } from "react-router-dom";
-
-const cookies = new Cookies();
+import { useSelector } from "react-redux";
 
 function ProtectedRoute() {
-  return cookies.get("jwt") ? <Outlet /> : <NotAuthenticatedMessage />;
+  const { isAuthenticated } = useSelector((state) => state?.user?.userInfo) ?? {
+    isAuthenticated: false,
+  };
+
+  return isAuthenticated ? <Outlet /> : <NotAuthenticatedMessage />;
 }
 
 export default ProtectedRoute;

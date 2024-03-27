@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { InputField } from "../components/UI/InputField";
 import { Link } from "react-router-dom";
+import { useSignUp } from "../features/authentication/useSignup";
 
 function SignUpPage() {
   const {
@@ -9,8 +10,10 @@ function SignUpPage() {
     formState: { errors },
   } = useForm();
 
+  const { signup, isLoading } = useSignUp();
+
   function onSuccess(data) {
-    console.log(data);
+    signup(data);
   }
 
   return (
@@ -60,7 +63,10 @@ function SignUpPage() {
               error={errors?.password?.message}
             />
           </div>
-          <button className="w-full mt-10 btn-md bg-purple font-extrabold text-white">
+          <button
+            disabled={isLoading}
+            className="w-full mt-10 btn-md bg-purple font-extrabold text-white disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             Sign up
           </button>
 

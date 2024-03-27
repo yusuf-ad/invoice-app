@@ -1,15 +1,17 @@
 import { useEffect } from "react";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
-import Cookies from "universal-cookie";
-
-const cookies = new Cookies();
 
 export function useIsAuthenticated() {
+  const { isAuthenticated } = useSelector((state) => state?.user?.userInfo) ?? {
+    isAuthenticated: false,
+  };
+
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (cookies.get("jwt")) {
+    if (isAuthenticated) {
       navigate("/app");
     }
-  }, [navigate]);
+  }, [navigate, isAuthenticated]);
 }

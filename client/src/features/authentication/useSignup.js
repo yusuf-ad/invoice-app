@@ -1,35 +1,33 @@
 import { useMutation, useQueryClient } from "react-query";
-
-import { login as loginAPI } from "../../services/apiAuth";
-
+import { signup as signupAPI } from "../../services/apiAuth";
 import { login as authenticateUser } from "../users/userSlice";
-import { useDispatch } from "react-redux";
 
 import toast from "react-hot-toast";
+import { useDispatch } from "react-redux";
 
-export function useLogin() {
+export function useSignUp() {
   const queryClient = useQueryClient();
 
   const dispatch = useDispatch();
 
-  const { mutate: login, isLoading } = useMutation({
-    mutationFn: ({ username, password }) => loginAPI({ username, password }),
+  const { mutate: signup, isLoading } = useMutation({
+    mutationFn: signupAPI,
 
     onSuccess: (data) => {
       const { data: user } = data;
 
-      queryClient.setQueryData("user", user);
+      toast.success("Signup successfully");
 
-      toast.success("Logged in successfully!");
+      queryClient.setQueryData("user", user);
 
       dispatch(authenticateUser(user.user));
     },
 
     onError: (error) => {
       toast.error(error.message);
-      console.error("ERROR", error);
+      console.log(error);
     },
   });
 
-  return { login, isLoading };
+  return { signup, isLoading };
 }

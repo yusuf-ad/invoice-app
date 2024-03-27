@@ -5,7 +5,9 @@ import { DarkModeButton } from "./DarkModeButton";
 import { UserAvatar } from "./UserAvatar";
 
 function AppHeader() {
-  const { isAuthenticated, photo } = useSelector((state) => state.user);
+  const { isAuthenticated, photo } = useSelector(
+    (state) => state?.user?.userInfo
+  ) ?? { isAuthenticated: false, photo: "" };
 
   return (
     <header className="fixed w-full z-50 top-0 h-20 xl:max-w-28 xl:h-screen xl:rounded-r-3xl flex xl:flex-col xl: justify-between   bg-ebony">

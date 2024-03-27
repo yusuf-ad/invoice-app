@@ -49,7 +49,10 @@ function LoginPage() {
             error={errors?.password?.message}
           />
 
-          <button className="btn-md bg-purple font-extrabold text-white w-full">
+          <button
+            disabled={isLoading}
+            className="btn-md bg-purple font-extrabold text-white w-full disabled:opacity-50 disabled:cursor-not-allowed"
+          >
             Log in
           </button>
         </div>

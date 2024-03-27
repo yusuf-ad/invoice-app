@@ -19,8 +19,6 @@ const createToken = (res, userId) => {
     sameSite: "strict",
     expire: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // 10 days
   });
-
-  return token;
 };
 
 module.exports = createToken;
