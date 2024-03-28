@@ -5,7 +5,7 @@ import { Header } from "../components/UI/Header";
 import { InvoicesCount } from "../components/UI/InvoicesCount";
 
 import { toggleModal } from "../features/modalSlice";
-import { NewInvoiceModal } from "../features/invoices/NewInvoiceModal";
+import NewInvoiceModal from "../features/invoices/NewInvoiceModal";
 import { useInvoices } from "../features/invoices/useInvoices";
 
 export default function InvoicesApp() {

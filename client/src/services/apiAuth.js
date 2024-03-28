@@ -7,14 +7,15 @@ export async function login({ username, password }) {
       },
       body: JSON.stringify({ username, password }),
     });
+    const data = await res.json();
 
     if (!res.ok) {
-      const { message } = await res.json();
+      const { message } = data;
 
       throw new Error(message || "An error occurred!");
     }
 
-    return await res.json();
+    return data;
   } catch (error) {
     throw new Error(`${error.message}`);
   }
@@ -28,14 +29,15 @@ export async function logout() {
         "Content-Type": "application/json",
       },
     });
+    const data = await res.json();
 
     if (!res.ok) {
-      const { message } = await res.json();
+      const { message } = data;
 
       throw new Error(message || "An error occurred!");
     }
 
-    return await res.json();
+    return data;
   } catch (error) {
     throw new Error(`${error.message}`);
   }
@@ -50,14 +52,15 @@ export async function signup({ username, password, fullName, email }) {
       },
       body: JSON.stringify({ username, password, fullName, email }),
     });
+    const data = await res.json();
 
     if (!res.ok) {
-      const { message } = await res.json();
+      const { message } = data;
 
       throw new Error(message || "An error occurred!");
     }
 
-    return await res.json();
+    return data;
   } catch (error) {
     throw new Error(`${error.message}`);
   }

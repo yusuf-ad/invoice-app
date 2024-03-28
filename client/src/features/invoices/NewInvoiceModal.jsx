@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { closeModal } from "../../features/modalSlice";
 import CreateInvoiceForm from "./CreateInvoiceForm";
 
-export function NewInvoiceModal() {
+function NewInvoiceModal() {
   const { isModalActive } = useSelector((state) => state.modal);
   const dispatch = useDispatch();
 
@@ -45,3 +45,5 @@ export function NewInvoiceModal() {
     </>
   );
 }
+
+export default NewInvoiceModal;

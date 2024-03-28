@@ -2,6 +2,7 @@ import { useForm } from "react-hook-form";
 import { InputField } from "../components/UI/InputField";
 import { Link } from "react-router-dom";
 import { useSignUp } from "../features/authentication/useSignup";
+import { useIsAuthenticated } from "../features/authentication/useIsAuthenticated";
 
 function SignUpPage() {
   const {
@@ -15,6 +16,8 @@ function SignUpPage() {
   function onSuccess(data) {
     signup(data);
   }
+
+  useIsAuthenticated();
 
   return (
     <div className="relative flex items-center justify-center mt-10 px-8">

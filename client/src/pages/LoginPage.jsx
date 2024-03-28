@@ -3,6 +3,7 @@ import { InputField } from "../components/UI/InputField";
 
 import { useLogin } from "../features/authentication/useLogin";
 import { useForm } from "react-hook-form";
+import { useIsAuthenticated } from "../features/authentication/useIsAuthenticated";
 
 function LoginPage() {
   const {
@@ -16,6 +17,8 @@ function LoginPage() {
   function onSuccess(data) {
     login(data);
   }
+
+  useIsAuthenticated();
 
   return (
     <div

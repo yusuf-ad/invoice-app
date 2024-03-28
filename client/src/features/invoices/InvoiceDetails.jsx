@@ -1,10 +1,7 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { ArrowLeft } from "../../components/UI/ArrowLeft";
 import { InvoiceStatus } from "../../components/UI/InvoiceStatus";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect } from "react";
 
-import { getInvoice } from "./invoiceSlice";
 import Loader from "../../components/UI/Loader/Loader";
 import { formattedMoney } from "../../utils/formatMoney";
 import { formatDate } from "../../utils/formatDate";
@@ -12,30 +9,16 @@ import { InvoiceAddress } from "./InvoiceAddress";
 import { TableItem } from "../../components/UI/TableItem";
 
 import { toggleModal } from "../modalSlice";
-import CreateInvoiceForm from "./CreateInvoiceForm";
+
+import NewInvoiceModal from "./NewInvoiceModal";
+import { useInvoice } from "./useInvoice";
 
 function InvoiceDetails() {
+  const { invoice, isLoading } = useInvoice();
+
+  const { invoice: currentInvoice } = invoice ?? {};
+
   const navigate = useNavigate();
-  const { id } = useParams();
-
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.user.token);
-  const { newInvoice: currentInvoice, isLoading } = useSelector(
-    (state) => state.invoices
-  );
-
-  useEffect(() => {
-    if (currentInvoice.invoiceId !== id) {
-      dispatch(getInvoice(token, id));
-    }
-
-    document.title = `Invoice #${id} | Invoice App`;
-
-    // Cleanup function
-    return () => {
-      document.title = "Invoice App";
-    };
-  }, [dispatch, id, token, currentInvoice.invoiceId]);
 
   return (
     <>
@@ -64,10 +47,7 @@ function InvoiceDetails() {
                   <InvoiceStatus status={currentInvoice.status} />
                 </div>
                 <div className="space-x-3">
-                  <button
-                    onClick={() => dispatch(toggleModal())}
-                    className="btn-sm text-shipCove bg-offWhite"
-                  >
+                  <button className="btn-sm text-shipCove bg-offWhite">
                     Edit
                   </button>
                   <button className="btn-sm text-offWhite bg-burntSienna">
@@ -150,8 +130,7 @@ function InvoiceDetails() {
           )}
         </div>
       </div>
-
-      <CreateInvoiceForm />
+      <NewInvoiceModal />
     </>
   );
 }
