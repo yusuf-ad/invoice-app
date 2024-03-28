@@ -40,7 +40,7 @@ export function NewInvoiceModal() {
           isModalActive
             ? "opacity-100 pointer-events-auto"
             : "opacity-0 pointer-events-none"
-        } absolute inset-0 min-h-screen w-full transition-opacity duration-100 bg-black/50 z-10`}
+        } absolute inset-0 h-screen w-full transition-opacity duration-100 bg-black/50 z-10`}
       ></div>
     </>
   );

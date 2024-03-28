@@ -6,10 +6,10 @@ import { InvoicesCount } from "../components/UI/InvoicesCount";
 
 import { toggleModal } from "../features/modalSlice";
 import { NewInvoiceModal } from "../features/invoices/NewInvoiceModal";
-import { useGetInvoices } from "../features/invoices/useGetInvoices";
+import { useInvoices } from "../features/invoices/useInvoices";
 
 export default function InvoicesApp() {
-  const { invoices, invoicesLength, isLoading, error } = useGetInvoices();
+  const { invoices, invoicesLength, isLoading, error } = useInvoices();
 
   if (!isLoading && error) {
     return <div>error</div>;

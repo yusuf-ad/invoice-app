@@ -1,4 +1,8 @@
-export function ButtonNewInvoice({ dispatch, toggleModal }) {
+import { useDispatch } from "react-redux";
+
+export function ButtonNewInvoice({ toggleModal }) {
+  const dispatch = useDispatch();
+
   function handleClick() {
     dispatch(toggleModal());
   }

@@ -1,21 +1,16 @@
-import { useQueryClient } from "react-query";
 import { useIsAuthenticated } from "../../features/authentication/useIsAuthenticated";
 import AppHeader from "./AppHeader";
 
 import { Outlet } from "react-router-dom";
 
 function AppLayout() {
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData("user");
-  console.log(data);
-
   useIsAuthenticated();
 
   return (
     <>
       <AppHeader />
 
-      <main className="relative min-h-screen py-28 xl:py-20 px-8">
+      <main className="relative min-h-full py-28 xl:py-20 px-8">
         <Outlet />
       </main>
     </>
