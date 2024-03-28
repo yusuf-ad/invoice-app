@@ -1,7 +1,14 @@
-import styles from "./Loader.module.css";
+import "./Loader.css";
 
-function Loader() {
-  return <div className={styles.loader}></div>;
+function Loader({ type }) {
+  return (
+    <div className={`lds-ring ${type}`}>
+      <div></div>
+      <div></div>
+      <div></div>
+      <div></div>
+    </div>
+  );
 }
 
 export default Loader;

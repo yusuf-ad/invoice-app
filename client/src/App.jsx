@@ -8,7 +8,7 @@ import NotFound from "./pages/NotFound";
 import ProtectedRoute from "./pages/ProtectedRoute";
 
 import InvoiceDetails from "./features/invoices/InvoiceDetails";
-import InvoicesApp from "./features/invoices/InvoicesApp";
+import InvoicesApp from "./pages/InvoicesApp";
 import AppLayout from "./components/UI/AppLayout";
 
 function App() {
