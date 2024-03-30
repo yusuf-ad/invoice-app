@@ -90,9 +90,8 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.logout = catchAsync(async (req, res, next) => {
-  res.cookie("jwt", "", {
+  res.clearCookie("jwt", {
     httpOnly: true,
-    expires: new Date(0),
   });
 
   res.status(200).json({

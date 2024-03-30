@@ -8,7 +8,16 @@ import store from "./store.js";
 
 import { ReactQueryDevtools } from "react-query/devtools";
 import { QueryClient, QueryClientProvider } from "react-query";
-const queryClient = new QueryClient();
+
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      refetchOnWindowFocus: false,
+      retry: 1,
+      staleTime: 1000 * 60, // 1 minute,
+    },
+  },
+});
 
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
@@ -16,7 +25,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
       <Provider store={store}>
         <App />
       </Provider>
-      <ReactQueryDevtools initialIsOpen={false} />z
+      <ReactQueryDevtools initialIsOpen={false} />
     </QueryClientProvider>
   </React.StrictMode>
 );

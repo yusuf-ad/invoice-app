@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply relative bg-whisper text-vulcan;
+    @apply relative bg-whisper text-vulcan min-h-screen;
   }
 
   * {

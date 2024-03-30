@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "../../components/UI/ArrowLeft";
 import { InvoiceStatus } from "../../components/UI/InvoiceStatus";
 
@@ -25,7 +25,7 @@ function InvoiceDetails() {
       <div className="container mt-4 xl:mt-0 max-w-2xl">
         <header>
           <button
-            onClick={() => navigate("/")}
+            onClick={() => navigate(-1)}
             className="flex items-center gap-4 group"
           >
             <ArrowLeft />

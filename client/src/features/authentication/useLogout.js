@@ -3,6 +3,7 @@ import { logout as logoutAPI } from "../../services/apiAuth";
 import { logout as logoutUser } from "../users/userSlice";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function useLogout() {
   const dispatch = useDispatch();
@@ -11,11 +12,11 @@ export function useLogout() {
 
   const { mutate: logout, isLoading } = useMutation({
     mutationFn: logoutAPI,
-    onSuccess: (data) => {
-      console.log(data);
-      console.log("Logged out successfully");
 
+    onSuccess: () => {
       dispatch(logoutUser());
+
+      toast.success("Logged out successfully");
 
       navigate("/");
     },

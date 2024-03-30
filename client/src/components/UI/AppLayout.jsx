@@ -7,7 +7,7 @@ function AppLayout() {
     <>
       <AppHeader />
 
-      <main className="relative min-h-full py-28 xl:py-20 px-8">
+      <main className="relative min-h-[calc(100vh-80px)] py-28 xl:py-20 px-8">
         <Outlet />
       </main>
     </>

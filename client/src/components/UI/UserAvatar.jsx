@@ -1,12 +1,9 @@
 import { useEffect, useRef, useState } from "react";
 
-import { useNavigate } from "react-router-dom";
 import { useLogout } from "../../features/authentication/useLogout";
 
 export function UserAvatar({ photo }) {
   const [isActive, setIsActive] = useState(false);
-
-  const navigate = useNavigate();
 
   const { logout } = useLogout();
 
@@ -15,8 +12,6 @@ export function UserAvatar({ photo }) {
 
   function handleClick() {
     logout();
-
-    navigate("/", { replace: true });
   }
 
   useEffect(() => {
