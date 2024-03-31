@@ -11,7 +11,7 @@ function ItemsList({ register, errors, watch }) {
 
       <button
         type="button"
-        className="mt-8 text-shipCove font-bold text-xs capitalize w-full bg-gray-200/35 rounded-full py-4 flex justify-center items-center gap-1 transition-colors-1 hover:bg-selago"
+        className="transition-colors-1 mt-8 flex w-full items-center justify-center gap-1 rounded-full bg-gray-200/35 py-4 text-xs font-bold capitalize text-shipCove hover:bg-selago"
       >
         <img src="./assets/icon-plus.svg" alt="icon plus" />
         Add new item
@@ -52,19 +52,19 @@ function ItemRow({ errors, register, watch, id }) {
         />
       </FormCol>
 
-      <div className="flex justify-around flex-1  gap-6">
+      <div className="flex flex-1 justify-around  gap-6">
         <div className="flex flex-col gap-5">
-          <label className="text-gray-400 text-xs font-medium capitalize">
+          <label className="text-xs font-medium capitalize text-gray-400">
             Total
           </label>
-          <span className="mb-3 text-shipCove font-bold">
+          <span className="mb-3 font-bold text-shipCove">
             {total.toFixed(2)}
           </span>
         </div>
 
         <button type="button">
           <img
-            className="w-5"
+            className="w-4"
             src="./assets/icon-delete.svg"
             alt="icon trash"
           />

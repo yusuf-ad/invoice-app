@@ -4,6 +4,7 @@ import FormCol from "../../components/UI/FormCol";
 import FormInput from "../../components/UI/FormInput";
 import FormRow from "../../components/UI/FormRow";
 import ItemsList from "../../components/UI/ItemsList";
+import SelectionField from "../../components/UI/SelectionField";
 
 function CreateInvoiceForm() {
   const {
@@ -11,6 +12,7 @@ function CreateInvoiceForm() {
     handleSubmit,
     formState: { errors },
     watch,
+    setValue,
   } = useForm();
 
   function onSubmit(data) {
@@ -19,18 +21,21 @@ function CreateInvoiceForm() {
         if (key.startsWith("item")) {
           result.itemFields[key] = data[key];
           result.itemFields[key].total =
-            +result.itemFields[key].itemQty.replace(",", ".") *
-            +result.itemFields[key].itemPrice.replace(",", ".");
+            +result.itemFields[key].itemQty * +result.itemFields[key].itemPrice;
         } else {
           result.nonItemFields[key] = data[key];
         }
         return result;
       },
-      { itemFields: [], nonItemFields: {} }
+      { itemFields: [], nonItemFields: {} },
     );
 
     console.log(itemFields);
-    console.log({ ...nonItemFields, items: itemFields });
+    console.log({
+      ...nonItemFields,
+      items: itemFields,
+      paymentTerms: data.paymentTerms ? data.paymentTerms : "Net 1 day",
+    });
   }
 
   function onError() {}
@@ -38,11 +43,11 @@ function CreateInvoiceForm() {
   return (
     <form
       onSubmit={handleSubmit(onSubmit, onError)}
-      className="py-6 px-8 pb-12 "
+      className="px-8 py-6 pb-12 "
     >
-      <h2 className="text-black font-bold text-xl">New Invoice</h2>
+      <h2 className="text-xl font-bold text-black">New Invoice</h2>
 
-      <h3 className="capitalize text-purple text-xs font-bold mt-8">
+      <h3 className="mt-8 text-xs font-bold capitalize text-purple">
         Bill from
       </h3>
 
@@ -72,7 +77,7 @@ function CreateInvoiceForm() {
         </FormCol>
       </FormRow>
 
-      <h3 className="capitalize text-purple text-xs font-bold mt-8">Bill to</h3>
+      <h3 className="mt-8 text-xs font-bold capitalize text-purple">Bill to</h3>
 
       <FormCol
         classes={"mt-6"}
@@ -112,6 +117,25 @@ function CreateInvoiceForm() {
         </FormCol>
       </FormRow>
 
+      {/* <FormCol
+        classes={"mt-6"}
+        label={"Invoice date"}
+        error={errors?.invoiceDate}
+      >
+        <FormInput register={register} name={"invoiceDate"} type="date" />
+      </FormCol> */}
+
+      <FormCol
+        classes={"mt-6"}
+        label={"Payment terms"}
+        error={errors?.paymentTerms}
+      >
+        <SelectionField
+          menuItems={["Net 1 day", "Net 7 days", "Net 14 days", "Net 30 days"]}
+          setValue={setValue}
+        />
+      </FormCol>
+
       <FormCol
         classes={"mt-6"}
         label={"Project description"}
@@ -120,7 +144,7 @@ function CreateInvoiceForm() {
         <FormInput register={register} name={"description"} />
       </FormCol>
 
-      <h3 className="mt-6 text-baliHai font-bold text-lg capitalize">
+      <h3 className="mt-6 text-lg font-bold capitalize text-baliHai">
         Item list
       </h3>
 
@@ -137,10 +161,10 @@ function CreateInvoiceForm() {
         </div>
 
         <div className="space-x-3">
-          <button className="btn-sm bg-ebony text-xs text-baliHai font-bold ">
+          <button className="btn-sm bg-ebony text-xs font-bold text-baliHai ">
             Save as Draft
           </button>
-          <button className="btn-sm bg-purple text-xs text-white font-bold ">
+          <button className="btn-sm bg-purple text-xs font-bold text-white ">
             Save & Send
           </button>
         </div>
