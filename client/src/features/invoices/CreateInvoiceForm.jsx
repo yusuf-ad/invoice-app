@@ -5,6 +5,7 @@ import FormInput from "../../components/UI/FormInput";
 import FormRow from "../../components/UI/FormRow";
 import ItemsList from "../../components/UI/ItemsList";
 import SelectionField from "../../components/UI/SelectionField";
+import SelectDate from "../../components/UI/SelectDate";
 
 function CreateInvoiceForm() {
   const {
@@ -117,13 +118,13 @@ function CreateInvoiceForm() {
         </FormCol>
       </FormRow>
 
-      {/* <FormCol
+      <FormCol
         classes={"mt-6"}
         label={"Invoice date"}
         error={errors?.invoiceDate}
       >
-        <FormInput register={register} name={"invoiceDate"} type="date" />
-      </FormCol> */}
+        <SelectDate />
+      </FormCol>
 
       <FormCol
         classes={"mt-6"}
