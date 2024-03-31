@@ -1,7 +1,8 @@
 import { useState } from "react";
 
-import DropdownMenu from "./DropdownMenu";
 import { useClickOutside } from "../../hooks/useClickOutside";
+
+import DropdownMenu from "./DropdownMenu";
 
 function SelectionField({ menuItems, setValue }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
