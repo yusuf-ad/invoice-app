@@ -5,12 +5,12 @@ import FormRow from "./FormRow";
 import generateUniqueId from "generate-unique-id";
 
 function ItemsList({ register, errors, watch }) {
-  const [items, setItems] = useState([{ id: generateUniqueId() }]);
+  const [items, setItems] = useState([{ id: generateUniqueId({ length: 2 }) }]);
 
   const itemsContainer = useRef(null);
 
   function handleAddItem() {
-    setItems([...items, { id: generateUniqueId() }]);
+    setItems([...items, { id: generateUniqueId({ length: 2 }) }]);
 
     itemsContainer.current.scrollIntoView({ behavior: "smooth" });
   }

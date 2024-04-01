@@ -1,21 +1,20 @@
-import { forwardRef, useState } from "react";
+import { forwardRef } from "react";
 
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCalculateWidth } from "../../hooks/useCalculateWidth";
 
-function SelectDate() {
-  const [startDate, setStartDate] = useState(new Date());
-
+function SelectDate({ startDate }) {
   const { ref: container, width } = useCalculateWidth();
 
   return (
     <div ref={container} className="relative flex ">
       <DatePicker
-        dateFormat={"MMM dd yyyy"}
+        dateFormat={"dd MMM yyyy"}
         selected={startDate}
-        onChange={(date) => setStartDate(date)}
         customInput={<ExampleCustomInput width={width} />}
+        minDate={startDate}
+        maxDate={startDate}
       />
     </div>
   );

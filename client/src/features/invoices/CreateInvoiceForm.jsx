@@ -6,6 +6,8 @@ import FormRow from "../../components/UI/FormRow";
 import ItemsList from "../../components/UI/ItemsList";
 import SelectionField from "../../components/UI/SelectionField";
 import SelectDate from "../../components/UI/SelectDate";
+import { useState } from "react";
+import { millisecondsInADay } from "../../utils/millisecondsInADay";
 
 function CreateInvoiceForm() {
   const {
@@ -15,6 +17,11 @@ function CreateInvoiceForm() {
     watch,
     setValue,
   } = useForm();
+
+  const [startDate, setStartDate] = useState(
+    // initial date is set to tomorrow
+    new Date(Date.now() + millisecondsInADay),
+  );
 
   function onSubmit(data) {
     const { itemFields, nonItemFields } = Object.keys(data).reduce(
@@ -31,7 +38,6 @@ function CreateInvoiceForm() {
       { itemFields: [], nonItemFields: {} },
     );
 
-    console.log(itemFields);
     console.log({
       ...nonItemFields,
       items: itemFields,
@@ -123,7 +129,7 @@ function CreateInvoiceForm() {
         label={"Invoice date"}
         error={errors?.invoiceDate}
       >
-        <SelectDate />
+        <SelectDate startDate={startDate} setStartDate={setStartDate} />
       </FormCol>
 
       <FormCol
@@ -134,6 +140,8 @@ function CreateInvoiceForm() {
         <SelectionField
           menuItems={["Net 1 day", "Net 7 days", "Net 14 days", "Net 30 days"]}
           setValue={setValue}
+          startDate={startDate}
+          setStartDate={setStartDate}
         />
       </FormCol>
 
