@@ -4,17 +4,17 @@ import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { useCalculateWidth } from "../../hooks/useCalculateWidth";
 
-function SelectDate({ startDate }) {
+function SelectDate({ paymentDue }) {
   const { ref: container, width } = useCalculateWidth();
 
   return (
     <div ref={container} className="relative flex ">
       <DatePicker
         dateFormat={"dd MMM yyyy"}
-        selected={startDate}
+        selected={paymentDue}
         customInput={<ExampleCustomInput width={width} />}
-        minDate={startDate}
-        maxDate={startDate}
+        minDate={paymentDue}
+        maxDate={paymentDue}
       />
     </div>
   );

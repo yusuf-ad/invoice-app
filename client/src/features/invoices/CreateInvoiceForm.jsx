@@ -16,32 +16,26 @@ function CreateInvoiceForm() {
     formState: { errors },
     watch,
     setValue,
+    getValues,
   } = useForm();
 
-  const [startDate, setStartDate] = useState(
+  const [paymentDue, setPaymentDue] = useState(
     // initial date is set to tomorrow
     new Date(Date.now() + millisecondsInADay),
   );
 
   function onSubmit(data) {
-    const { itemFields, nonItemFields } = Object.keys(data).reduce(
-      (result, key) => {
-        if (key.startsWith("item")) {
-          result.itemFields[key] = data[key];
-          result.itemFields[key].total =
-            +result.itemFields[key].itemQty * +result.itemFields[key].itemPrice;
-        } else {
-          result.nonItemFields[key] = data[key];
-        }
-        return result;
-      },
-      { itemFields: [], nonItemFields: {} },
-    );
+    const items = getValues("items");
+    const itemsArray = Object.values(items);
+
+    const total = itemsArray.reduce((acc, item) => +acc + +item.itemPrice, 0);
 
     console.log({
-      ...nonItemFields,
-      items: itemFields,
+      ...data,
+      total,
+      items: itemsArray,
       paymentTerms: data.paymentTerms ? data.paymentTerms : "Net 1 day",
+      paymentDue,
     });
   }
 
@@ -61,26 +55,38 @@ function CreateInvoiceForm() {
       <FormCol
         classes={"mt-6"}
         label={"Street address"}
-        error={errors?.streetAddress}
+        error={errors?.senderAddress?.streetAddress}
       >
         <FormInput
           register={register}
-          name={"streetAddress"}
+          name={"senderAddress.street"}
           autoComplete="on"
         />
       </FormCol>
 
       <FormRow classes={"mt-6 gap-4"}>
-        <FormCol label={"City"} error={errors?.city}>
-          <FormInput register={register} name={"city"} autoComplete="on" />
+        <FormCol label={"City"} error={errors?.senderAddress?.city}>
+          <FormInput
+            register={register}
+            name={"senderAddress.city"}
+            autoComplete="on"
+          />
         </FormCol>
 
-        <FormCol label={"Post code"} error={errors?.postCode}>
-          <FormInput register={register} name={"postCode"} autoComplete="on" />
+        <FormCol label={"Post code"} error={errors?.senderAddress?.postCode}>
+          <FormInput
+            register={register}
+            name={"senderAddress.postCode"}
+            autoComplete="on"
+          />
         </FormCol>
 
-        <FormCol label={"Country"} error={errors?.country}>
-          <FormInput register={register} name={"country"} autoComplete="on" />
+        <FormCol label={"Country"} error={errors?.senderAddress?.country}>
+          <FormInput
+            register={register}
+            name={"senderAddress.country"}
+            autoComplete="on"
+          />
         </FormCol>
       </FormRow>
 
@@ -105,22 +111,22 @@ function CreateInvoiceForm() {
       <FormCol
         classes={"mt-6"}
         label={"Street address"}
-        error={errors?.clientAddress}
+        error={errors?.clientAddress?.street}
       >
-        <FormInput register={register} name={"clientAddress"} />
+        <FormInput register={register} name={"clientAddress.street"} />
       </FormCol>
 
       <FormRow classes={"mt-6 gap-4"}>
-        <FormCol label={"City"} error={errors?.clientCity}>
-          <FormInput register={register} name={"clientCity"} />
+        <FormCol label={"City"} error={errors?.clientAddress?.city}>
+          <FormInput register={register} name={"clientAddress.city"} />
         </FormCol>
 
-        <FormCol label={"Post code"} error={errors?.clientPostCode}>
-          <FormInput register={register} name={"clientPostCode"} />
+        <FormCol label={"Post code"} error={errors?.clientAddress?.postCode}>
+          <FormInput register={register} name={"clientAddress.postCode"} />
         </FormCol>
 
-        <FormCol label={"Country"} error={errors?.clientCountry}>
-          <FormInput register={register} name={"clientCountry"} />
+        <FormCol label={"Country"} error={errors?.clientAddress?.country}>
+          <FormInput register={register} name={"clientAddress.country"} />
         </FormCol>
       </FormRow>
 
@@ -129,7 +135,7 @@ function CreateInvoiceForm() {
         label={"Invoice date"}
         error={errors?.invoiceDate}
       >
-        <SelectDate startDate={startDate} setStartDate={setStartDate} />
+        <SelectDate paymentDue={paymentDue} setPaymentDue={setPaymentDue} />
       </FormCol>
 
       <FormCol
@@ -140,8 +146,7 @@ function CreateInvoiceForm() {
         <SelectionField
           menuItems={["Net 1 day", "Net 7 days", "Net 14 days", "Net 30 days"]}
           setValue={setValue}
-          startDate={startDate}
-          setStartDate={setStartDate}
+          setPaymentDue={setPaymentDue}
         />
       </FormCol>
 
@@ -157,7 +162,12 @@ function CreateInvoiceForm() {
         Item list
       </h3>
 
-      <ItemsList watch={watch} register={register} errors={errors} />
+      <ItemsList
+        watch={watch}
+        register={register}
+        errors={errors}
+        setValue={setValue}
+      />
 
       <FormRow classes={"justify-between mt-12"}>
         <div>

@@ -4,19 +4,23 @@ import FormInput from "./FormInput";
 import FormRow from "./FormRow";
 import generateUniqueId from "generate-unique-id";
 
-function ItemsList({ register, errors, watch }) {
+function ItemsList({ register, errors, watch, setValue }) {
   const [items, setItems] = useState([{ id: generateUniqueId({ length: 2 }) }]);
 
   const itemsContainer = useRef(null);
 
   function handleAddItem() {
-    setItems([...items, { id: generateUniqueId({ length: 2 }) }]);
+    const newItems = [...items, { id: generateUniqueId({ length: 2 }) }];
+
+    setItems(newItems);
 
     itemsContainer.current.scrollIntoView({ behavior: "smooth" });
   }
 
   function handleRemoveItem(id) {
-    setItems((items) => items.filter((item) => item.id !== id));
+    const newItems = items.filter((item) => item.id !== id);
+
+    setItems(newItems);
   }
 
   return (
@@ -47,8 +51,8 @@ function ItemsList({ register, errors, watch }) {
 export default ItemsList;
 
 function ItemRow({ errors, register, watch, id, removeItem }) {
-  const itemQty = watch(`item${id}.itemQty`)?.replace(",", ".");
-  const itemPrice = watch(`item${id}.itemPrice`)?.replace(",", ".");
+  const itemQty = watch(`items.item${id}.itemQty`)?.replace(",", ".");
+  const itemPrice = watch(`items.item${id}.itemPrice`)?.replace(",", ".");
 
   const total = +itemQty * +itemPrice || 0;
 
@@ -66,21 +70,21 @@ function ItemRow({ errors, register, watch, id, removeItem }) {
         <FormCol label={"Item name"} error={errors?.itemName}>
           <FormInput
             register={register}
-            name={`item${id}.itemName`}
+            name={`items.item${id}.itemName`}
             defaultValue="New Item"
           />
         </FormCol>
         <FormCol classes={"w-24"} label={"Qty"}>
           <FormInput
             register={register}
-            name={`item${id}.itemQty`}
+            name={`items.item${id}.itemQty`}
             defaultValue={1}
           />
         </FormCol>
         <FormCol classes={"w-24"} label={"Price"}>
           <FormInput
             register={register}
-            name={`item${id}.itemPrice`}
+            name={`items.item${id}.itemPrice`}
             defaultValue={0}
           />
         </FormCol>

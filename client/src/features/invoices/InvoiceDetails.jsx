@@ -8,8 +8,6 @@ import { formatDate } from "../../utils/formatDate";
 import { InvoiceAddress } from "./InvoiceAddress";
 import { TableItem } from "../../components/UI/TableItem";
 
-import { toggleModal } from "../modalSlice";
-
 import NewInvoiceModal from "./NewInvoiceModal";
 import { useInvoice } from "./useInvoice";
 
@@ -22,49 +20,49 @@ function InvoiceDetails() {
 
   return (
     <>
-      <div className="container mt-4 xl:mt-0 max-w-2xl">
+      <div className="container mt-4 max-w-2xl xl:mt-0">
         <header>
           <button
             onClick={() => navigate(-1)}
-            className="flex items-center gap-4 group"
+            className="group flex items-center gap-4"
           >
             <ArrowLeft />
-            <span className="font-bold text-sm group-hover:text-baliHai">
+            <span className="text-sm font-bold group-hover:text-baliHai">
               Go back
             </span>
           </button>
         </header>
         <div>
           {isLoading ? (
-            <div className="flex items-center justify-center h-[35vh]">
+            <div className="flex h-[35vh] items-center justify-center">
               <Loader />
             </div>
           ) : (
             <>
-              <div className="flex text-sm text-baliHai justify-between w-full bg-white rounded-md mt-8 py-6 px-6">
+              <div className="mt-8 flex w-full justify-between rounded-md bg-white px-6 py-6 text-sm text-baliHai">
                 <div className="flex items-center gap-6">
                   <p>Status</p>
                   <InvoiceStatus status={currentInvoice.status} />
                 </div>
                 <div className="space-x-3">
-                  <button className="btn-sm text-shipCove bg-offWhite">
+                  <button className="btn-sm bg-offWhite text-shipCove">
                     Edit
                   </button>
-                  <button className="btn-sm text-offWhite bg-burntSienna">
+                  <button className="btn-sm bg-burntSienna text-offWhite">
                     Delete
                   </button>
                 </div>
               </div>
-              <div className="bg-white rounded-md px-6 py-8 mt-4">
+              <div className="mt-4 rounded-md bg-white px-6 py-8">
                 <div className="flex justify-between">
                   <div>
-                    <p className="font-bold text-xs text-baliHai">
+                    <p className="text-xs font-bold text-baliHai">
                       #
-                      <span className="text-black text-sm">
+                      <span className="text-sm text-black">
                         {currentInvoice.invoiceId}
                       </span>
                     </p>
-                    <p className="text-baliHai mt-1 text-sm">
+                    <p className="mt-1 text-sm text-baliHai">
                       {currentInvoice.description}
                     </p>
                   </div>
@@ -75,40 +73,40 @@ function InvoiceDetails() {
                 </div>
                 <div className="mt-12 flex gap-4 capitalize">
                   <div className="basis-1/4">
-                    <h3 className="text-sm text-shipCove mb-2">Invoice Date</h3>
-                    <p className="font-bold text-lg text-black mb-6">
+                    <h3 className="mb-2 text-sm text-shipCove">Invoice Date</h3>
+                    <p className="mb-6 text-lg font-bold text-black">
                       {formatDate(new Date(currentInvoice.createdAt))}
                     </p>
-                    <h3 className="text-sm text-shipCove mb-2 ">Payment due</h3>
-                    <p className="font-bold text-lg text-black mb-6">
+                    <h3 className="mb-2 text-sm text-shipCove ">Payment due</h3>
+                    <p className="mb-6 text-lg font-bold text-black">
                       {currentInvoice.paymentDue}
                     </p>
                   </div>
                   <div className="basis-1/4">
-                    <h3 className="text-sm text-shipCove mb-2">Bill to</h3>
-                    <p className="font-bold text-lg text-black mb-6">
+                    <h3 className="mb-2 text-sm text-shipCove">Bill to</h3>
+                    <p className="mb-6 text-lg font-bold text-black">
                       {currentInvoice.clientName}
                     </p>
                     <InvoiceAddress address={currentInvoice.clientAddress} />
                   </div>
-                  <div className="text-left flex-1 flex justify-center ">
+                  <div className="flex flex-1 justify-center text-left ">
                     <div>
-                      <h3 className="text-sm text-shipCove mb-2">Sent To</h3>
-                      <p className="font-bold text-lg text-black mb-6 lowercase">
+                      <h3 className="mb-2 text-sm text-shipCove">Sent To</h3>
+                      <p className="mb-6 text-lg font-bold lowercase text-black">
                         {currentInvoice.clientEmail}
                       </p>
                     </div>
                   </div>
                 </div>
-                <div className="rounded-md overflow-hidden shadow-sm mt-12">
+                <div className="mt-12 overflow-hidden rounded-md shadow-sm">
                   <div className="bg-offWhite px-6 py-10 pb-6">
                     <table className="w-full">
-                      <thead className="text-shipCove text-xs">
+                      <thead className="text-xs text-shipCove">
                         <tr>
-                          <th className="text-left pb-6">Item Name</th>
-                          <th className="text-right pb-6">QTY.</th>
-                          <th className="text-right pb-6">Price</th>
-                          <th className="text-right pb-6">Total</th>
+                          <th className="pb-6 text-left">Item Name</th>
+                          <th className="pb-6 text-right">QTY.</th>
+                          <th className="pb-6 text-right">Price</th>
+                          <th className="pb-6 text-right">Total</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -118,9 +116,9 @@ function InvoiceDetails() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="text-white flex items-center justify-between py-6 px-6 bg-otherDark">
+                  <div className="flex items-center justify-between bg-otherDark px-6 py-6 text-white">
                     <p className="text-sm">Amount Due</p>
-                    <h2 className="font-bold text-lg">
+                    <h2 className="text-lg font-bold">
                       ${formattedMoney(currentInvoice.total)}
                     </h2>
                   </div>

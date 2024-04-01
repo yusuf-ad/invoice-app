@@ -4,7 +4,7 @@ import { useClickOutside } from "../../hooks/useClickOutside";
 
 import DropdownMenu from "./DropdownMenu";
 
-function SelectionField({ menuItems, setValue, startDate, setStartDate }) {
+function SelectionField({ menuItems, setValue, setPaymentDue }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [activeField, setActiveField] = useState(menuItems[0]);
 
@@ -22,7 +22,7 @@ function SelectionField({ menuItems, setValue, startDate, setStartDate }) {
     const futureDate = new Date(Date.now());
     futureDate.setDate(futureDate.getDate() + day);
 
-    setStartDate(futureDate);
+    setPaymentDue(futureDate);
 
     setActiveField(field);
 
