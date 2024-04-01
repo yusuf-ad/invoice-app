@@ -1,9 +1,10 @@
 import { useState } from "react";
 
-import DropdownMenu from "./DropdownMenu";
 import { useClickOutside } from "../../hooks/useClickOutside";
 
-function SelectionField({ menuItems, setValue }) {
+import DropdownMenu from "./DropdownMenu";
+
+function SelectionField({ menuItems, setValue, setPaymentDue }) {
   const [isMenuActive, setIsMenuActive] = useState(false);
   const [activeField, setActiveField] = useState(menuItems[0]);
 
@@ -16,6 +17,13 @@ function SelectionField({ menuItems, setValue }) {
   }
 
   function handleSelect(field) {
+    const day = +field.split(" ")[1] || 1;
+
+    const futureDate = new Date(Date.now());
+    futureDate.setDate(futureDate.getDate() + day);
+
+    setPaymentDue(futureDate);
+
     setActiveField(field);
 
     setValue("paymentTerms", field);

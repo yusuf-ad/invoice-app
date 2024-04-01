@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
 const generateId = require("generate-unique-id");
-const date = require("date-and-time");
 
 const addressSchema = new Schema(
   {
@@ -16,18 +15,27 @@ const addressSchema = new Schema(
 
 const invoiceSchema = new Schema(
   {
-    paymentDue: {
-      type: String,
-    },
+    invoiceId: String,
     description: {
       type: String,
       default: "Invoice description",
     },
-    paymentTerms: String,
     status: {
       type: String,
       default: "pending",
       lowercase: true,
+    },
+    paymentDue: {
+      type: String,
+    },
+    paymentTerms: String,
+    total: {
+      type: Number,
+      default: 0,
+    },
+    items: {
+      type: [Object],
+      default: [],
     },
     senderAddress: {
       type: addressSchema,
@@ -45,16 +53,6 @@ const invoiceSchema = new Schema(
       type: addressSchema,
       required: [true, "Please enter the sender address. 2"],
     },
-    // ! array of objects
-    items: {
-      type: [Object],
-      default: [],
-    },
-    total: {
-      type: Number,
-      default: 0,
-    },
-    invoiceId: String,
   },
   { timestamps: true }
 );

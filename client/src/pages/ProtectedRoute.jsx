@@ -13,7 +13,7 @@ function ProtectedRoute() {
 
   if (isLoggingOut)
     return (
-      <div className="center-xy absolute flex flex-col gap-2 justify-center mt-16 xl:mt-0">
+      <div className="center-xy absolute mt-16 flex flex-col justify-center gap-2 xl:mt-0">
         <Loader />
         <p>Logging out...</p>
       </div>

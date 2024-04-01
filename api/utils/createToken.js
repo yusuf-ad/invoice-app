@@ -17,7 +17,7 @@ const createToken = (res, userId) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    expire: process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000, // 10 days
+    expire: 1 * 24 * 60 * 60 * 1000, // 1 days
   });
 };
 

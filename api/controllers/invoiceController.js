@@ -49,6 +49,7 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
     senderAddress: req.body.senderAddress,
     clientAddress: req.body.clientAddress,
     items: req.body.items,
+    total: req.body.total,
   };
 
   const newInvoice = await Invoice.create({ ...invoiceTemplate });
@@ -58,8 +59,6 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
     { $push: { invoices: newInvoice } },
     { new: true }
   );
-
-  console.log("user😂", user);
 
   if (!user) {
     return next(new AppError("This user doesn't exist.", 404));
