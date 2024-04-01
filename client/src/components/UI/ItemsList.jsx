@@ -1,16 +1,27 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import FormCol from "./FormCol";
 import FormInput from "./FormInput";
 import FormRow from "./FormRow";
 import generateUniqueId from "generate-unique-id";
 
-function ItemsList({ register, errors, watch, setValue }) {
-  const [items, setItems] = useState([{ id: generateUniqueId({ length: 2 }) }]);
+const initialItem = {
+  itemName: "New Item",
+  itemQty: 1,
+  itemPrice: 0,
+};
+
+function ItemsList({ register, errors, watch, setValue, getValues }) {
+  const [items, setItems] = useState([
+    { ...initialItem, id: generateUniqueId({ length: 2 }) },
+  ]);
 
   const itemsContainer = useRef(null);
 
   function handleAddItem() {
-    const newItems = [...items, { id: generateUniqueId({ length: 2 }) }];
+    const newItems = [
+      ...items,
+      { ...initialItem, id: generateUniqueId({ length: 2 }) },
+    ];
 
     setItems(newItems);
 
@@ -19,6 +30,8 @@ function ItemsList({ register, errors, watch, setValue }) {
 
   function handleRemoveItem(id) {
     const newItems = items.filter((item) => item.id !== id);
+
+    delete getValues("items")[`item${id}`];
 
     setItems(newItems);
   }

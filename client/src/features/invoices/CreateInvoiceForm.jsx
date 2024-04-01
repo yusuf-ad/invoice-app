@@ -26,9 +26,15 @@ function CreateInvoiceForm() {
 
   function onSubmit(data) {
     const items = getValues("items");
-    const itemsArray = Object.values(items);
+    const itemsArray = Object.values(items).map((item) => ({
+      ...item,
+      totalPrice:
+        +item.itemQty.replace(",", ".") * +item.itemPrice.replace(",", "."),
+    }));
 
-    const total = itemsArray.reduce((acc, item) => +acc + +item.itemPrice, 0);
+    const total = +itemsArray
+      .reduce((acc, item) => +acc + +item.totalPrice, 0)
+      .toFixed(2);
 
     console.log({
       ...data,
@@ -55,7 +61,7 @@ function CreateInvoiceForm() {
       <FormCol
         classes={"mt-6"}
         label={"Street address"}
-        error={errors?.senderAddress?.streetAddress}
+        error={errors?.senderAddress?.street}
       >
         <FormInput
           register={register}
@@ -167,6 +173,7 @@ function CreateInvoiceForm() {
         register={register}
         errors={errors}
         setValue={setValue}
+        getValues={getValues}
       />
 
       <FormRow classes={"justify-between mt-12"}>
