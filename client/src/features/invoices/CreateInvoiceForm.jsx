@@ -8,6 +8,7 @@ import SelectionField from "../../components/UI/SelectionField";
 import SelectDate from "../../components/UI/SelectDate";
 import { useState } from "react";
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
+import { useCreateInvoice } from "./useCreateInvoice";
 
 function CreateInvoiceForm() {
   const {
@@ -24,6 +25,8 @@ function CreateInvoiceForm() {
     new Date(Date.now() + millisecondsInADay),
   );
 
+  const { createInvoice } = useCreateInvoice();
+
   function onSubmit(data) {
     const items = getValues("items");
     const itemsArray = Object.values(items).map((item) => ({
@@ -36,13 +39,15 @@ function CreateInvoiceForm() {
       .reduce((acc, item) => +acc + +item.totalPrice, 0)
       .toFixed(2);
 
-    console.log({
+    const newInvoice = {
       ...data,
       total,
       items: itemsArray,
       paymentTerms: data.paymentTerms ? data.paymentTerms : "Net 1 day",
       paymentDue,
-    });
+    };
+
+    createInvoice(newInvoice);
   }
 
   function onError() {}

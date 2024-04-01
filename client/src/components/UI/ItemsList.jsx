@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import FormCol from "./FormCol";
 import FormInput from "./FormInput";
 import FormRow from "./FormRow";
@@ -10,7 +10,7 @@ const initialItem = {
   itemPrice: 0,
 };
 
-function ItemsList({ register, errors, watch, setValue, getValues }) {
+function ItemsList({ register, errors, watch, getValues }) {
   const [items, setItems] = useState([
     { ...initialItem, id: generateUniqueId({ length: 2 }) },
   ]);

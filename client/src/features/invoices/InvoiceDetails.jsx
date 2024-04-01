@@ -1,15 +1,17 @@
 import { useNavigate } from "react-router-dom";
+
 import { ArrowLeft } from "../../components/UI/ArrowLeft";
 import { InvoiceStatus } from "../../components/UI/InvoiceStatus";
-
 import Loader from "../../components/UI/Loader/Loader";
-import { formattedMoney } from "../../utils/formatMoney";
-import { formatDate } from "../../utils/formatDate";
-import { InvoiceAddress } from "./InvoiceAddress";
 import { TableItem } from "../../components/UI/TableItem";
 
 import NewInvoiceModal from "./NewInvoiceModal";
+import { InvoiceAddress } from "./InvoiceAddress";
+
 import { useInvoice } from "./useInvoice";
+
+import { formattedMoney } from "../../utils/formatMoney";
+import { formatDate } from "../../utils/formatDate";
 
 function InvoiceDetails() {
   const { invoice, isLoading } = useInvoice();
@@ -79,7 +81,7 @@ function InvoiceDetails() {
                     </p>
                     <h3 className="mb-2 text-sm text-shipCove ">Payment due</h3>
                     <p className="mb-6 text-lg font-bold text-black">
-                      {currentInvoice.paymentDue}
+                      {formatDate(new Date(currentInvoice.paymentDue))}
                     </p>
                   </div>
                   <div className="basis-1/4">
