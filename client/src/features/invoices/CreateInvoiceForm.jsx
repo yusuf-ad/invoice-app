@@ -30,7 +30,7 @@ function CreateInvoiceForm() {
     new Date(Date.now() + millisecondsInADay),
   );
 
-  const { createInvoice } = useCreateInvoice();
+  const { createInvoice, isLoading } = useCreateInvoice();
 
   function onSubmit(data) {
     const items = getValues("items");
@@ -54,8 +54,8 @@ function CreateInvoiceForm() {
 
     createInvoice(newInvoice);
 
-    reset();
     dispatch(closeModal());
+    reset();
   }
 
   function onError() {}

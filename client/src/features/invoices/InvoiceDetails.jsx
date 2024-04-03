@@ -11,7 +11,7 @@ import { InvoiceAddress } from "./InvoiceAddress";
 import { useInvoice } from "./useInvoice";
 
 import { formattedMoney } from "../../utils/formatMoney";
-import { formatDate } from "../../utils/formatDate";
+import { formattedDate } from "../../utils/formatDate";
 
 function InvoiceDetails() {
   const { invoice, isLoading } = useInvoice();
@@ -77,11 +77,11 @@ function InvoiceDetails() {
                   <div className="basis-1/4">
                     <h3 className="mb-2 text-sm text-shipCove">Invoice Date</h3>
                     <p className="mb-6 text-lg font-bold text-black">
-                      {formatDate(new Date(currentInvoice.createdAt))}
+                      {formattedDate(new Date(currentInvoice.createdAt))}
                     </p>
                     <h3 className="mb-2 text-sm text-shipCove ">Payment due</h3>
                     <p className="mb-6 text-lg font-bold text-black">
-                      {formatDate(new Date(currentInvoice.paymentDue))}
+                      {formattedDate(new Date(currentInvoice.paymentDue))}
                     </p>
                   </div>
                   <div className="basis-1/4">

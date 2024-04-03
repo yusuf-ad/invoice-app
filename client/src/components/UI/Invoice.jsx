@@ -1,17 +1,19 @@
 import { InvoiceStatus } from "./InvoiceStatus";
 
 import { formattedMoney } from "../../utils/formatMoney";
+import { formattedDate } from "../../utils/formatDate";
+
 import { Link } from "react-router-dom";
 
 export function Invoice({ invoice }) {
   return (
     <Link
-      className="w-full inline-block"
+      className="inline-block w-full"
       to={`/app/invoice/${invoice.invoiceId}`}
     >
-      <li className="text-sm w-full bg-white py-5 px-6 cursor-pointer transition-3 rounded-md border-2 border-transparent hover:border-purple/50">
+      <li className="transition-3 w-full cursor-pointer rounded-md border-2 border-transparent bg-white px-6 py-5 text-sm hover:border-purple/50">
         {/* mobil */}
-        <div className="md:hidden flex flex-col gap-8">
+        <div className="flex flex-col gap-8 md:hidden">
           <div className="flex justify-between ">
             <p className="font-bold text-baliHai">
               #<span className="text-black">{invoice.invoiceId}</span>
@@ -20,24 +22,30 @@ export function Invoice({ invoice }) {
           </div>
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-baliHai mb-2">Due {invoice.paymentDue}</p>
-              <p className="text-black font-bold text-lg">${invoice.total} </p>
+              <p className="mb-2 text-baliHai">
+                Due {formattedDate(new Date(invoice.paymentDue))}
+              </p>
+              <p className="text-lg font-bold text-black">
+                ${formattedMoney(invoice.total)}
+              </p>
             </div>
             <InvoiceStatus status={invoice.status} />
           </div>
         </div>
         {/* desktop */}
-        <div className="hidden md:flex items-center gap-12 ">
+        <div className="hidden items-center gap-12 md:flex ">
           <div className="flex items-center gap-6">
             <p className="font-bold text-baliHai">
               #<span className="text-black ">{invoice.invoiceId}</span>
             </p>
-            <p className="text-baliHai">Due {invoice.paymentDue}</p>
+            <p className="text-baliHai">
+              Due {formattedDate(new Date(invoice.paymentDue))}
+            </p>
           </div>
-          <div className="flex flex-1 gap-12 justify-between ">
-            <div className="flex gap-4 flex-1 items-center">
+          <div className="flex flex-1 justify-between gap-12 ">
+            <div className="flex flex-1 items-center gap-4">
               <p className=" text-baliHai">{invoice.clientName}</p>
-              <p className="text-black font-bold text-base ml-auto">
+              <p className="ml-auto text-base font-bold text-black">
                 ${formattedMoney(invoice.total)}
               </p>
             </div>

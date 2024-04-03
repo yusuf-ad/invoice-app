@@ -1,21 +1,30 @@
 import Loader from "./Loader/Loader";
 import { Invoice } from "./Invoice";
+import { useCreateInvoice } from "../../features/invoices/useCreateInvoice";
 
 export function InvoicesList({ invoices, isLoading }) {
+  const { isLoading: isCreating } = useCreateInvoice();
+
   if (isLoading) {
     return (
-      <div className="flex justify-center mt-12">
+      <div className="mt-12 flex justify-center">
         <Loader />
       </div>
     );
   }
 
   return (
-    <ul className="py-12 space-y-4">
+    <ul className="space-y-4 py-12">
       {!isLoading &&
         invoices.map((invoice) => (
           <Invoice invoice={invoice} key={invoice._id} />
         ))}
+
+      {isCreating && (
+        <div className="flex w-full items-center justify-center">
+          <Loader type={"medium"} />
+        </div>
+      )}
     </ul>
   );
 }
