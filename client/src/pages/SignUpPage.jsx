@@ -1,5 +1,5 @@
 import { useForm } from "react-hook-form";
-import { InputField } from "../components/UI/InputField";
+import { InputField } from "../ui/InputField";
 import { Link } from "react-router-dom";
 import { useSignUp } from "../features/authentication/useSignup";
 import { useIsAuthenticated } from "../features/authentication/useIsAuthenticated";
@@ -20,14 +20,14 @@ function SignUpPage() {
   useIsAuthenticated();
 
   return (
-    <div className="relative flex items-center justify-center mt-10 px-8">
-      <div className="container max-w-2xl rounded-md shadow-md bg-white py-12 px-8">
-        <h1 className="ml-8 font-extrabold mb-8 text-2xl">
+    <div className="relative mt-10 flex items-center justify-center px-8">
+      <div className="container max-w-2xl rounded-md bg-white px-8 py-12 shadow-md">
+        <h1 className="mb-8 ml-8 text-2xl font-extrabold">
           Sign up to Invoice App
         </h1>
         <form
           onSubmit={handleSubmit(onSuccess)}
-          className=" bg-white mt-8 py-6 px-8 rounded-md"
+          className=" mt-8 rounded-md bg-white px-8 py-6"
         >
           <div className="space-y-8">
             <InputField
@@ -68,7 +68,7 @@ function SignUpPage() {
           </div>
           <button
             disabled={isLoading}
-            className="w-full mt-10 btn-md bg-purple font-extrabold text-white disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-md mt-10 w-full bg-purple font-extrabold text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
             Sign up
           </button>

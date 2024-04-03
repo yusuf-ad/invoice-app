@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import { InputField } from "../components/UI/InputField";
+import { InputField } from "../ui/InputField";
 
 import { useLogin } from "../features/authentication/useLogin";
 import { useForm } from "react-hook-form";
@@ -23,15 +23,15 @@ function LoginPage() {
   return (
     <div
       onSubmit={handleSubmit(onSuccess)}
-      className="absolute center-x top-1/4 container max-w-lg px-4"
+      className="center-x container absolute top-1/4 max-w-lg px-4"
     >
-      <h1 className="text-center font-extrabold mb-16 text-2xl">
+      <h1 className="mb-16 text-center text-2xl font-extrabold">
         Login to Invoice App
       </h1>
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className=" bg-white mt-8 py-6 px-8 rounded-md flex flex-col"
+        className=" mt-8 flex flex-col rounded-md bg-white px-8 py-6"
       >
         <div className="space-y-8">
           <InputField
@@ -54,7 +54,7 @@ function LoginPage() {
 
           <button
             disabled={isLoading}
-            className="btn-md bg-purple font-extrabold text-white w-full disabled:opacity-50 disabled:cursor-not-allowed"
+            className="btn-md w-full bg-purple font-extrabold text-white disabled:cursor-not-allowed disabled:opacity-50"
           >
             Log in
           </button>

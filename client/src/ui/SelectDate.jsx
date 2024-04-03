@@ -1,8 +1,12 @@
+// React Imports
 import { forwardRef } from "react";
 
+// Third-party Imports
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { useCalculateWidth } from "../../hooks/useCalculateWidth";
+
+// Hook Imports
+import { useCalculateWidth } from "../hooks/useCalculateWidth";
 
 function SelectDate({ paymentDue }) {
   const { ref: container, width } = useCalculateWidth();

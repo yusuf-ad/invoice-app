@@ -1,9 +1,9 @@
 import { useNavigate } from "react-router-dom";
 
-import { ArrowLeft } from "../../components/UI/ArrowLeft";
-import { InvoiceStatus } from "../../components/UI/InvoiceStatus";
-import Loader from "../../components/UI/Loader/Loader";
-import { TableItem } from "../../components/UI/TableItem";
+import { ArrowLeft } from "../../ui/ArrowLeft";
+import { InvoiceStatus } from "../../ui//InvoiceStatus";
+import Loader from "../../ui//Loader/Loader";
+import { TableItem } from "../../ui//TableItem";
 
 import NewInvoiceModal from "./NewInvoiceModal";
 import { InvoiceAddress } from "./InvoiceAddress";

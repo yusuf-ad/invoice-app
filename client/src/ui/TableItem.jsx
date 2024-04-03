@@ -1,4 +1,4 @@
-import { formattedMoney } from "../../utils/formatMoney";
+import { formattedMoney } from "../utils/formatMoney";
 
 export function TableItem({ item }) {
   return (

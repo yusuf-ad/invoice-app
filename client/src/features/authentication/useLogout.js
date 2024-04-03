@@ -19,8 +19,6 @@ export function useLogout() {
 
       toast.success("Logged out successfully");
 
-      // queryClient.invalidateQueries("user", "invoices", "invoice");
-
       navigate("/");
     },
   });

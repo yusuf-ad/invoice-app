@@ -1,6 +1,6 @@
 import Loader from "./Loader/Loader";
 import { Invoice } from "./Invoice";
-import { useCreateInvoice } from "../../features/invoices/useCreateInvoice";
+import { useCreateInvoice } from "../features/invoices/useCreateInvoice";
 
 export function InvoicesList({ invoices, isLoading }) {
   const { isLoading: isCreating } = useCreateInvoice();
