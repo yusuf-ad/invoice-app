@@ -17,7 +17,7 @@ const createToken = (res, userId) => {
     httpOnly: true,
     secure: process.env.NODE_ENV === "production",
     sameSite: "strict",
-    expire: 1 * 24 * 60 * 60 * 1000, // 1 days
+    maxAge: 1 * 24 * 60 * 60 * 1000, // 1 days
   });
 };
 

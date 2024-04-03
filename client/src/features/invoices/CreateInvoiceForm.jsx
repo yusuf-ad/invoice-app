@@ -9,8 +9,12 @@ import SelectDate from "../../components/UI/SelectDate";
 import { useState } from "react";
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
 import { useCreateInvoice } from "./useCreateInvoice";
+import { closeModal } from "../modalSlice";
+import { useDispatch } from "react-redux";
 
 function CreateInvoiceForm() {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -18,6 +22,7 @@ function CreateInvoiceForm() {
     watch,
     setValue,
     getValues,
+    reset,
   } = useForm();
 
   const [paymentDue, setPaymentDue] = useState(
@@ -48,6 +53,9 @@ function CreateInvoiceForm() {
     };
 
     createInvoice(newInvoice);
+
+    reset();
+    dispatch(closeModal());
   }
 
   function onError() {}
@@ -184,6 +192,7 @@ function CreateInvoiceForm() {
       <FormRow classes={"justify-between mt-12"}>
         <div>
           <button
+            onClick={() => dispatch(closeModal())}
             type="reset"
             className="btn-sm  bg-gray-200/35 text-shipCove hover:bg-selago"
           >
