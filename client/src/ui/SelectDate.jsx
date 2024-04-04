@@ -12,7 +12,7 @@ function SelectDate({ paymentDue }) {
   const { ref: container, width } = useCalculateWidth();
 
   return (
-    <div ref={container} className="relative flex ">
+    <div ref={container} className="relative flex w-full">
       <DatePicker
         dateFormat={"dd MMM yyyy"}
         selected={paymentDue}

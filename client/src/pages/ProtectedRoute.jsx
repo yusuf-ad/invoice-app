@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import Loader from "../ui/Loader/Loader";
 
 function ProtectedRoute() {
-  const { status: authStatus } = useSelector((state) => state?.user) ?? {
+  const { status: authStatus } = useSelector((state) => state?.user) || {
     status: "idle",
   };
 

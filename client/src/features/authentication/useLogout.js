@@ -37,7 +37,7 @@ export function useLogout() {
 
       dispatch(logoutUser());
 
-      navigate("/login");
+      navigate("/");
 
       dispatch(authError());
     },
