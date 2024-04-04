@@ -56,8 +56,8 @@ function InvoiceDetails() {
                 </div>
               </div>
               <div className="mt-4 rounded-md bg-white px-6 py-8">
-                <div className="flex justify-between">
-                  <div>
+                <div className="grid grid-cols-3">
+                  <div className="col-span-2">
                     <p className="text-xs font-bold text-baliHai">
                       #
                       <span className="text-sm text-black">

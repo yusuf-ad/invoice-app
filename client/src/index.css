@@ -4,7 +4,42 @@
 
 @layer base {
   body {
-    @apply relative min-h-screen  bg-whisper text-vulcan;
+    @apply relative min-h-screen bg-whisper text-green-400 transition-colors duration-300;
+  }
+
+  :root {
+    /* Primary Colors */
+    --color-purple: 124, 93, 250; /* rgb(124, 93, 250) */
+    --color-heliotrope: 146, 119, 255; /* rgb(146, 119, 255) */
+    --color-orange: 255, 143, 0; /* rgb(255, 143, 0) */
+    --color-faded-orange: 255, 143, 0, 0.0571; /* rgba(255, 143, 0, 0.0571) */
+
+    /* Dark Shades */
+    --color-mirage: 30, 33, 57; /* rgb(30, 33, 57) */
+    --color-ebony: 37, 41, 69; /* rgb(37, 41, 69) */
+    --color-vulcan: 12, 14, 22; /* rgb(12, 14, 22) */
+    --color-mirage2: 20, 22, 37; /* rgb(20, 22, 37) */
+    --color-dark-accent: 73, 78, 110; /* rgb(73, 78, 110) */
+    --color-other-dark: 55, 59, 83; /* rgb(55, 59, 83) */
+    --color-black: 0, 0, 0; /* rgb(0, 0, 0) */
+
+    /* Light Shades */
+    --color-selago: 223, 227, 250; /* rgb(223, 227, 250) */
+    --color-whisper: 248, 248, 251; /* rgb(248, 248, 251) */
+    --color-off-white: 249, 250, 254; /* rgb(249, 250, 254) */
+    --color-white: 255, 255, 255; /* rgb(255, 255, 255) */
+
+    /* Other Colors */
+    --color-bali-hai: 136, 142, 176; /* rgb(136, 142, 176) */
+    --color-ship-cove: 126, 136, 195; /* rgb(126, 136, 195) */
+    --color-burnt-sienna: 236, 87, 87; /* rgb(236, 87, 87) */
+    --color-mona-lisa: 255, 151, 151; /* rgb(255, 151, 151) */
+  }
+
+  .dark {
+    --color-whisper: 20, 22, 37;
+    --color-black: 255, 255, 255;
+    --color-white: 30, 33, 57;
   }
 }
 
