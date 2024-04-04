@@ -1,16 +1,26 @@
+// React Imports
+import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-import FormCol from "../../components/UI/FormCol";
-import FormInput from "../../components/UI/FormInput";
-import FormRow from "../../components/UI/FormRow";
-import ItemsList from "../../components/UI/ItemsList";
-import SelectionField from "../../components/UI/SelectionField";
-import SelectDate from "../../components/UI/SelectDate";
-import { useState } from "react";
+// Redux Imports
+import { useDispatch } from "react-redux";
+import { closeModal } from "../modalSlice";
+
+// Component Imports
+import FormCol from "../../ui/FormCol";
+import FormInput from "../../ui/FormInput";
+import FormRow from "../../ui/FormRow";
+import ItemsList from "../../ui/ItemsList";
+import SelectionField from "../../ui/SelectionField";
+import SelectDate from "../../ui/SelectDate";
+
+// Utility and Hook Imports
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
 import { useCreateInvoice } from "./useCreateInvoice";
 
 function CreateInvoiceForm() {
+  const dispatch = useDispatch();
+
   const {
     register,
     handleSubmit,
@@ -18,6 +28,7 @@ function CreateInvoiceForm() {
     watch,
     setValue,
     getValues,
+    reset,
   } = useForm();
 
   const [paymentDue, setPaymentDue] = useState(
@@ -25,7 +36,7 @@ function CreateInvoiceForm() {
     new Date(Date.now() + millisecondsInADay),
   );
 
-  const { createInvoice } = useCreateInvoice();
+  const { createInvoice, isLoading } = useCreateInvoice();
 
   function onSubmit(data) {
     const items = getValues("items");
@@ -48,15 +59,13 @@ function CreateInvoiceForm() {
     };
 
     createInvoice(newInvoice);
+
+    dispatch(closeModal());
+    reset();
   }
 
-  function onError() {}
-
   return (
-    <form
-      onSubmit={handleSubmit(onSubmit, onError)}
-      className="px-8 py-6 pb-12 "
-    >
+    <form onSubmit={handleSubmit(onSubmit)} className="px-8 py-6 pb-12 ">
       <h2 className="text-xl font-bold text-black">New Invoice</h2>
 
       <h3 className="mt-8 text-xs font-bold capitalize text-purple">
@@ -184,6 +193,7 @@ function CreateInvoiceForm() {
       <FormRow classes={"justify-between mt-12"}>
         <div>
           <button
+            onClick={() => dispatch(closeModal())}
             type="reset"
             className="btn-sm  bg-gray-200/35 text-shipCove hover:bg-selago"
           >
@@ -192,7 +202,12 @@ function CreateInvoiceForm() {
         </div>
 
         <div className="space-x-3">
-          <button className="btn-sm bg-ebony text-xs font-bold text-baliHai ">
+          <button
+            onClick={() => {
+              setValue("status", "draft");
+            }}
+            className="btn-sm bg-ebony text-xs font-bold text-baliHai "
+          >
             Save as Draft
           </button>
           <button className="btn-sm bg-purple text-xs font-bold text-white ">

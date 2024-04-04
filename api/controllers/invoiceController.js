@@ -6,7 +6,7 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
 exports.getAllInvoices = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = req.user;
 
   res.status(200).json({
     status: "success",
@@ -37,6 +37,7 @@ exports.getInvoice = catchAsync(async (req, res, next) => {
 });
 
 exports.createInvoice = catchAsync(async (req, res, next) => {
+  // Net 7 days -> 7
   const paymentTerms = req.body.paymentTerms.split(" ").at(1);
 
   const invoiceTemplate = {
@@ -78,6 +79,18 @@ exports.deleteInvoice = catchAsync(async (req, res, next) => {
   user.invoices = user.invoices.filter(
     (invoice) => invoice.invoiceId !== req.params.id
   );
+
+  await user.save();
+
+  res.status(204).json({
+    status: "success",
+  });
+});
+
+exports.deleteAllInvoices = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  user.invoices = [];
 
   await user.save();
 

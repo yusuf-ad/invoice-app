@@ -1,5 +1,5 @@
 import date from "date-and-time";
 
-export function formatDate(newDate) {
+export function formattedDate(newDate) {
   return date.format(newDate, "D MMM YYYY");
 }

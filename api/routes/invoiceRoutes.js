@@ -5,14 +5,17 @@ const authController = require("../controllers/authController");
 
 const router = express.Router();
 
+router.use(authController.protect);
+
 router
   .route("/")
-  .get(authController.protect, invoiceController.getAllInvoices)
-  .post(authController.protect, invoiceController.createInvoice);
+  .get(invoiceController.getAllInvoices)
+  .post(invoiceController.createInvoice)
+  .delete(invoiceController.deleteAllInvoices);
 
 router
   .route("/:id")
-  .get(authController.protect, invoiceController.getInvoice)
-  .delete(authController.protect, invoiceController.deleteInvoice);
+  .get(invoiceController.getInvoice)
+  .delete(invoiceController.deleteInvoice);
 
 module.exports = router;

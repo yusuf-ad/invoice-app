@@ -27,9 +27,9 @@ function NewInvoiceModal() {
       <div
         className={`${
           isModalActive
-            ? "opacity-100 translate-x-0"
-            : "opacity-0 -translate-x-full"
-        } fixed h-[100vh-20rem] inset-0 z-20 top-20 w-full md:w-2/3 xl:w-1/2 xl:pl-28 xl:top-0  transition-all duration-300 bg-white overflow-y-scroll`}
+            ? "translate-x-0 opacity-100"
+            : "-translate-x-full opacity-0"
+        } fixed inset-0 top-20 z-20 h-[100vh-20rem] w-full overflow-y-scroll bg-white transition-all duration-300  md:w-2/3 xl:top-0 xl:w-1/2 xl:pl-28`}
       >
         <CreateInvoiceForm />
       </div>
@@ -38,9 +38,9 @@ function NewInvoiceModal() {
         ref={overlay}
         className={`${
           isModalActive
-            ? "opacity-100 pointer-events-auto"
-            : "opacity-0 pointer-events-none"
-        } absolute inset-0 h-screen w-full transition-opacity duration-100 bg-black/50 z-10`}
+            ? "pointer-events-auto opacity-100"
+            : "pointer-events-none opacity-0"
+        } fixed inset-0 z-10 h-screen w-full bg-black/50 transition-opacity duration-100`}
       ></div>
     </>
   );

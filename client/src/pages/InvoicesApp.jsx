@@ -1,8 +1,8 @@
-import { InvoicesList } from "../components/UI/InvoicesList";
-import { ButtonFilter } from "../components/UI/ButtonFilter";
-import { ButtonNewInvoice } from "../components/UI/ButtonNewInvoice";
-import { Header } from "../components/UI/Header";
-import { InvoicesCount } from "../components/UI/InvoicesCount";
+import { InvoicesList } from "../ui/InvoicesList";
+import { ButtonFilter } from "../ui/ButtonFilter";
+import { ButtonNewInvoice } from "../ui/ButtonNewInvoice";
+import { Header } from "../ui/Header";
+import { InvoicesCount } from "../ui/InvoicesCount";
 
 import { toggleModal } from "../features/modalSlice";
 import NewInvoiceModal from "../features/invoices/NewInvoiceModal";
@@ -17,7 +17,7 @@ export default function InvoicesApp() {
 
   return (
     <>
-      <div className="container mt-4 xl:mt-0 max-w-3xl">
+      <div className="container mt-4 max-w-3xl xl:mt-0">
         <Header styles="flex items-center gap-5">
           <InvoicesCount invoicesLength={invoicesLength} />
 

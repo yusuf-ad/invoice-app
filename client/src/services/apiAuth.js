@@ -23,7 +23,7 @@ export async function login({ username, password }) {
 
 export async function logout() {
   try {
-    const res = await fetch(`/api/v1/users/logout`, {
+    const res = await fetch(`/api/v1/users/logout2`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

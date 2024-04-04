@@ -9,7 +9,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 
 import InvoiceDetails from "./features/invoices/InvoiceDetails";
 import InvoicesApp from "./pages/InvoicesApp";
-import AppLayout from "./components/UI/AppLayout";
+import AppLayout from "./ui/AppLayout";
 
 function App() {
   return (

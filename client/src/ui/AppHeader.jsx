@@ -6,16 +6,16 @@ import { UserAvatar } from "./UserAvatar";
 
 function AppHeader() {
   const { isAuthenticated, photo } = useSelector(
-    (state) => state?.user?.userInfo
+    (state) => state?.user?.userInfo,
   ) ?? { isAuthenticated: false, photo: "" };
 
   return (
-    <header className="fixed w-full z-50 top-0 h-20 xl:max-w-28 xl:h-screen xl:rounded-r-3xl flex xl:flex-col xl: justify-between   bg-ebony">
+    <header className="xl: fixed top-0 z-50 flex h-20 w-full justify-between bg-ebony xl:h-screen xl:max-w-28 xl:flex-col   xl:rounded-r-3xl">
       <HeaderLogo />
 
       <div
-        className={`relative flex items-center gap-8 xl:gap-8 xl:flex-col ${
-          !isAuthenticated ? "pr-10 xl:pr-0 xl:pb-10" : ""
+        className={`relative flex items-center gap-8 xl:flex-col xl:gap-8 ${
+          !isAuthenticated ? "pr-10 xl:pb-10 xl:pr-0" : ""
         }`}
       >
         <DarkModeButton />

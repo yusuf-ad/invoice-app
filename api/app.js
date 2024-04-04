@@ -1,5 +1,4 @@
 const express = require("express");
-const cors = require("cors");
 
 const app = express();
 const cookieParser = require("cookie-parser");
@@ -13,7 +12,6 @@ const invoiceRouter = require("./routes/invoiceRoutes");
 // isteklerdeki JSON verilerini işlemek için kullanılır.
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
-app.use(cors());
 
 app.use(cookieParser());
 

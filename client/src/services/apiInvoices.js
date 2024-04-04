@@ -1,5 +1,3 @@
-import { json } from "react-router-dom";
-
 export async function getAllInvoices() {
   try {
     const res = await fetch("/api/v1/invoices");

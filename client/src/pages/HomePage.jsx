@@ -1,4 +1,4 @@
-import LoginMessage from "../components/UI/LoginMessage";
+import LoginMessage from "../ui/LoginMessage";
 
 import { useIsAuthenticated } from "../features/authentication/useIsAuthenticated";
 
