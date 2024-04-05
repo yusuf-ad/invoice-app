@@ -29,7 +29,7 @@ function InvoiceDetails() {
             className="group flex items-center gap-4"
           >
             <ArrowLeft />
-            <span className="text-sm font-bold group-hover:text-baliHai">
+            <span className="group-hover:text-skin-shipCove text-sm font-bold">
               Go back
             </span>
           </button>
@@ -41,30 +41,35 @@ function InvoiceDetails() {
             </div>
           ) : (
             <>
-              <div className="mt-8 flex w-full justify-between rounded-md bg-white px-6 py-6 text-sm text-baliHai">
+              <div className="text-skin-baliHai dark:bg-skin-mirage mt-8 flex w-full justify-between rounded-md bg-white px-6 py-6 text-sm">
                 <div className="flex items-center gap-6">
                   <p>Status</p>
                   <InvoiceStatus status={currentInvoice.status} />
                 </div>
                 <div className="space-x-3">
-                  <button className="btn-sm bg-offWhite text-shipCove">
+                  <button className="btn-sm bg-skin-offWhite text-skin-baliHai dark:bg-skin-gray dark:hover:bg-skin-gray hover:bg-gray-300 dark:hover:opacity-70">
                     Edit
                   </button>
-                  <button className="btn-sm bg-burntSienna text-offWhite">
+                  <button className="btn-sm bg-skin-burntSienna text-skin-offWhite hover:opacity-70">
                     Delete
                   </button>
+                  {currentInvoice.status === "pending" && (
+                    <button className="btn-sm bg-skin-purple text-white transition-opacity hover:opacity-70">
+                      Mark as Paid
+                    </button>
+                  )}
                 </div>
               </div>
-              <div className="mt-4 rounded-md bg-white px-6 py-8">
+              <div className="dark:bg-skin-mirage mt-4 rounded-md bg-white px-6 py-8">
                 <div className="grid grid-cols-3">
                   <div className="col-span-2">
-                    <p className="text-xs font-bold text-baliHai">
+                    <p className="text-skin-shipCove text-xs font-bold">
                       #
-                      <span className="text-sm text-black">
+                      <span className="text-skin-black text-sm">
                         {currentInvoice.invoiceId}
                       </span>
                     </p>
-                    <p className="mt-1 text-sm text-baliHai">
+                    <p className="text-skin-baliHai mt-2 text-sm">
                       {currentInvoice.description}
                     </p>
                   </div>
@@ -75,35 +80,41 @@ function InvoiceDetails() {
                 </div>
                 <div className="mt-12 flex gap-4 capitalize">
                   <div className="basis-1/4">
-                    <h3 className="mb-2 text-sm text-shipCove">Invoice Date</h3>
-                    <p className="mb-6 text-lg font-bold text-black">
+                    <h3 className="text-skin-baliHai mb-2 text-sm">
+                      Invoice Date
+                    </h3>
+                    <p className="text-skin-black mb-6 text-lg font-bold">
                       {formattedDate(new Date(currentInvoice.createdAt))}
                     </p>
-                    <h3 className="mb-2 text-sm text-shipCove ">Payment due</h3>
-                    <p className="mb-6 text-lg font-bold text-black">
+                    <h3 className="text-skin-baliHai mb-2 text-sm ">
+                      Payment due
+                    </h3>
+                    <p className="text-skin-black mb-6 text-lg font-bold">
                       {formattedDate(new Date(currentInvoice.paymentDue))}
                     </p>
                   </div>
                   <div className="basis-1/4">
-                    <h3 className="mb-2 text-sm text-shipCove">Bill to</h3>
-                    <p className="mb-6 text-lg font-bold text-black">
+                    <h3 className="text-skin-baliHai mb-2 text-sm">Bill to</h3>
+                    <p className="text-skin-black mb-6 text-lg font-bold">
                       {currentInvoice.clientName}
                     </p>
                     <InvoiceAddress address={currentInvoice.clientAddress} />
                   </div>
                   <div className="flex flex-1 justify-center text-left ">
                     <div>
-                      <h3 className="mb-2 text-sm text-shipCove">Sent To</h3>
-                      <p className="mb-6 text-lg font-bold lowercase text-black">
+                      <h3 className="text-skin-baliHai mb-2 text-sm">
+                        Sent To
+                      </h3>
+                      <p className="text-skin-black mb-6 text-lg font-bold lowercase">
                         {currentInvoice.clientEmail}
                       </p>
                     </div>
                   </div>
                 </div>
                 <div className="mt-12 overflow-hidden rounded-md shadow-sm">
-                  <div className="bg-offWhite px-6 py-10 pb-6">
+                  <div className="bg-skin-offWhite dark:bg-skin-ebony px-6 py-10 pb-6">
                     <table className="w-full">
-                      <thead className="text-xs text-shipCove">
+                      <thead className="text-skin-baliHai text-xs">
                         <tr>
                           <th className="pb-6 text-left">Item Name</th>
                           <th className="pb-6 text-right">QTY.</th>
@@ -118,9 +129,9 @@ function InvoiceDetails() {
                       </tbody>
                     </table>
                   </div>
-                  <div className="flex items-center justify-between bg-otherDark px-6 py-6 text-white">
+                  <div className="bg-skin-gray dark:bg-skin-vulcan flex items-center justify-between px-6 py-6 text-white">
                     <p className="text-sm">Amount Due</p>
-                    <h2 className="text-lg font-bold">
+                    <h2 className="text-xl font-bold">
                       ${formattedMoney(currentInvoice.total)}
                     </h2>
                   </div>

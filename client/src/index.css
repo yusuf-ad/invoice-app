@@ -4,7 +4,7 @@
 
 @layer base {
   body {
-    @apply bg-skin-whisper relative min-h-screen  transition-colors duration-300;
+    @apply text-skin-black bg-skin-whisper relative min-h-screen transition-colors duration-300;
   }
 
   :root {
@@ -40,7 +40,9 @@
   }
 
   .dark {
+    --color-bali-hai: 255, 255, 255;
     --color-whisper: 20, 22, 37;
+
     --color-black: 255, 255, 255;
     --color-white: 30, 33, 57;
   }
@@ -48,7 +50,7 @@
 
 @layer components {
   .btn-sm {
-    @apply transition-colors-2 rounded-full px-6 py-4 text-xs font-bold;
+    @apply transition-colors-3 rounded-full px-6 py-4 text-xs font-bold tracking-wide;
   }
 
   .btn-md {

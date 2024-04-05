@@ -1,8 +1,8 @@
 export function ButtonFilter() {
   return (
-    <button className="ml-auto flex items-center text-sm text-black font-bold">
+    <button className="text-skin-black ml-auto flex items-center text-sm font-bold">
       Filter
-      <span className="hidden md:inline-block ml-1 ">by status</span>
+      <span className="ml-1 hidden md:inline-block">by status</span>
       <img
         className="ml-2"
         src="./assets/icon-arrow-down.svg"
