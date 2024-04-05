@@ -4,14 +4,18 @@
 
 @layer base {
   body {
-    @apply relative min-h-screen bg-whisper text-green-400 transition-colors duration-300;
+    @apply bg-skin-whisper relative min-h-screen  transition-colors duration-300;
   }
 
   :root {
     /* Primary Colors */
     --color-purple: 124, 93, 250; /* rgb(124, 93, 250) */
     --color-heliotrope: 146, 119, 255; /* rgb(146, 119, 255) */
+
     --color-orange: 255, 143, 0; /* rgb(255, 143, 0) */
+    --color-green: 51, 214, 159; /* rgb(51, 214, 159) */
+    --color-gray: 55, 59, 83; /* rgb(55, 59, 83) */
+
     --color-faded-orange: 255, 143, 0, 0.0571; /* rgba(255, 143, 0, 0.0571) */
 
     /* Dark Shades */
@@ -20,7 +24,6 @@
     --color-vulcan: 12, 14, 22; /* rgb(12, 14, 22) */
     --color-mirage2: 20, 22, 37; /* rgb(20, 22, 37) */
     --color-dark-accent: 73, 78, 110; /* rgb(73, 78, 110) */
-    --color-other-dark: 55, 59, 83; /* rgb(55, 59, 83) */
     --color-black: 0, 0, 0; /* rgb(0, 0, 0) */
 
     /* Light Shades */

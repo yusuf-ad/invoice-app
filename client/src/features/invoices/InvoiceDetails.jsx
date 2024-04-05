@@ -1,7 +1,7 @@
 import { useNavigate } from "react-router-dom";
 
 import { ArrowLeft } from "../../ui/ArrowLeft";
-import { InvoiceStatus } from "../../ui//InvoiceStatus";
+import { InvoiceStatus } from "./InvoiceStatus";
 import Loader from "../../ui//Loader/Loader";
 import { TableItem } from "../../ui//TableItem";
 

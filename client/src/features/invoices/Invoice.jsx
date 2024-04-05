@@ -1,7 +1,7 @@
 import { InvoiceStatus } from "./InvoiceStatus";
 
-import { formattedMoney } from "../utils/formatMoney";
-import { formattedDate } from "../utils/formatDate";
+import { formattedMoney } from "../../utils/formatMoney";
+import { formattedDate } from "../../utils/formatDate";
 
 import { Link } from "react-router-dom";
 

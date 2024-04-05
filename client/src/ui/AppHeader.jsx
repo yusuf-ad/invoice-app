@@ -10,7 +10,7 @@ function AppHeader() {
   ) ?? { isAuthenticated: false, photo: "" };
 
   return (
-    <header className="xl: fixed top-0 z-50 flex h-20 w-full justify-between bg-ebony xl:h-screen xl:max-w-28 xl:flex-col   xl:rounded-r-3xl">
+    <header className="xl: bg-skin-ebony fixed top-0 z-50 flex h-20 w-full justify-between xl:h-screen xl:max-w-28 xl:flex-col  xl:rounded-r-3xl">
       <HeaderLogo />
 
       <div

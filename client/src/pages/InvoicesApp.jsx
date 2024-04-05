@@ -1,8 +1,8 @@
-import { InvoicesList } from "../ui/InvoicesList";
+import { InvoicesList } from "../features/invoices/InvoicesList";
 import { ButtonFilter } from "../ui/ButtonFilter";
 import { ButtonNewInvoice } from "../ui/ButtonNewInvoice";
 import { Header } from "../ui/Header";
-import { InvoicesCount } from "../ui/InvoicesCount";
+import { InvoicesCount } from "../features/invoices/InvoicesCount";
 
 import { toggleModal } from "../features/modalSlice";
 import NewInvoiceModal from "../features/invoices/NewInvoiceModal";
