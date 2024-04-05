@@ -32,10 +32,10 @@ const ExampleCustomInput = forwardRef(({ value, onClick, width }, ref) => (
     ref={ref}
     type="button"
     style={{ width: `${width}px` }}
-    className={`rounded-md border-2 border-gray-300/50  px-4 py-3 text-sm font-bold focus:border-purple`}
+    className={`dark:bg-skin-mirage text-skin-black hover:border-skin-purple  w-full rounded-md border-2  border-gray-300/50 bg-white px-4 py-3 text-sm font-bold placeholder:text-black/85 dark:border-transparent`}
   >
     <p className="flex justify-between">
-      <span className="mr-2 text-gray-700">{value}</span>
+      <span className="text-skin-black mr-2">{value}</span>
       <span>
         <i
           className={`fa-regular fa-calendar text-blue-default text-sm transition duration-300 `}

@@ -52,7 +52,7 @@ function ItemsList({ register, errors, watch, getValues }) {
       <button
         onClick={handleAddItem}
         type="button"
-        className="transition-colors-1 mt-8 flex w-full items-center justify-center gap-1 rounded-full bg-gray-200/35 py-4 text-xs font-bold capitalize text-shipCove hover:bg-selago"
+        className="transition-colors-1 dark:bg-skin-mirage text-skin-baliHai bg-skin-offWhite hover:border-skin-purple mt-8 flex w-full items-center justify-center gap-1 rounded-full border-2 border-transparent py-4 text-xs font-bold capitalize  "
       >
         <img src="./assets/icon-plus.svg" alt="icon plus" />
         Add new item
@@ -106,7 +106,7 @@ function ItemRow({ errors, register, watch, id, removeItem }) {
             <label className="text-xs font-medium capitalize text-gray-400">
               Total
             </label>
-            <span className="mb-3 font-bold text-shipCove">
+            <span className="text-skin-shipCove mb-3 font-bold">
               {total.toFixed(2)}
             </span>
           </div>

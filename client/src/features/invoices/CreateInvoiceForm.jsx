@@ -66,9 +66,9 @@ function CreateInvoiceForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-8 py-6 pb-12 ">
-      <h2 className="text-xl font-bold text-black">New Invoice</h2>
+      <h2 className="text-skin-black text-2xl font-bold">New Invoice</h2>
 
-      <h3 className="mt-8 text-xs font-bold capitalize text-purple">
+      <h3 className="text-skin-purple mt-8 text-xs font-bold capitalize">
         Bill from
       </h3>
 
@@ -110,7 +110,9 @@ function CreateInvoiceForm() {
         </FormCol>
       </FormRow>
 
-      <h3 className="mt-8 text-xs font-bold capitalize text-purple">Bill to</h3>
+      <h3 className="text-skin-purple mt-8 text-xs font-bold capitalize">
+        Bill to
+      </h3>
 
       <FormCol
         classes={"mt-6"}
@@ -178,7 +180,7 @@ function CreateInvoiceForm() {
         <FormInput register={register} name={"description"} />
       </FormCol>
 
-      <h3 className="mt-6 text-lg font-bold capitalize text-baliHai">
+      <h3 className="text-skin-baliHai mt-8 text-lg font-bold capitalize">
         Item list
       </h3>
 
@@ -195,7 +197,7 @@ function CreateInvoiceForm() {
           <button
             onClick={() => dispatch(closeModal())}
             type="reset"
-            className="btn-sm  bg-gray-200/35 text-shipCove hover:bg-selago"
+            className="btn-sm bg-skin-offWhite text-skin-baliHai dark:bg-skin-gray dark:hover:bg-skin-gray hover:bg-gray-300 dark:hover:opacity-70"
           >
             Discard
           </button>
@@ -206,11 +208,11 @@ function CreateInvoiceForm() {
             onClick={() => {
               setValue("status", "draft");
             }}
-            className="btn-sm bg-ebony text-xs font-bold text-baliHai "
+            className="btn-sm bg-skin-gray text-skin-baliHai dark:bg-skin-gray dark:hover:bg-skin-gray font-bold hover:bg-gray-300 dark:hover:opacity-70"
           >
             Save as Draft
           </button>
-          <button className="btn-sm bg-purple text-xs font-bold text-white ">
+          <button className="btn-sm bg-skin-purple text-xs font-bold text-white ">
             Save & Send
           </button>
         </div>
