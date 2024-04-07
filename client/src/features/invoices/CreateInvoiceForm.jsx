@@ -36,7 +36,7 @@ function CreateInvoiceForm() {
     new Date(Date.now() + millisecondsInADay),
   );
 
-  const { createInvoice, isLoading } = useCreateInvoice();
+  const { createInvoice, isLoading: isCreating } = useCreateInvoice();
 
   function createNewInvoice(data) {
     const items = getValues("items");
@@ -210,6 +210,7 @@ function CreateInvoiceForm() {
         <div className="space-x-3">
           <button
             type="button"
+            disabled={isCreating}
             onClick={() => {
               setValue("status", "draft");
 
@@ -218,15 +219,16 @@ function CreateInvoiceForm() {
               dispatch(closeModal());
               reset();
             }}
-            className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
+            className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
           >
             Save as Draft
           </button>
           <button
             type="submit"
-            className="btn-sm bg-skin-purple text-xs font-bold text-white "
+            disabled={isCreating}
+            className="btn-sm bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
           >
-            Save & Send
+            {isCreating ? "Creating..." : "Save & Send"}
           </button>
         </div>
       </FormRow>

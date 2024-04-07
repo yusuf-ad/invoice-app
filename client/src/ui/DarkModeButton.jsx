@@ -1,3 +1,6 @@
+import moonIcon from "../../public/assets/icon-moon.svg";
+import sunIcon from "../../public/assets/icon-sun.svg";
+
 import { useDispatch, useSelector } from "react-redux";
 import { toggleDarkMode } from "../features/darkModeSlice";
 import { useEffect } from "react";
@@ -18,8 +21,8 @@ export function DarkModeButton() {
   return (
     <button onClick={() => dispatch(toggleDarkMode())}>
       <img
-        src={`./assets/icon-${isDarkMode ? "moon" : "sun"}.svg`}
-        alt="icon moon"
+        src={isDarkMode ? moonIcon : sunIcon}
+        alt={`icon ${isDarkMode ? "moon" : "sun"}`}
       />
     </button>
   );

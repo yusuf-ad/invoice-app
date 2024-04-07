@@ -2,7 +2,7 @@ import Loader from "../../ui/Loader/Loader";
 import { Invoice } from "./Invoice";
 import { useCreateInvoice } from "./useCreateInvoice";
 
-export function InvoicesList({ invoices, isLoading }) {
+function InvoicesList({ invoices, isLoading }) {
   const { isLoading: isCreating } = useCreateInvoice();
 
   if (isLoading) {
@@ -28,3 +28,5 @@ export function InvoicesList({ invoices, isLoading }) {
     </ul>
   );
 }
+
+export default InvoicesList;

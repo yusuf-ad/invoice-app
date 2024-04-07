@@ -1,3 +1,5 @@
+import rightChevron from "../../../public/assets/icon-arrow-right.svg";
+
 import { InvoiceStatus } from "./InvoiceStatus";
 
 import { formattedMoney } from "../../utils/formatMoney";
@@ -51,7 +53,7 @@ export function Invoice({ invoice }) {
             </div>
             <div className="flex items-center gap-4">
               <InvoiceStatus status={invoice.status} />
-              <img src="./assets/icon-arrow-right.svg" alt="right chevron" />
+              <img src={rightChevron} alt="right chevron" />
             </div>
           </div>
         </div>

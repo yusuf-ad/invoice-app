@@ -1,12 +1,15 @@
-import { InvoicesList } from "../features/invoices/InvoicesList";
+// Features
+import InvoicesList from "../features/invoices/InvoicesList";
+import { InvoicesCount } from "../features/invoices/InvoicesCount";
+import { useInvoices } from "../features/invoices/useInvoices";
+
+// UI
 import { ButtonFilter } from "../ui/ButtonFilter";
 import { ButtonNewInvoice } from "../ui/ButtonNewInvoice";
 import { Header } from "../ui/Header";
-import { InvoicesCount } from "../features/invoices/InvoicesCount";
 
+// Other
 import { toggleModal } from "../features/modalSlice";
-import NewInvoiceModal from "../features/invoices/NewInvoiceModal";
-import { useInvoices } from "../features/invoices/useInvoices";
 
 export default function InvoicesApp() {
   const { invoices, invoicesLength, isLoading, error } = useInvoices();
@@ -27,9 +30,6 @@ export default function InvoicesApp() {
 
         <InvoicesList invoices={invoices?.invoices} isLoading={isLoading} />
       </div>
-
-      {/* create new invoice form */}
-      <NewInvoiceModal />
     </>
   );
 }
