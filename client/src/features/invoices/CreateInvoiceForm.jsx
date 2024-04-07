@@ -38,7 +38,7 @@ function CreateInvoiceForm() {
 
   const { createInvoice, isLoading } = useCreateInvoice();
 
-  function onSubmit(data) {
+  function createNewInvoice(data) {
     const items = getValues("items");
     const itemsArray = Object.values(items).map((item) => ({
       ...item,
@@ -59,6 +59,10 @@ function CreateInvoiceForm() {
     };
 
     createInvoice(newInvoice);
+  }
+
+  function onSubmit(data) {
+    createNewInvoice(data);
 
     dispatch(closeModal());
     reset();
@@ -66,9 +70,9 @@ function CreateInvoiceForm() {
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} className="px-8 py-6 pb-12 ">
-      <h2 className="text-skin-black text-2xl font-bold">New Invoice</h2>
+      <h2 className="text-2xl font-bold text-skin-black">New Invoice</h2>
 
-      <h3 className="text-skin-purple mt-8 text-xs font-bold capitalize">
+      <h3 className="mt-8 text-xs font-bold capitalize text-skin-purple">
         Bill from
       </h3>
 
@@ -110,7 +114,7 @@ function CreateInvoiceForm() {
         </FormCol>
       </FormRow>
 
-      <h3 className="text-skin-purple mt-8 text-xs font-bold capitalize">
+      <h3 className="mt-8 text-xs font-bold capitalize text-skin-purple">
         Bill to
       </h3>
 
@@ -180,7 +184,7 @@ function CreateInvoiceForm() {
         <FormInput register={register} name={"description"} />
       </FormCol>
 
-      <h3 className="text-skin-baliHai mt-8 text-lg font-bold capitalize">
+      <h3 className="mt-8 text-lg font-bold capitalize text-skin-baliHai">
         Item list
       </h3>
 
@@ -197,7 +201,7 @@ function CreateInvoiceForm() {
           <button
             onClick={() => dispatch(closeModal())}
             type="reset"
-            className="btn-sm bg-skin-offWhite text-skin-baliHai dark:bg-skin-gray dark:hover:bg-skin-gray hover:bg-gray-300 dark:hover:opacity-70"
+            className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
           >
             Discard
           </button>
@@ -205,14 +209,23 @@ function CreateInvoiceForm() {
 
         <div className="space-x-3">
           <button
+            type="button"
             onClick={() => {
               setValue("status", "draft");
+
+              createNewInvoice(getValues());
+
+              dispatch(closeModal());
+              reset();
             }}
-            className="btn-sm bg-skin-gray text-skin-baliHai dark:bg-skin-gray dark:hover:bg-skin-gray font-bold hover:bg-gray-300 dark:hover:opacity-70"
+            className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
           >
             Save as Draft
           </button>
-          <button className="btn-sm bg-skin-purple text-xs font-bold text-white ">
+          <button
+            type="submit"
+            className="btn-sm bg-skin-purple text-xs font-bold text-white "
+          >
             Save & Send
           </button>
         </div>

@@ -1,7 +1,9 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
-  isDarkMode: window.matchMedia("(prefers-color-scheme: dark)").matches,
+  isDarkMode: localStorage.getItem("isDarkMode")
+    ? JSON.parse(localStorage.getItem("isDarkMode"))
+    : window.matchMedia("(prefers-color-scheme: dark)").matches,
 };
 
 const darkModeSlice = createSlice({
@@ -10,6 +12,8 @@ const darkModeSlice = createSlice({
   reducers: {
     toggleDarkMode: (state) => {
       state.isDarkMode = !state.isDarkMode;
+
+      localStorage.setItem("isDarkMode", JSON.stringify(state.isDarkMode));
     },
   },
 });

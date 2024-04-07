@@ -39,19 +39,15 @@ const invoiceSchema = new Schema(
     },
     senderAddress: {
       type: addressSchema,
-      required: [true, "Please enter the sender address. 1"],
     },
     clientName: {
       type: String,
-      required: [true, "Please enter the client's name."],
     },
     clientEmail: {
       type: String,
-      required: [true, "Please enter the client's email."],
     },
     clientAddress: {
       type: addressSchema,
-      required: [true, "Please enter the sender address. 2"],
     },
   },
   { timestamps: true }
