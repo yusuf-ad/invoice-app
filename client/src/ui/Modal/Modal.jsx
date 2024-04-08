@@ -1,4 +1,14 @@
-import { createContext, useContext, useEffect, useRef, useState } from "react";
+import {
+  cloneElement,
+  createContext,
+  useContext,
+  useEffect,
+  useRef,
+  useState,
+} from "react";
+import { createPortal } from "react-dom";
+
+import Overlay from "../Overlay";
 
 const ModalContext = createContext();
 
@@ -13,23 +23,47 @@ export function useModal() {
 }
 
 function Modal({ children }) {
-  const [isModalActive, setIsModalActive] = useState(true);
+  const [openName, setOpenName] = useState("");
 
-  function close() {
-    setIsModalActive(false);
-  }
+  const close = () => setOpenName("");
+  const open = setOpenName;
 
-  function open() {
-    setIsModalActive(true);
-  }
+  return (
+    <ModalContext.Provider
+      value={{
+        close,
+        open,
+        openName,
+      }}
+    >
+      {children}
+    </ModalContext.Provider>
+  );
+}
+
+function Open({ children, opens: opensWindowName }) {
+  const { open } = useModal();
+
+  return cloneElement(children, { onClick: () => open(opensWindowName) });
+}
+
+function Close({ children }) {
+  const { close } = useModal();
+
+  return cloneElement(children, { onClick: close });
+}
+
+function Window({ children, name }) {
+  const { openName, close } = useModal();
+
+  const isModalActive = name === openName;
 
   const overlay = useRef(null);
 
   useEffect(() => {
     function handleClickOutside(event) {
-      console.log(overlay.current.contains(event.target));
-      if (overlay.current.contains(event.target)) {
-        setIsModalActive(false);
+      if (overlay.current && overlay.current === event.target) {
+        close();
       }
     }
 
@@ -37,10 +71,10 @@ function Modal({ children }) {
     return () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
-  }, []);
+  }, [close]);
 
-  return (
-    <ModalContext.Provider value={{ close, open, isModalActive }}>
+  return createPortal(
+    <Overlay ref={overlay} isModalActive={isModalActive}>
       <div
         className={`${
           isModalActive
@@ -50,29 +84,13 @@ function Modal({ children }) {
       >
         {children}
       </div>
-      {/* overlay */}
-      <div
-        ref={overlay}
-        className={`${
-          isModalActive
-            ? "pointer-events-auto opacity-100"
-            : "pointer-events-none opacity-0"
-        } fixed inset-0 z-10 h-screen w-full bg-black/50 transition-opacity duration-100`}
-      ></div>
-    </ModalContext.Provider>
+    </Overlay>,
+    document.body,
   );
 }
 
+Modal.Open = Open;
+Modal.Close = Close;
+Modal.Window = Window;
+
 export default Modal;
-
-function OpenModal({ children }) {
-  const { open } = useModal();
-
-  return <div onClick={open}>{children}</div>;
-}
-
-function CloseModal({ children }) {
-  const { open } = useModal();
-
-  return <div onClick={open}>{children}</div>;
-}

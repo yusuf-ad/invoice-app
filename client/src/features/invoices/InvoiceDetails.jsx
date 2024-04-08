@@ -51,9 +51,19 @@ function InvoiceDetails() {
                   <button className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70">
                     Edit
                   </button>
-                  <button className="btn-sm bg-skin-burntSienna text-skin-offWhite hover:opacity-70">
-                    Delete
-                  </button>
+
+                  <Modal>
+                    <Modal.Open opens="confirmDelete">
+                      <button className="btn-sm bg-skin-burntSienna text-skin-offWhite hover:opacity-70">
+                        Delete
+                      </button>
+                    </Modal.Open>
+
+                    <Modal.Window name="confirmDelete">
+                      <ConfirmDelete />
+                    </Modal.Window>
+                  </Modal>
+
                   {currentInvoice.status === "pending" && (
                     <button className="btn-sm bg-skin-purple text-white transition-opacity hover:opacity-70">
                       Mark as Paid
@@ -142,10 +152,6 @@ function InvoiceDetails() {
           )}
         </div>
       </div>
-
-      <Modal>
-        <ConfirmDelete />
-      </Modal>
     </>
   );
 }

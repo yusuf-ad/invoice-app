@@ -1,3 +1,5 @@
+import Modal from "./Modal/Modal";
+
 function ConfirmDelete() {
   return (
     <div>
@@ -10,18 +12,23 @@ function ConfirmDelete() {
         <span className="text-base">RT3080?</span> This action cannot be undone.
       </p>
       <div className="mt-6 flex justify-end gap-3">
-        <button
-          type="button"
-          className="btn-sm bg-skin-gray font-bold text-white  hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
-        >
-          Cancel
-        </button>
-        <button
-          type="submit"
-          className="btn-sm bg-skin-burntSienna text-skin-offWhite hover:opacity-70"
-        >
-          Delete
-        </button>
+        <Modal.Close>
+          <button
+            type="button"
+            className="btn-sm bg-skin-gray font-bold text-white  hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
+          >
+            Cancel
+          </button>
+        </Modal.Close>
+
+        <Modal.Close>
+          <button
+            type="submit"
+            className="btn-sm bg-skin-burntSienna text-skin-offWhite hover:opacity-70"
+          >
+            Delete
+          </button>
+        </Modal.Close>
       </div>
     </div>
   );
