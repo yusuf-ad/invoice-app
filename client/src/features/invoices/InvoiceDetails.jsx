@@ -3,15 +3,16 @@ import { useNavigate } from "react-router-dom";
 import { ArrowLeft } from "../../ui/ArrowLeft";
 import { InvoiceStatus } from "./InvoiceStatus";
 import Loader from "../../ui//Loader/Loader";
-import { TableItem } from "../../ui//TableItem";
+import { TableItem } from "../../ui/TableItem";
+import ConfirmDelete from "../../ui/ConfirmDelete";
 
-import NewInvoiceModal from "./NewInvoiceModal";
 import { InvoiceAddress } from "./InvoiceAddress";
 
 import { useInvoice } from "./useInvoice";
 
 import { formattedMoney } from "../../utils/formatMoney";
 import { formattedDate } from "../../utils/formatDate";
+import Modal from "../../ui/Modal/Modal";
 
 function InvoiceDetails() {
   const { invoice, isLoading } = useInvoice();
@@ -141,7 +142,10 @@ function InvoiceDetails() {
           )}
         </div>
       </div>
-      <NewInvoiceModal />
+
+      <Modal>
+        <ConfirmDelete />
+      </Modal>
     </>
   );
 }

@@ -2,7 +2,6 @@ import NewInvoiceModal from "../features/invoices/NewInvoiceModal";
 import AppHeader from "./AppHeader";
 
 import { Outlet } from "react-router-dom";
-import Modal from "./Modal/Modal";
 
 function AppLayout() {
   return (
@@ -14,7 +13,6 @@ function AppLayout() {
 
         {/* create new invoice form */}
         <NewInvoiceModal />
-        <Modal />
       </main>
     </>
   );
