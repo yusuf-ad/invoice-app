@@ -74,7 +74,7 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteInvoice = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  const user = req.user;
 
   user.invoices = user.invoices.filter(
     (invoice) => invoice.invoiceId !== req.params.id

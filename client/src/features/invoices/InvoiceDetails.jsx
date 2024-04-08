@@ -13,13 +13,22 @@ import { useInvoice } from "./useInvoice";
 import { formattedMoney } from "../../utils/formatMoney";
 import { formattedDate } from "../../utils/formatDate";
 import Modal from "../../ui/Modal/Modal";
+import { useEffect } from "react";
+import { useDeleteInvoice } from "./useDeleteInvoice";
 
 function InvoiceDetails() {
   const { invoice, isLoading } = useInvoice();
+  const { isDeleting } = useDeleteInvoice();
 
   const { invoice: currentInvoice } = invoice ?? {};
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    document.title = `Invoice #${currentInvoice?.invoiceId} | Invoice App`;
+  }, [currentInvoice?.invoiceId]);
+
+  if (isDeleting) return <Loader />;
 
   return (
     <>

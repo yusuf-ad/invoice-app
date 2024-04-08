@@ -63,11 +63,15 @@ export async function deleteInvoice(invoiceId) {
         "Content-Type": "application/json",
       },
     });
+
+    if (res.status === 204) {
+      return null;
+    }
+
     const data = await res.json();
 
     if (!res.ok) {
       const { message } = data;
-
       throw new Error(message || "An error occurred!");
     }
 
