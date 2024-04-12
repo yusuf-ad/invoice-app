@@ -13,7 +13,8 @@ export function useUpdateInvoiceStatus() {
 
     onSuccess: () => {
       queryClient.invalidateQueries("invoice");
-      toast.success("shalom");
+
+      toast.success("Invoice status updated successfully.");
     },
 
     onError: (error) => {

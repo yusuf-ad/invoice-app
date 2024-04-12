@@ -14,7 +14,6 @@ import { formattedMoney } from "../../utils/formatMoney";
 import { formattedDate } from "../../utils/formatDate";
 import Modal from "../../ui/Modal/Modal";
 import { useEffect } from "react";
-import { useDeleteInvoice } from "./useDeleteInvoice";
 import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
 
 function InvoiceDetails() {
@@ -80,7 +79,7 @@ function InvoiceDetails() {
                   {currentInvoice.status === "pending" && (
                     <button
                       onClick={() => updateStatus()}
-                      className="btn-sm bg-skin-purple text-white transition-opacity hover:opacity-70 disabled:opacity-70"
+                      className="btn-sm bg-skin-purple text-white transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-70"
                       disabled={isUpdatingStatus}
                     >
                       Mark as Paid

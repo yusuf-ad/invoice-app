@@ -1,5 +1,6 @@
 const { Invoice } = require("../models/invoiceModel");
 const User = require("../models/userModel");
+const generateId = require("generate-unique-id");
 
 const catchAsync = require("../utils/catchAsync");
 
@@ -43,6 +44,10 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
   const paymentTerms = req.body.paymentTerms.split(" ").at(1);
 
   const invoiceTemplate = {
+    invoiceId: generateId({
+      length: 6,
+      useLetters: true,
+    }).toUpperCase(),
     paymentDue: req.body.paymentDue,
     description: req.body.description,
     paymentTerms,

@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const { Schema } = mongoose;
 
-const generateId = require("generate-unique-id");
-
 const addressSchema = new Schema(
   {
     street: String,
@@ -16,6 +14,7 @@ const addressSchema = new Schema(
 const invoiceSchema = new Schema(
   {
     invoiceId: String,
+
     description: {
       type: String,
       default: "Invoice description",
@@ -52,15 +51,6 @@ const invoiceSchema = new Schema(
   },
   { timestamps: true }
 );
-
-invoiceSchema.pre("save", function (next) {
-  this.invoiceId = generateId({
-    length: 6,
-    useLetters: true,
-  }).toUpperCase();
-
-  next();
-});
 
 const Invoice = mongoose.model("invoice", invoiceSchema);
 
