@@ -18,11 +18,13 @@ exports.getAllInvoices = catchAsync(async (req, res, next) => {
 });
 
 exports.getInvoice = catchAsync(async (req, res, next) => {
-  const { invoices: userInvoices } = await User.findById(req.user.id);
+  const { invoices: userInvoices } = req.user;
 
   const [invoice] = userInvoices.filter(
     (invoice) => invoice.invoiceId === req.params.id
   );
+
+  console.log(invoice);
 
   if (!invoice) {
     return next(new AppError("No invoice found with that ID", 404));
@@ -96,5 +98,25 @@ exports.deleteAllInvoices = catchAsync(async (req, res, next) => {
 
   res.status(204).json({
     status: "success",
+  });
+});
+
+exports.updateInvoiceStatus = catchAsync(async (req, res, next) => {
+  const user = req.user;
+
+  let updatedInvoice;
+  user.invoices = user.invoices.map((invoice) => {
+    if (invoice.invoiceId === req.params.id) {
+      updatedInvoice = { ...invoice, status: "paid" };
+      return updatedInvoice;
+    }
+    return invoice;
+  });
+
+  await user.save();
+
+  res.status(200).json({
+    status: "success",
+    invoice: updatedInvoice,
   });
 });

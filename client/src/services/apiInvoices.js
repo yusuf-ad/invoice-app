@@ -80,3 +80,25 @@ export async function deleteInvoice(invoiceId) {
     throw new Error(error.message);
   }
 }
+
+export async function updateInvoiceStatus(invoiceId) {
+  try {
+    const res = await fetch(`/api/v1/invoices/${invoiceId}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+    });
+
+    const data = await res.json();
+
+    if (!res.ok) {
+      const { message } = data;
+      throw new Error(message || "An error occurred!");
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

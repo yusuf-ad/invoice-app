@@ -15,6 +15,8 @@ function ConfirmDelete() {
     navigate("/");
   }
 
+  if (isDeleting) return <p className="bg-red-400 text-4xl">deleting</p>;
+
   return (
     <div>
       <h3 className="text-4xl font-bold tracking-wide text-skin-black">

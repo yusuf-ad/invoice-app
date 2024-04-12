@@ -29,7 +29,7 @@ function NewInvoiceModal() {
           isModalActive
             ? "translate-x-0 opacity-100"
             : "-translate-x-full opacity-0"
-        }  fixed inset-0 top-20 z-20 w-full overflow-y-scroll bg-white transition-all duration-300 md:w-2/3  xl:top-0 xl:w-1/2 xl:pl-28 dark:bg-skin-mirage2`}
+        }  fixed inset-0 top-20 z-20 w-full overflow-y-scroll bg-white transition-all duration-300 md:w-2/3 xl:top-0 xl:w-1/2 xl:pl-28 dark:bg-skin-mirage2`}
       >
         <CreateInvoiceForm />
       </div>

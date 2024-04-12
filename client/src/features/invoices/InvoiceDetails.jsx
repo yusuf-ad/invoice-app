@@ -15,10 +15,11 @@ import { formattedDate } from "../../utils/formatDate";
 import Modal from "../../ui/Modal/Modal";
 import { useEffect } from "react";
 import { useDeleteInvoice } from "./useDeleteInvoice";
+import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
 
 function InvoiceDetails() {
-  const { invoice, isLoading } = useInvoice();
-  const { isDeleting } = useDeleteInvoice();
+  const { invoice, isLoading, error, isError } = useInvoice();
+  const { updateStatus, isUpdatingStatus } = useUpdateInvoiceStatus();
 
   const { invoice: currentInvoice } = invoice ?? {};
 
@@ -28,7 +29,8 @@ function InvoiceDetails() {
     document.title = `Invoice #${currentInvoice?.invoiceId} | Invoice App`;
   }, [currentInvoice?.invoiceId]);
 
-  if (isDeleting) return <Loader />;
+  console.log(error);
+  console.log(isError);
 
   return (
     <>
@@ -49,6 +51,8 @@ function InvoiceDetails() {
             <div className="flex h-[35vh] items-center justify-center">
               <Loader />
             </div>
+          ) : isError ? (
+            <p className="mt-8 ">{error.message}</p>
           ) : (
             <>
               <div className="mt-8 flex w-full justify-between rounded-md bg-white px-6 py-6 text-sm text-skin-baliHai dark:bg-skin-mirage">
@@ -74,7 +78,11 @@ function InvoiceDetails() {
                   </Modal>
 
                   {currentInvoice.status === "pending" && (
-                    <button className="btn-sm bg-skin-purple text-white transition-opacity hover:opacity-70">
+                    <button
+                      onClick={() => updateStatus()}
+                      className="btn-sm bg-skin-purple text-white transition-opacity hover:opacity-70 disabled:opacity-70"
+                      disabled={isUpdatingStatus}
+                    >
                       Mark as Paid
                     </button>
                   )}

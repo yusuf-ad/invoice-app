@@ -6,7 +6,7 @@ import { useParams } from "react-router-dom";
 export function useInvoice() {
   const { id: invoiceId } = useParams();
 
-  const { data, isLoading } = useQuery(["invoice", invoiceId], {
+  const { data, isLoading, error, isError } = useQuery(["invoice", invoiceId], {
     queryFn: () => getInvoice(invoiceId),
 
     onError: (error) => {
@@ -18,5 +18,5 @@ export function useInvoice() {
 
   const { data: invoice } = data ?? {};
 
-  return { invoice, isLoading };
+  return { invoice, isLoading, error, isError };
 }
