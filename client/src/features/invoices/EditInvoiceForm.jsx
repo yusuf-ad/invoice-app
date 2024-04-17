@@ -2,10 +2,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-// Redux Imports
-import { useDispatch } from "react-redux";
-import { closeModal } from "../modalSlice";
-
 // Component Imports
 import FormCol from "../../ui/FormCol";
 import FormInput from "../../ui/FormInput";
@@ -17,9 +13,14 @@ import SelectDate from "../../ui/SelectDate";
 // Utility and Hook Imports
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
 import { useCreateInvoice } from "./useCreateInvoice";
+import Modal, { useModal } from "../../ui/Modal/Modal";
+import { useQueryClient } from "react-query";
 
 function EditInvoiceForm() {
-  const dispatch = useDispatch();
+  const queryClient = useQueryClient();
+  const { close: closeModal } = useModal();
+
+  const { invoice } = queryClient.getQueryData("invoice");
 
   const {
     register,
@@ -29,7 +30,9 @@ function EditInvoiceForm() {
     setValue,
     getValues,
     reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: invoice,
+  });
 
   const [paymentDue, setPaymentDue] = useState(
     // initial date is set to tomorrow
@@ -64,7 +67,7 @@ function EditInvoiceForm() {
   function onSubmit(data) {
     createNewInvoice(data);
 
-    dispatch(closeModal());
+    closeModal();
     reset();
   }
 
@@ -197,15 +200,14 @@ function EditInvoiceForm() {
       />
 
       <FormRow classes={"justify-between mt-12"}>
-        <div>
+        <Modal.Close>
           <button
-            onClick={() => dispatch(closeModal())}
             type="reset"
             className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
           >
             Discard
           </button>
-        </div>
+        </Modal.Close>
 
         <div className="space-x-3">
           <button
@@ -213,16 +215,16 @@ function EditInvoiceForm() {
             disabled={isCreating}
             onClick={() => {
               setValue("status", "draft");
-
               createNewInvoice(getValues());
-
-              dispatch(closeModal());
               reset();
+
+              closeModal();
             }}
             className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
           >
             Save as Draft
           </button>
+
           <button
             type="submit"
             disabled={isCreating}

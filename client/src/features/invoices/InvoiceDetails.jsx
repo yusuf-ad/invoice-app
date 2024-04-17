@@ -11,6 +11,7 @@ import Modal from "../../ui/Modal/Modal";
 import { TableItem } from "../../ui/TableItem";
 import { InvoiceStatus } from "./InvoiceStatus";
 import { InvoiceAddress } from "./InvoiceAddress";
+import EditInvoiceForm from "./EditInvoiceForm";
 
 import { formattedMoney } from "../../utils/formatMoney";
 import { formattedDate } from "../../utils/formatDate";
@@ -56,9 +57,22 @@ function InvoiceDetails() {
                   <InvoiceStatus status={currentInvoice.status} />
                 </div>
                 <div className="space-x-3">
-                  <button className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70">
-                    Edit
-                  </button>
+                  <Modal>
+                    <Modal.Open opens={"editInvoice"}>
+                      <button className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70">
+                        Edit
+                      </button>
+                    </Modal.Open>
+
+                    <Modal.Window
+                      name={"editInvoice"}
+                      container={
+                        "fixed inset-0 top-20 z-20 w-full overflow-y-scroll bg-white transition-all duration-300 md:w-2/3 xl:top-0 xl:w-1/2 xl:pl-28 dark:bg-skin-mirage2 overflow-x-hidden"
+                      }
+                    >
+                      <EditInvoiceForm />
+                    </Modal.Window>
+                  </Modal>
 
                   <Modal>
                     <Modal.Open opens="confirmDelete">
@@ -67,7 +81,12 @@ function InvoiceDetails() {
                       </button>
                     </Modal.Open>
 
-                    <Modal.Window name="confirmDelete">
+                    <Modal.Window
+                      name="confirmDelete"
+                      container={
+                        "center-xy fixed z-20 w-[480px] rounded-lg bg-white p-10 transition-all duration-300 dark:bg-skin-mirage"
+                      }
+                    >
                       <ConfirmDelete />
                     </Modal.Window>
                   </Modal>

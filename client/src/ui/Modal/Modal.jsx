@@ -53,7 +53,7 @@ function Close({ children }) {
   return cloneElement(children, { onClick: close });
 }
 
-function Window({ children, name }) {
+function Window({ children, name, container }) {
   const { openName, close } = useModal();
 
   const isModalActive = name === openName;
@@ -80,7 +80,7 @@ function Window({ children, name }) {
           isModalActive
             ? "pointer-events-auto translate-x-0 opacity-100"
             : "pointer-events-none -translate-x-full opacity-0"
-        }  center-xy fixed z-20 w-[480px] rounded-lg bg-white p-10 transition-all duration-300 dark:bg-skin-mirage`}
+        } ${container}`}
       >
         {children}
       </div>
