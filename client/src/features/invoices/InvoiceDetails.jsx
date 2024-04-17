@@ -1,20 +1,19 @@
+import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { ArrowLeft } from "../../ui/ArrowLeft";
-import { InvoiceStatus } from "./InvoiceStatus";
-import Loader from "../../ui//Loader/Loader";
-import { TableItem } from "../../ui/TableItem";
-import ConfirmDelete from "../../ui/ConfirmDelete";
-
-import { InvoiceAddress } from "./InvoiceAddress";
-
 import { useInvoice } from "./useInvoice";
+import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
+
+import { ArrowLeft } from "../../ui/ArrowLeft";
+import ConfirmDelete from "../../ui/ConfirmDelete";
+import Loader from "../../ui//Loader/Loader";
+import Modal from "../../ui/Modal/Modal";
+import { TableItem } from "../../ui/TableItem";
+import { InvoiceStatus } from "./InvoiceStatus";
+import { InvoiceAddress } from "./InvoiceAddress";
 
 import { formattedMoney } from "../../utils/formatMoney";
 import { formattedDate } from "../../utils/formatDate";
-import Modal from "../../ui/Modal/Modal";
-import { useEffect } from "react";
-import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
 
 function InvoiceDetails() {
   const { invoice, isLoading, error, isError } = useInvoice();
@@ -27,9 +26,6 @@ function InvoiceDetails() {
   useEffect(() => {
     document.title = `Invoice #${currentInvoice?.invoiceId} | Invoice App`;
   }, [currentInvoice?.invoiceId]);
-
-  console.log(error);
-  console.log(isError);
 
   return (
     <>

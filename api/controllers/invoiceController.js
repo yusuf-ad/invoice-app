@@ -25,8 +25,6 @@ exports.getInvoice = catchAsync(async (req, res, next) => {
     (invoice) => invoice.invoiceId === req.params.id
   );
 
-  console.log(invoice);
-
   if (!invoice) {
     return next(new AppError("No invoice found with that ID", 404));
   }
