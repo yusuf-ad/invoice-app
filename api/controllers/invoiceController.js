@@ -79,7 +79,7 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
 });
 
 exports.updateInvoice = catchAsync(async (req, res, next) => {
-  const invoiceId = req.params.id;
+  const { id: invoiceId } = req.params;
   const user = req.user;
 
   const paymentTerms = req.body.paymentTerms.split(" ").at(1);
@@ -97,16 +97,24 @@ exports.updateInvoice = catchAsync(async (req, res, next) => {
     total: req.body.total,
   };
 
-  const updatedInvoice = await Invoice.findOneAndUpdate(
-    {
-      invoiceId,
-    },
-    invoiceTemplate,
-    { new: true }
-  );
+  // const updatedInvoice = await Invoice.findOneAndUpdate(
+  //   {
+  //     invoiceId,
+  //   },
+  //   invoiceTemplate,
+  //   { new: true }
+  // );
 
   user.invoices = user.invoices.map((invoice) =>
-    invoice.invoiceId === invoiceId ? updatedInvoice : invoice
+    invoice.invoiceId === invoiceId
+      ? { ...invoice, ...invoiceTemplate }
+      : invoice
+  );
+
+  console.log(user.invoices);
+
+  const updatedInvoice = user.invoices.find(
+    (invoice) => invoice.invoiceId === invoiceId
   );
 
   await user.save();

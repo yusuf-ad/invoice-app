@@ -12,10 +12,10 @@ import SelectDate from "../../ui/SelectDate";
 
 // Utility and Hook Imports
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
-import { useCreateInvoice } from "./useCreateInvoice";
 import Modal, { useModal } from "../../ui/Modal/Modal";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
+import { useEditInvoice } from "./useEditInvoice";
 
 function EditInvoiceForm() {
   const queryClient = useQueryClient();
@@ -41,7 +41,7 @@ function EditInvoiceForm() {
     new Date(Date.now() + millisecondsInADay),
   );
 
-  const { createInvoice, isLoading: isCreating } = useCreateInvoice();
+  const { editInvoice, isEditing } = useEditInvoice();
 
   function createNewInvoice(data) {
     const items = getValues("items");
@@ -55,7 +55,7 @@ function EditInvoiceForm() {
       .reduce((acc, item) => +acc + +item.totalPrice, 0)
       .toFixed(2);
 
-    const newInvoice = {
+    const invoice = {
       ...data,
       total,
       items: itemsArray,
@@ -63,7 +63,7 @@ function EditInvoiceForm() {
       paymentDue,
     };
 
-    createInvoice(newInvoice);
+    editInvoice({ invoice, invoiceId });
   }
 
   function onSubmit(data) {
@@ -213,10 +213,10 @@ function EditInvoiceForm() {
 
         <button
           type="submit"
-          disabled={isCreating}
+          disabled={isEditing}
           className="btn-sm bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
         >
-          {isCreating ? "Creating..." : "Save & Send"}
+          {isEditing ? "Creating..." : "Save & Send"}
         </button>
       </FormRow>
     </form>

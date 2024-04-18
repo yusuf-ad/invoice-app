@@ -55,6 +55,52 @@ export async function createInvoice(newInvoice) {
   }
 }
 
+// export async function updateInvoice(invoice, invoiceId) {
+//   try {
+//     const res = await fetch(`/api/v1/invoices/${invoiceId}`, {
+//       method: "PUT",
+//       headers: {
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify(invoice),
+//     });
+//     const data = await res.json();
+
+//     if (!res.ok) {
+//       const { message } = data;
+
+//       throw new Error(message || "An error occurred!");
+//     }
+
+//     return data;
+//   } catch (error) {
+//     throw new Error(error.message);
+//   }
+// }
+
+export async function updateInvoice({ invoice, invoiceId }) {
+  try {
+    const res = await fetch(`/api/v1/invoices/${invoiceId}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(invoice),
+    });
+    const data = await res.json();
+
+    if (!res.ok) {
+      const { message } = data;
+
+      throw new Error(message || "An error occurred!");
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}
+
 export async function deleteInvoice(invoiceId) {
   try {
     const res = await fetch(`/api/v1/invoices/${invoiceId}`, {
