@@ -15,12 +15,14 @@ import { millisecondsInADay } from "../../utils/millisecondsInADay";
 import { useCreateInvoice } from "./useCreateInvoice";
 import Modal, { useModal } from "../../ui/Modal/Modal";
 import { useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
 
 function EditInvoiceForm() {
   const queryClient = useQueryClient();
   const { close: closeModal } = useModal();
+  const { id: invoiceId } = useParams();
 
-  const { invoice } = queryClient.getQueryData("invoice");
+  const { invoice } = queryClient.getQueryData(invoiceId) ?? {};
 
   const {
     register,
@@ -209,30 +211,13 @@ function EditInvoiceForm() {
           </button>
         </Modal.Close>
 
-        <div className="space-x-3">
-          <button
-            type="button"
-            disabled={isCreating}
-            onClick={() => {
-              setValue("status", "draft");
-              createNewInvoice(getValues());
-              reset();
-
-              closeModal();
-            }}
-            className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
-          >
-            Save as Draft
-          </button>
-
-          <button
-            type="submit"
-            disabled={isCreating}
-            className="btn-sm bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
-          >
-            {isCreating ? "Creating..." : "Save & Send"}
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={isCreating}
+          className="btn-sm bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
+        >
+          {isCreating ? "Creating..." : "Save & Send"}
+        </button>
       </FormRow>
     </form>
   );

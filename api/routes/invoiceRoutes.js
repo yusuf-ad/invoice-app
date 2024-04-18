@@ -16,6 +16,7 @@ router
 router
   .route("/:id")
   .get(invoiceController.getInvoice)
+  .put(invoiceController.updateInvoice)
   .delete(invoiceController.deleteInvoice)
   .patch(invoiceController.updateInvoiceStatus);
 

@@ -14,7 +14,6 @@ const addressSchema = new Schema(
 const invoiceSchema = new Schema(
   {
     invoiceId: String,
-
     description: {
       type: String,
       default: "Invoice description",

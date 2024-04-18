@@ -11,7 +11,7 @@ export function useInvoice() {
     queryFn: () => getInvoice(invoiceId),
 
     onSuccess: (invoice) => {
-      queryClient.setQueryData("invoice", invoice.data);
+      queryClient.setQueryData(invoiceId, invoice.data);
     },
 
     onError: (error) => {

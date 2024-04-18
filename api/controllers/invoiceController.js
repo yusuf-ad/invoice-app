@@ -78,6 +78,47 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
   });
 });
 
+exports.updateInvoice = catchAsync(async (req, res, next) => {
+  const invoiceId = req.params.id;
+  const user = req.user;
+
+  const paymentTerms = req.body.paymentTerms.split(" ").at(1);
+
+  const invoiceTemplate = {
+    paymentDue: req.body.paymentDue,
+    description: req.body.description,
+    paymentTerms,
+    status: req.body.status,
+    clientName: req.body.clientName,
+    clientEmail: req.body.clientEmail,
+    senderAddress: req.body.senderAddress,
+    clientAddress: req.body.clientAddress,
+    items: req.body.items,
+    total: req.body.total,
+  };
+
+  const updatedInvoice = await Invoice.findOneAndUpdate(
+    {
+      invoiceId,
+    },
+    invoiceTemplate,
+    { new: true }
+  );
+
+  user.invoices = user.invoices.map((invoice) =>
+    invoice.invoiceId === invoiceId ? updatedInvoice : invoice
+  );
+
+  await user.save();
+
+  res.status(200).json({
+    status: "success",
+    data: {
+      invoice: updatedInvoice,
+    },
+  });
+});
+
 exports.deleteInvoice = catchAsync(async (req, res, next) => {
   const user = req.user;
 
