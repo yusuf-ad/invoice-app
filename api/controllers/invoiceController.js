@@ -97,14 +97,6 @@ exports.updateInvoice = catchAsync(async (req, res, next) => {
     total: req.body.total,
   };
 
-  // const updatedInvoice = await Invoice.findOneAndUpdate(
-  //   {
-  //     invoiceId,
-  //   },
-  //   invoiceTemplate,
-  //   { new: true }
-  // );
-
   user.invoices = user.invoices.map((invoice) =>
     invoice.invoiceId === invoiceId
       ? { ...invoice, ...invoiceTemplate }

@@ -8,7 +8,7 @@ import {
 } from "react";
 import { createPortal } from "react-dom";
 
-import Overlay from "../Overlay";
+import Overlay from "./Overlay";
 
 const ModalContext = createContext();
 

@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import { useDeleteInvoice } from "../features/invoices/useDeleteInvoice";
-import Modal from "./Modal/Modal";
+import Modal from "./Modal";
 
 function ConfirmDelete() {
   const { id: invoiceId } = useParams();

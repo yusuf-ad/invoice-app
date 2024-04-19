@@ -4,7 +4,6 @@ import { useForm } from "react-hook-form";
 
 // Redux Imports
 import { useDispatch } from "react-redux";
-import { closeModal } from "../modalSlice";
 
 // Component Imports
 import FormCol from "../../ui/FormCol";
@@ -17,7 +16,7 @@ import SelectDate from "../../ui/SelectDate";
 // Utility and Hook Imports
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
 import { useCreateInvoice } from "./useCreateInvoice";
-import Modal, { useModal } from "../../ui/Modal/Modal";
+import Modal, { useModal } from "../../ui/Modal";
 
 function CreateInvoiceForm() {
   const dispatch = useDispatch();

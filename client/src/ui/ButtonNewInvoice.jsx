@@ -1,6 +1,6 @@
 import iconPlus from "../../public/assets/icon-plus.svg";
 
-import Modal from "./Modal/Modal";
+import Modal from "./Modal";
 import CreateInvoiceForm from "../features/invoices/CreateInvoiceForm";
 
 export function ButtonNewInvoice() {

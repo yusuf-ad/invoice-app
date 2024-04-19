@@ -4,12 +4,11 @@ import { InvoicesCount } from "../features/invoices/InvoicesCount";
 import { useInvoices } from "../features/invoices/useInvoices";
 
 // UI
-import { ButtonFilter } from "../ui/ButtonFilter";
 import { ButtonNewInvoice } from "../ui/ButtonNewInvoice";
 import { Header } from "../ui/Header";
 
 // Other
-import { toggleModal } from "../features/modalSlice";
+import Filter from "../ui/Filter";
 
 export default function InvoicesApp() {
   const { invoices, invoicesLength, isLoading, error } = useInvoices();
@@ -24,8 +23,8 @@ export default function InvoicesApp() {
         <Header styles="flex items-center gap-5">
           <InvoicesCount invoicesLength={invoicesLength} />
 
-          <ButtonFilter />
-          <ButtonNewInvoice toggleModal={toggleModal} />
+          <Filter />
+          <ButtonNewInvoice />
         </Header>
 
         <InvoicesList invoices={invoices?.invoices} isLoading={isLoading} />

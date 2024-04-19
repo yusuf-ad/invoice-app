@@ -12,7 +12,7 @@ import SelectDate from "../../ui/SelectDate";
 
 // Utility and Hook Imports
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
-import Modal, { useModal } from "../../ui/Modal/Modal";
+import Modal, { useModal } from "../../ui/Modal";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { useEditInvoice } from "./useEditInvoice";
@@ -31,7 +31,6 @@ function EditInvoiceForm() {
     watch,
     setValue,
     getValues,
-    reset,
   } = useForm({
     defaultValues: invoice,
   });
@@ -70,7 +69,6 @@ function EditInvoiceForm() {
     createNewInvoice(data);
 
     closeModal();
-    reset();
   }
 
   return (

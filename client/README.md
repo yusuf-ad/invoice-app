@@ -125,3 +125,9 @@ In this context, you should use user.save().
 The User.save() method is not correct because User is likely the model class, and the save() method is an instance method, not a static method.
 
 You want to save the specific user instance that you've updated, not the entire User model.
+
+Remove the default styles for checkbox
+
+```html
+<input type="checkbox" className="appearance-none" />
+```

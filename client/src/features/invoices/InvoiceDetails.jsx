@@ -7,7 +7,7 @@ import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
 import { ArrowLeft } from "../../ui/ArrowLeft";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Loader from "../../ui//Loader/Loader";
-import Modal from "../../ui/Modal/Modal";
+import Modal from "../../ui/Modal";
 import { TableItem } from "../../ui/TableItem";
 import { InvoiceStatus } from "./InvoiceStatus";
 import { InvoiceAddress } from "./InvoiceAddress";
