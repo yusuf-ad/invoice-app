@@ -21,15 +21,15 @@ function SignUpPage() {
 
   return (
     <div className="relative mt-10 flex items-center justify-center px-8">
-      <div className="container max-w-2xl rounded-md bg-white px-8 py-12 shadow-md">
-        <h1 className="mb-8 ml-8 text-2xl font-extrabold">
+      <div className="dark:bg-skin-mirage container max-w-2xl rounded-md bg-white px-8 py-12 shadow-md">
+        <h1 className="text-skin-black mb-8 ml-8 text-2xl font-extrabold">
           Sign up to Invoice App
         </h1>
         <form
           onSubmit={handleSubmit(onSuccess)}
-          className=" mt-8 rounded-md bg-white px-8 py-6"
+          className="dark:bg-skin-ebony bg-skin-selago mt-8 rounded-md  px-8 py-6"
         >
-          <div className="space-y-8">
+          <div className="flex flex-col gap-8">
             <InputField
               label="Your fullname:"
               placeholder="John Doe"
@@ -68,12 +68,12 @@ function SignUpPage() {
           </div>
           <button
             disabled={isLoading}
-            className="btn-md mt-10 w-full bg-purple font-extrabold text-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn-md text-skin-white bg-skin-purple mt-10 w-full font-extrabold disabled:cursor-not-allowed disabled:opacity-50"
           >
             Sign up
           </button>
 
-          <p className="mt-8">
+          <p className="text-skin-black mt-8">
             Already a Customer?{" "}
             <Link
               className="underline underline-offset-2 hover:text-purple"

@@ -1,12 +1,14 @@
-import { InvoicesList } from "../ui/InvoicesList";
-import { ButtonFilter } from "../ui/ButtonFilter";
+// Features
+import InvoicesList from "../features/invoices/InvoicesList";
+import { InvoicesCount } from "../features/invoices/InvoicesCount";
+import { useInvoices } from "../features/invoices/useInvoices";
+
+// UI
 import { ButtonNewInvoice } from "../ui/ButtonNewInvoice";
 import { Header } from "../ui/Header";
-import { InvoicesCount } from "../ui/InvoicesCount";
 
-import { toggleModal } from "../features/modalSlice";
-import NewInvoiceModal from "../features/invoices/NewInvoiceModal";
-import { useInvoices } from "../features/invoices/useInvoices";
+// Other
+import Filter from "../ui/Filter";
 
 export default function InvoicesApp() {
   const { invoices, invoicesLength, isLoading, error } = useInvoices();
@@ -21,15 +23,12 @@ export default function InvoicesApp() {
         <Header styles="flex items-center gap-5">
           <InvoicesCount invoicesLength={invoicesLength} />
 
-          <ButtonFilter />
-          <ButtonNewInvoice toggleModal={toggleModal} />
+          <Filter />
+          <ButtonNewInvoice />
         </Header>
 
         <InvoicesList invoices={invoices?.invoices} isLoading={isLoading} />
       </div>
-
-      {/* create new invoice form */}
-      <NewInvoiceModal />
     </>
   );
 }

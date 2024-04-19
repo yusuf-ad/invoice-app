@@ -1,4 +1,12 @@
-/** @type {import('tailwindcss').Config} */
+function withOpacity(variableName) {
+  return ({ opacityValue }) => {
+    if (opacityValue !== undefined) {
+      return `rgba(var(${variableName}), ${opacityValue})`;
+    }
+    return `rgb(var(${variableName}))`;
+  };
+}
+
 export default {
   darkMode: "class",
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
@@ -6,23 +14,38 @@ export default {
     container: { center: true },
     extend: {
       colors: {
-        purple: "#7c5dfa",
-        heliotrope: "#9277ff",
-        mirage: "#1e2139",
-        ebony: "#252945",
-        selago: "#dfe3fa",
-        baliHai: "#888eb0",
-        shipCove: "#7e88c3",
-        vulcan: "#0c0e16",
-        burntSienna: "#ec5757",
-        monaLisa: "#ff9797",
-        whisper: "#f8f8fb",
-        offWhite: "#f9fafe",
-        mirage2: "#141625",
-        darkAccent: "#494e6e",
-        orange: "#ff8f00",
-        fadedOrange: "rgba(255, 143, 0, 0.0571)",
-        otherDark: "#373b53",
+        skin: {
+          white: withOpacity("--color-white"),
+          black: withOpacity("--color-black"),
+          purple: withOpacity("--color-purple"),
+          heliotrope: withOpacity("--color-heliotrope"),
+          mirage: withOpacity("--color-mirage"),
+          ebony: withOpacity("--color-ebony"),
+          selago: withOpacity("--color-selago"),
+          baliHai: withOpacity("--color-bali-hai"),
+          shipCove: withOpacity("--color-ship-cove"),
+          vulcan: withOpacity("--color-vulcan"),
+          burntSienna: withOpacity("--color-burnt-sienna"),
+          monaLisa: withOpacity("--color-mona-lisa"),
+          whisper: withOpacity("--color-whisper"),
+          offWhite: withOpacity("--color-off-white"),
+          mirage2: withOpacity("--color-mirage2"),
+          darkAccent: withOpacity("--color-dark-accent"),
+          fadedOrange: withOpacity("--color-faded-orange"),
+
+          green: withOpacity("--color-green"),
+          orange: withOpacity("--color-orange"),
+          gray: withOpacity("--color-gray"),
+        },
+      },
+      backgroundColor: {
+        skin: {
+          whisper: withOpacity("--color-whisper"),
+
+          green: withOpacity("--color-green"),
+          orange: withOpacity("--color-orange"),
+          gray: withOpacity("--color-gray"),
+        },
       },
       fontFamily: {
         spartan: ["Spartan", "sans-serif"],

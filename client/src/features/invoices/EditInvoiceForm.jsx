@@ -2,9 +2,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-// Redux Imports
-import { useDispatch } from "react-redux";
-
 // Component Imports
 import FormCol from "../../ui/FormCol";
 import FormInput from "../../ui/FormInput";
@@ -15,12 +12,17 @@ import SelectDate from "../../ui/SelectDate";
 
 // Utility and Hook Imports
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
-import { useCreateInvoice } from "./useCreateInvoice";
 import Modal, { useModal } from "../../ui/Modal";
+import { useQueryClient } from "react-query";
+import { useParams } from "react-router-dom";
+import { useEditInvoice } from "./useEditInvoice";
 
-function CreateInvoiceForm() {
-  const dispatch = useDispatch();
+function EditInvoiceForm() {
+  const queryClient = useQueryClient();
   const { close: closeModal } = useModal();
+  const { id: invoiceId } = useParams();
+
+  const { invoice } = queryClient.getQueryData(invoiceId) ?? {};
 
   const {
     register,
@@ -29,15 +31,16 @@ function CreateInvoiceForm() {
     watch,
     setValue,
     getValues,
-    reset,
-  } = useForm();
+  } = useForm({
+    defaultValues: invoice,
+  });
 
   const [paymentDue, setPaymentDue] = useState(
     // initial date is set to tomorrow
     new Date(Date.now() + millisecondsInADay),
   );
 
-  const { createInvoice, isLoading: isCreating } = useCreateInvoice();
+  const { editInvoice, isEditing } = useEditInvoice();
 
   function createNewInvoice(data) {
     const items = getValues("items");
@@ -51,7 +54,7 @@ function CreateInvoiceForm() {
       .reduce((acc, item) => +acc + +item.totalPrice, 0)
       .toFixed(2);
 
-    const newInvoice = {
+    const invoice = {
       ...data,
       total,
       items: itemsArray,
@@ -59,14 +62,13 @@ function CreateInvoiceForm() {
       paymentDue,
     };
 
-    createInvoice(newInvoice);
+    editInvoice({ invoice, invoiceId });
   }
 
   function onSubmit(data) {
     createNewInvoice(data);
 
     closeModal();
-    reset();
   }
 
   return (
@@ -207,33 +209,16 @@ function CreateInvoiceForm() {
           </button>
         </Modal.Close>
 
-        <div className="space-x-3">
-          <button
-            type="button"
-            disabled={isCreating}
-            onClick={() => {
-              setValue("status", "draft");
-              createNewInvoice(getValues());
-              reset();
-
-              closeModal();
-            }}
-            className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
-          >
-            Save as Draft
-          </button>
-
-          <button
-            type="submit"
-            disabled={isCreating}
-            className="btn-sm bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
-          >
-            {isCreating ? "Creating..." : "Save & Send"}
-          </button>
-        </div>
+        <button
+          type="submit"
+          disabled={isEditing}
+          className="btn-sm bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
+        >
+          {isEditing ? "Creating..." : "Save & Send"}
+        </button>
       </FormRow>
     </form>
   );
 }
 
-export default CreateInvoiceForm;
+export default EditInvoiceForm;

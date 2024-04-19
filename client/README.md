@@ -117,3 +117,17 @@ Their main focus should be:
 
 1. displaying/updating UI.
 2. responding to users' interactions.
+
+Another difference is that mutations don't share state like useQuery does. You can invoke the same useQuery call multiple times in different components and will get the same, cached result returned to you - but this won't work for mutations.
+
+In this context, you should use user.save().
+
+The User.save() method is not correct because User is likely the model class, and the save() method is an instance method, not a static method.
+
+You want to save the specific user instance that you've updated, not the entire User model.
+
+Remove the default styles for checkbox
+
+```html
+<input type="checkbox" className="appearance-none" />
+```

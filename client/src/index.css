@@ -4,17 +4,67 @@
 
 @layer base {
   body {
-    @apply relative min-h-screen  bg-whisper text-vulcan;
+    @apply relative min-h-screen bg-skin-whisper text-skin-black transition-colors duration-300;
+  }
+
+  :root {
+    /* Primary Colors */
+    --color-purple: 124, 93, 250; /* rgb(124, 93, 250) */
+    --color-heliotrope: 146, 119, 255; /* rgb(146, 119, 255) */
+
+    --color-orange: 255, 143, 0; /* rgb(255, 143, 0) */
+    --color-green: 51, 214, 159; /* rgb(51, 214, 159) */
+    --color-gray: 55, 59, 83; /* rgb(55, 59, 83) */
+
+    --color-faded-orange: 255, 143, 0, 0.0571; /* rgba(255, 143, 0, 0.0571) */
+
+    /* Dark Shades */
+    --color-mirage: 30, 33, 57; /* rgb(30, 33, 57) */
+    --color-ebony: 37, 41, 69; /* rgb(37, 41, 69) */
+    --color-vulcan: 12, 14, 22; /* rgb(12, 14, 22) */
+    --color-mirage2: 20, 22, 37; /* rgb(20, 22, 37) */
+    --color-dark-accent: 73, 78, 110; /* rgb(73, 78, 110) */
+    --color-black: 0, 0, 0; /* rgb(0, 0, 0) */
+    /* deneme: rgb(55, 59, 83) */
+
+    /* Light Shades */
+    --color-selago: 223, 227, 250; /* rgb(223, 227, 250) */
+    --color-whisper: 248, 248, 251; /* rgb(248, 248, 251) */
+    --color-off-white: 249, 250, 254; /* rgb(249, 250, 254) */
+    --color-white: 255, 255, 255; /* rgb(255, 255, 255) */
+
+    /* Other Colors */
+    --color-bali-hai: 136, 142, 176; /* rgb(136, 142, 176) */
+    --color-ship-cove: 126, 136, 195; /* rgb(126, 136, 195) */
+    --color-burnt-sienna: 236, 87, 87; /* rgb(236, 87, 87) */
+    --color-mona-lisa: 255, 151, 151; /* rgb(255, 151, 151) */
+  }
+
+  .dark {
+    --color-bali-hai: 255, 255, 255;
+    --color-whisper: 20, 22, 37;
+
+    --color-black: 255, 255, 255;
+    --color-white: 30, 33, 57;
   }
 }
 
 @layer components {
   .btn-sm {
-    @apply transition-colors-2 rounded-full px-6 py-4 text-xs font-bold;
+    @apply transition-colors-3 rounded-full px-6 py-4 text-xs font-bold tracking-wider;
   }
 
   .btn-md {
     @apply rounded-2xl px-8 py-4 text-sm font-bold transition-opacity duration-300 hover:opacity-85;
+  }
+
+  .loader-mini {
+    border: 3px solid #f3f3f3;
+    border-radius: 50%;
+    border-top: 3px solid #3498db;
+    width: 18px;
+    height: 18px;
+    animation: spin 2s linear infinite;
   }
 }
 
@@ -49,5 +99,14 @@
   }
   .transition-colors-3 {
     @apply transition-colors duration-300;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
   }
 }

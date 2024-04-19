@@ -1,3 +1,6 @@
+import deleteIcon from "../../public/assets/icon-delete.svg";
+import plusIcon from "../../public/assets/icon-plus.svg";
+
 import { useRef, useState } from "react";
 import FormCol from "./FormCol";
 import FormInput from "./FormInput";
@@ -52,9 +55,9 @@ function ItemsList({ register, errors, watch, getValues }) {
       <button
         onClick={handleAddItem}
         type="button"
-        className="transition-colors-1 mt-8 flex w-full items-center justify-center gap-1 rounded-full bg-gray-200/35 py-4 text-xs font-bold capitalize text-shipCove hover:bg-selago"
+        className="transition-colors-1 mt-8 flex w-full items-center justify-center gap-1 rounded-full border-2 border-transparent bg-skin-offWhite py-4 text-xs font-bold capitalize text-skin-baliHai hover:border-skin-purple dark:bg-skin-mirage  "
       >
-        <img src="./assets/icon-plus.svg" alt="icon plus" />
+        <img src={plusIcon} alt="icon plus" />
         Add new item
       </button>
     </div>
@@ -106,16 +109,12 @@ function ItemRow({ errors, register, watch, id, removeItem }) {
             <label className="text-xs font-medium capitalize text-gray-400">
               Total
             </label>
-            <span className="mb-3 font-bold text-shipCove">
+            <span className="mb-3 font-bold text-skin-shipCove">
               {total.toFixed(2)}
             </span>
           </div>
           <button onClick={handleRemoveItem} type="button">
-            <img
-              className="w-4"
-              src="./assets/icon-delete.svg"
-              alt="icon trash"
-            />
+            <img className="w-4" src={deleteIcon} alt="icon trash" />
           </button>
         </div>
       </FormRow>

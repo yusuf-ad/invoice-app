@@ -14,14 +14,16 @@ export function InputField({
   const inputElement = useRef(null);
 
   return (
-    <div className="flex flex-col gap-2">
-      <label htmlFor={id}>{label}</label>
+    <div className="flex flex-col gap-3">
+      <label className="text-skin-black" htmlFor={id}>
+        {label}
+      </label>
 
       <div className="relative">
         <input
           maxLength={24}
           ref={inputElement}
-          className="w-full bg-selago py-2 px-4 rounded-lg outline-purple"
+          className="text-skin-black outline-skin-purple bg-skin-whisper w-full rounded-lg px-4 py-2"
           placeholder={placeholder}
           autoComplete={`current-${id}`}
           id={id}

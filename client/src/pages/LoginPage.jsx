@@ -31,9 +31,9 @@ function LoginPage() {
 
       <form
         onSubmit={(e) => e.preventDefault()}
-        className=" mt-8 flex flex-col rounded-md bg-white px-8 py-6"
+        className=" dark:bg-skin-mirage mt-8 flex flex-col rounded-md bg-white px-8 py-6"
       >
-        <div className="space-y-8">
+        <div className="flex flex-col gap-8">
           <InputField
             label={"Username:"}
             placeholder={"username"}
@@ -54,7 +54,7 @@ function LoginPage() {
 
           <button
             disabled={isLoading}
-            className="btn-md w-full bg-purple font-extrabold text-white disabled:cursor-not-allowed disabled:opacity-50"
+            className="btn-md bg-skin-purple text-skin-white mt-2 w-full font-extrabold disabled:cursor-not-allowed disabled:opacity-50"
           >
             Log in
           </button>
