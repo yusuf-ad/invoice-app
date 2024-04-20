@@ -9,9 +9,25 @@ import { Header } from "../ui/Header";
 
 // Other
 import Filter from "../ui/Filter";
+import { useSearchParams } from "react-router-dom";
+
+const filters = ["draft", "pending", "paid"];
 
 export default function InvoicesApp() {
-  const { invoices, invoicesLength, isLoading, error } = useInvoices();
+  const { invoices, isLoading, error } = useInvoices();
+  const [searchParams] = useSearchParams();
+
+  // 1) filter invoices
+  const activeFilters = filters.filter(
+    (filter) => searchParams.get(filter) === "true",
+  );
+
+  // 2) filter invoices
+  const filteredInvoices = invoices?.invoices?.filter((invoice) => {
+    if (activeFilters.length === 0) return true;
+
+    return activeFilters.includes(invoice.status);
+  });
 
   if (!isLoading && error) {
     return <div>error</div>;
@@ -21,13 +37,13 @@ export default function InvoicesApp() {
     <>
       <div className="container mt-4 max-w-3xl xl:mt-0">
         <Header styles="flex items-center gap-5">
-          <InvoicesCount invoicesLength={invoicesLength} />
+          <InvoicesCount invoicesLength={filteredInvoices?.length} />
 
           <Filter />
           <ButtonNewInvoice />
         </Header>
 
-        <InvoicesList invoices={invoices?.invoices} isLoading={isLoading} />
+        <InvoicesList invoices={filteredInvoices} isLoading={isLoading} />
       </div>
     </>
   );

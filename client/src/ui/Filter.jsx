@@ -15,10 +15,13 @@ function Filter() {
 
     if (filterElement) {
       const filterText = filterElement.textContent.toLowerCase();
+      const checkbox = filterElement.firstElementChild;
 
-      filterElement.firstElementChild.checked
-        ? activeFilters.set(filterText, true)
-        : activeFilters.delete(filterText);
+      if (checkbox.checked) {
+        activeFilters.set(filterText, true);
+      } else {
+        activeFilters.delete(filterText);
+      }
 
       setActiveFilters(activeFilters);
     }
