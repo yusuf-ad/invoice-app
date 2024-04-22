@@ -2,8 +2,8 @@ import rightChevron from "../../../public/assets/icon-arrow-right.svg";
 
 import { InvoiceStatus } from "./InvoiceStatus";
 
-import { formattedMoney } from "../../utils/formatMoney";
-import { formattedDate } from "../../utils/formatDate";
+import { formatMoney } from "../../utils/formatMoney";
+import { formatDate } from "../../utils/formatDate";
 
 import { Link } from "react-router-dom";
 
@@ -25,10 +25,10 @@ export function Invoice({ invoice }) {
           <div className="flex items-center justify-between">
             <div>
               <p className="mb-2 text-skin-baliHai">
-                Due {formattedDate(new Date(invoice.paymentDue))}
+                Due {formatDate(new Date(invoice.paymentDue))}
               </p>
               <p className="text-lg font-bold text-skin-black">
-                ${formattedMoney(invoice.total)}
+                ${formatMoney(invoice.total)}
               </p>
             </div>
             <InvoiceStatus status={invoice.status} />
@@ -41,14 +41,14 @@ export function Invoice({ invoice }) {
               #<span className="text-skin-black ">{invoice.invoiceId}</span>
             </p>
             <p className="text-skin-baliHai">
-              Due {formattedDate(new Date(invoice.paymentDue))}
+              Due {formatDate(new Date(invoice.paymentDue))}
             </p>
           </div>
           <div className="flex flex-1 justify-between gap-12 ">
             <div className="flex flex-1 items-center gap-4">
               <p className=" text-skin-baliHai">{invoice.clientName}</p>
               <p className="ml-auto text-base font-bold text-skin-black">
-                ${formattedMoney(invoice.total)}
+                ${formatMoney(invoice.total)}
               </p>
             </div>
             <div className="flex items-center gap-4">

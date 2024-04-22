@@ -4,6 +4,6 @@ const fm = new FormatMoney({
   decimals: 2,
 });
 
-export function formattedMoney(money) {
+export function formatMoney(money) {
   return fm.from(+money, { symbol: "$" }, true).fullAmount;
 }

@@ -133,18 +133,6 @@ exports.deleteInvoice = catchAsync(async (req, res, next) => {
   });
 });
 
-exports.deleteAllInvoices = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
-
-  user.invoices = [];
-
-  await user.save();
-
-  res.status(204).json({
-    status: "success",
-  });
-});
-
 exports.updateInvoiceStatus = catchAsync(async (req, res, next) => {
   const user = req.user;
 
@@ -162,5 +150,17 @@ exports.updateInvoiceStatus = catchAsync(async (req, res, next) => {
   res.status(200).json({
     status: "success",
     invoice: updatedInvoice,
+  });
+});
+
+exports.deleteAllInvoices = catchAsync(async (req, res, next) => {
+  const user = await User.findById(req.user.id);
+
+  user.invoices = [];
+
+  await user.save();
+
+  res.status(204).json({
+    status: "success",
   });
 });

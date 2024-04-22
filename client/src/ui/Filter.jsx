@@ -50,7 +50,7 @@ function Filter() {
       <button
         ref={button}
         onClick={() => setIsActive(!isActive)}
-        className="flex items-center text-sm"
+        className="flex select-none items-center text-sm"
       >
         Filter
         <span className="ml-1 hidden md:inline-block">by status</span>
@@ -63,7 +63,12 @@ function Filter() {
 
       <ul
         ref={menu}
-        className={`${isActive ? "block" : "hidden"} absolute right-0 z-30 mt-4 w-48 space-y-3 rounded-md bg-skin-white p-6`}
+        className={`${
+          isActive
+            ? "pointer-events-auto translate-y-4 opacity-100"
+            : "pointer-events-none translate-y-0 opacity-0"
+        }
+         transition-1 absolute right-0 z-30 w-48 space-y-3 rounded-md bg-skin-white p-6`}
       >
         <li
           onClick={handleSelect}

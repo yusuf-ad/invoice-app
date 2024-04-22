@@ -25,7 +25,6 @@
     --color-mirage2: 20, 22, 37; /* rgb(20, 22, 37) */
     --color-dark-accent: 73, 78, 110; /* rgb(73, 78, 110) */
     --color-black: 0, 0, 0; /* rgb(0, 0, 0) */
-    /* deneme: rgb(55, 59, 83) */
 
     /* Light Shades */
     --color-selago: 223, 227, 250; /* rgb(223, 227, 250) */
@@ -46,6 +45,16 @@
 
     --color-black: 255, 255, 255;
     --color-white: 30, 33, 57;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    .dark {
+      --color-bali-hai: 255, 255, 255;
+      --color-whisper: 20, 22, 37;
+
+      --color-black: 255, 255, 255;
+      --color-white: 30, 33, 57;
+    }
   }
 }
 

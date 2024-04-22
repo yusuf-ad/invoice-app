@@ -30,7 +30,7 @@ export default function InvoicesApp() {
   });
 
   if (!isLoading && error) {
-    return <div>error</div>;
+    return <div>{error.message}</div>;
   }
 
   return (

@@ -13,8 +13,8 @@ import { InvoiceStatus } from "./InvoiceStatus";
 import { InvoiceAddress } from "./InvoiceAddress";
 import EditInvoiceForm from "./EditInvoiceForm";
 
-import { formattedMoney } from "../../utils/formatMoney";
-import { formattedDate } from "../../utils/formatDate";
+import { formatMoney } from "../../utils/formatMoney";
+import { formatDate } from "../../utils/formatDate";
 
 function InvoiceDetails() {
   const { invoice, isLoading, error, isError } = useInvoice();
@@ -126,13 +126,13 @@ function InvoiceDetails() {
                       Invoice Date
                     </h3>
                     <p className="mb-6 text-lg font-bold text-skin-black">
-                      {formattedDate(new Date(currentInvoice.createdAt))}
+                      {formatDate(new Date(currentInvoice.createdAt))}
                     </p>
                     <h3 className="mb-2 text-sm text-skin-baliHai ">
                       Payment due
                     </h3>
                     <p className="mb-6 text-lg font-bold text-skin-black">
-                      {formattedDate(new Date(currentInvoice.paymentDue))}
+                      {formatDate(new Date(currentInvoice.paymentDue))}
                     </p>
                   </div>
                   <div className="basis-1/4">
@@ -174,7 +174,7 @@ function InvoiceDetails() {
                   <div className="flex items-center justify-between bg-skin-gray px-6 py-6 text-white dark:bg-skin-vulcan">
                     <p className="text-sm">Amount Due</p>
                     <h2 className="text-xl font-bold">
-                      ${formattedMoney(currentInvoice.total)}
+                      ${formatMoney(currentInvoice.total)}
                     </h2>
                   </div>
                 </div>
