@@ -29,10 +29,6 @@ export default function InvoicesApp() {
     return activeFilters.includes(invoice.status);
   });
 
-  if (!isLoading && error) {
-    return <div>{error.message}</div>;
-  }
-
   return (
     <>
       <div className="container mt-4 max-w-3xl xl:mt-0">
@@ -43,7 +39,11 @@ export default function InvoicesApp() {
           <ButtonNewInvoice />
         </Header>
 
-        <InvoicesList invoices={filteredInvoices} isLoading={isLoading} />
+        <InvoicesList
+          invoices={filteredInvoices}
+          isLoading={isLoading}
+          error={error}
+        />
       </div>
     </>
   );

@@ -16,7 +16,6 @@ import Modal, { useModal } from "../../ui/Modal";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { useEditInvoice } from "./useEditInvoice";
-import { formatDate } from "../../utils/formatDate";
 
 function EditInvoiceForm() {
   const queryClient = useQueryClient();
@@ -40,9 +39,9 @@ function EditInvoiceForm() {
     new Date(invoice?.paymentDue) ?? new Date(Date.now() + millisecondsInADay),
   );
 
-  const { editInvoice, isEditing } = useEditInvoice();
+  const { editInvoice: editInvoiceAPI, isEditing } = useEditInvoice();
 
-  function createNewInvoice(data) {
+  function editInvoice(data) {
     const items = getValues("items");
     const itemsArray = Object.values(items).map((item) => ({
       ...item,
@@ -62,11 +61,11 @@ function EditInvoiceForm() {
       paymentDue,
     };
 
-    editInvoice({ invoice, invoiceId });
+    editInvoiceAPI({ invoice, invoiceId });
   }
 
   function onSubmit(data) {
-    createNewInvoice(data);
+    editInvoice(data);
 
     closeModal();
   }
@@ -173,7 +172,7 @@ function EditInvoiceForm() {
         error={errors?.paymentTerms}
       >
         <SelectionField
-          active={getValues("paymentTerms")}
+          active={getValues("paymentTerms") || "Net 1 day"}
           menuItems={["Net 1 day", "Net 7 days", "Net 14 days", "Net 30 days"]}
           setValue={setValue}
           setPaymentDue={setPaymentDue}

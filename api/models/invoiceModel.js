@@ -51,6 +51,6 @@ const invoiceSchema = new Schema(
   { timestamps: true }
 );
 
-const Invoice = mongoose.model("invoice", invoiceSchema);
+const Invoice = mongoose.model("Invoice", invoiceSchema);
 
-module.exports = { Invoice, invoiceSchema };
+module.exports = Invoice;

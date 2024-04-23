@@ -1,8 +1,6 @@
 const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 
-const { invoiceSchema } = require("../models/invoiceModel");
-
 const { Schema } = mongoose;
 
 const userSchema = new Schema({
@@ -33,7 +31,12 @@ const userSchema = new Schema({
     // TODO it wont show up on any output
     // select: false,
   },
-  invoices: [invoiceSchema],
+  invoices: [
+    {
+      type: Schema.Types.ObjectId,
+      ref: "Invoice",
+    },
+  ],
 });
 
 // ! DOCUMENT MIDDLEWARE: runs before .save() and .create()

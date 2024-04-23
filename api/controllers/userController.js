@@ -2,7 +2,6 @@ const User = require("../models/userModel");
 
 const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
-
 const createToken = require("../utils/createToken");
 
 exports.getAllUsers = catchAsync(async (req, res, next) => {

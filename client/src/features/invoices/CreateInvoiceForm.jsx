@@ -2,9 +2,6 @@
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 
-// Redux Imports
-import { useDispatch } from "react-redux";
-
 // Component Imports
 import FormCol from "../../ui/FormCol";
 import FormInput from "../../ui/FormInput";
@@ -19,7 +16,6 @@ import { useCreateInvoice } from "./useCreateInvoice";
 import Modal, { useModal } from "../../ui/Modal";
 
 function CreateInvoiceForm() {
-  const dispatch = useDispatch();
   const { close: closeModal } = useModal();
 
   const {
@@ -59,14 +55,23 @@ function CreateInvoiceForm() {
       paymentDue,
     };
 
-    createInvoice(newInvoice);
+    createInvoice(newInvoice, {
+      onSuccess: () => {
+        closeModal();
+        clearForm();
+      },
+    });
+  }
+
+  function clearForm() {
+    reset();
+    setPaymentDue(new Date(Date.now() + millisecondsInADay));
+    // ! this doesn't work
+    setValue("paymentTerms", "Net 1 day");
   }
 
   function onSubmit(data) {
     createNewInvoice(data);
-
-    closeModal();
-    reset();
   }
 
   return (
@@ -171,6 +176,7 @@ function CreateInvoiceForm() {
         error={errors?.paymentTerms}
       >
         <SelectionField
+          active={getValues("paymentTerms")}
           menuItems={["Net 1 day", "Net 7 days", "Net 14 days", "Net 30 days"]}
           setValue={setValue}
           setPaymentDue={setPaymentDue}
@@ -214,8 +220,8 @@ function CreateInvoiceForm() {
             onClick={() => {
               setValue("status", "draft");
               createNewInvoice(getValues());
-              reset();
 
+              clearForm();
               closeModal();
             }}
             className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"

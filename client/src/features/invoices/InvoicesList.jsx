@@ -2,13 +2,21 @@ import Loader from "../../ui/Loader/Loader";
 import { Invoice } from "./Invoice";
 import { useCreateInvoice } from "./useCreateInvoice";
 
-function InvoicesList({ invoices, isLoading }) {
+function InvoicesList({ invoices, isLoading, error }) {
   const { isLoading: isCreating } = useCreateInvoice();
 
   if (isLoading) {
     return (
       <div className="mt-12 flex justify-center">
         <Loader />
+      </div>
+    );
+  }
+
+  if (!isLoading && error) {
+    return (
+      <div className="mt-12 text-xl text-black dark:text-skin-burntSienna">
+        {error.message}
       </div>
     );
   }

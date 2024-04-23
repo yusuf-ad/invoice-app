@@ -1,4 +1,4 @@
-const { Invoice } = require("../models/invoiceModel");
+const Invoice = require("../models/invoiceModel");
 const User = require("../models/userModel");
 const generateId = require("generate-unique-id");
 
@@ -7,23 +7,19 @@ const catchAsync = require("../utils/catchAsync");
 const AppError = require("../utils/appError");
 
 exports.getAllInvoices = catchAsync(async (req, res, next) => {
-  const user = req.user;
+  const { invoices } = await req.user.populate("invoices");
 
   res.status(200).json({
     status: "success",
-    results: user.invoices.length,
+    results: invoices.length,
     data: {
-      invoices: user.invoices,
+      invoices,
     },
   });
 });
 
 exports.getInvoice = catchAsync(async (req, res, next) => {
-  const { invoices: userInvoices } = req.user;
-
-  const [invoice] = userInvoices.filter(
-    (invoice) => invoice.invoiceId === req.params.id
-  );
+  const invoice = await Invoice.findOne({ invoiceId: req.params.id });
 
   if (!invoice) {
     return next(new AppError("No invoice found with that ID", 404));
@@ -60,15 +56,9 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
 
   const newInvoice = await Invoice.create({ ...invoiceTemplate });
 
-  const user = await User.findByIdAndUpdate(
-    req.user.id,
-    { $push: { invoices: newInvoice } },
-    { new: true }
-  );
+  req.user.invoices.push(newInvoice._id);
 
-  if (!user) {
-    return next(new AppError("This user doesn't exist.", 404));
-  }
+  await req.user.save();
 
   res.status(201).json({
     status: "success",
@@ -80,7 +70,6 @@ exports.createInvoice = catchAsync(async (req, res, next) => {
 
 exports.updateInvoice = catchAsync(async (req, res, next) => {
   const { id: invoiceId } = req.params;
-  const user = req.user;
 
   const paymentTerms = req.body.paymentTerms.split(" ").at(1);
 
@@ -97,19 +86,16 @@ exports.updateInvoice = catchAsync(async (req, res, next) => {
     total: req.body.total,
   };
 
-  user.invoices = user.invoices.map((invoice) =>
-    invoice.invoiceId === invoiceId
-      ? { ...invoice, ...invoiceTemplate }
-      : invoice
+  // Filter out undefined properties
+  const updatedFields = Object.fromEntries(
+    Object.entries(invoiceTemplate).filter(([_, v]) => v != null)
   );
 
-  console.log(user.invoices);
-
-  const updatedInvoice = user.invoices.find(
-    (invoice) => invoice.invoiceId === invoiceId
+  const updatedInvoice = await Invoice.findOneAndUpdate(
+    { invoiceId },
+    updatedFields,
+    { new: true }
   );
-
-  await user.save();
 
   res.status(200).json({
     status: "success",
@@ -120,13 +106,13 @@ exports.updateInvoice = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteInvoice = catchAsync(async (req, res, next) => {
-  const user = req.user;
+  const deletedInvoice = await Invoice.findOneAndDelete({
+    invoiceId: req.params.id,
+  });
 
-  user.invoices = user.invoices.filter(
-    (invoice) => invoice.invoiceId !== req.params.id
-  );
-
-  await user.save();
+  if (!deletedInvoice) {
+    return next(new AppError("No invoice found with that ID", 404));
+  }
 
   res.status(204).json({
     status: "success",
@@ -134,18 +120,15 @@ exports.deleteInvoice = catchAsync(async (req, res, next) => {
 });
 
 exports.updateInvoiceStatus = catchAsync(async (req, res, next) => {
-  const user = req.user;
+  const updatedInvoice = await Invoice.findOneAndUpdate(
+    { invoiceId: req.params.id },
+    { status: "paid" },
+    { new: true }
+  );
 
-  let updatedInvoice;
-  user.invoices = user.invoices.map((invoice) => {
-    if (invoice.invoiceId === req.params.id) {
-      updatedInvoice = { ...invoice, status: "paid" };
-      return updatedInvoice;
-    }
-    return invoice;
-  });
-
-  await user.save();
+  if (!updatedInvoice) {
+    return next(new AppError("No invoice found with that ID", 404));
+  }
 
   res.status(200).json({
     status: "success",
@@ -154,11 +137,12 @@ exports.updateInvoiceStatus = catchAsync(async (req, res, next) => {
 });
 
 exports.deleteAllInvoices = catchAsync(async (req, res, next) => {
-  const user = await User.findById(req.user.id);
+  // Delete all invoices from the database
+  await Invoice.deleteMany({ _id: { $in: req.user.invoices } });
 
-  user.invoices = [];
-
-  await user.save();
+  // Clear the invoices array
+  req.user.invoices = [];
+  await req.user.save();
 
   res.status(204).json({
     status: "success",

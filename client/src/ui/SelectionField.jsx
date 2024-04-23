@@ -43,7 +43,7 @@ function SelectionField({ active, menuItems, setValue, setPaymentDue }) {
         className="w-full rounded-md border-2  border-gray-300/50  bg-white  px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 hover:border-skin-purple dark:border-transparent dark:bg-skin-mirage"
       >
         <p className="flex justify-between">
-          <span className="mr-2  text-skin-black">{activeField} </span>
+          <span className="mr-2  text-skin-black">{activeField}</span>
           <span>
             <i
               className={`fa-solid fa-chevron-down text-blue-default text-sm transition duration-300 ${
@@ -62,7 +62,7 @@ function SelectionField({ active, menuItems, setValue, setPaymentDue }) {
           <DropdownItem
             handleSelect={handleSelect}
             key={item}
-            isActive={item === activeField}
+            isActive={item === active}
           >
             {item}
           </DropdownItem>
