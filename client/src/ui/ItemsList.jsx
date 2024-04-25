@@ -18,7 +18,7 @@ function ItemsList({ register, errors, watch, getValues }) {
     { ...initialItem, id: generateUniqueId({ length: 2 }) },
   ]);
 
-  const itemsContainer = useRef(null);
+  const newItemButton = useRef(null);
 
   function handleAddItem() {
     const newItems = [
@@ -28,7 +28,7 @@ function ItemsList({ register, errors, watch, getValues }) {
 
     setItems(newItems);
 
-    itemsContainer.current.scrollIntoView({ behavior: "smooth" });
+    newItemButton.current.scrollIntoView({ behavior: "smooth" });
   }
 
   function handleRemoveItem(id) {
@@ -40,27 +40,33 @@ function ItemsList({ register, errors, watch, getValues }) {
   }
 
   return (
-    <div ref={itemsContainer}>
-      {items.map((item) => (
-        <ItemRow
-          key={item.id}
-          watch={watch}
-          errors={errors}
-          register={register}
-          id={item.id}
-          removeItem={handleRemoveItem}
-        />
-      ))}
+    <>
+      <h3 className="mt-8 text-lg font-bold capitalize text-skin-baliHai">
+        Item list
+      </h3>
 
-      <button
-        onClick={handleAddItem}
-        type="button"
-        className="transition-colors-1 mt-8 flex w-full items-center justify-center gap-1 rounded-full border-2 border-transparent bg-skin-offWhite py-4 text-xs font-bold capitalize text-skin-baliHai hover:border-skin-purple dark:bg-skin-mirage  "
-      >
-        <img src={plusIcon} alt="icon plus" />
-        Add new item
-      </button>
-    </div>
+      <div>
+        {items?.map((item) => (
+          <ItemRow
+            key={item.id}
+            watch={watch}
+            errors={errors}
+            register={register}
+            id={item.id}
+            removeItem={handleRemoveItem}
+          />
+        ))}
+        <button
+          ref={newItemButton}
+          onClick={handleAddItem}
+          type="button"
+          className="transition-colors-1 mt-8 flex w-full items-center justify-center gap-1 rounded-full border-2 border-transparent bg-skin-offWhite py-4 text-xs font-bold capitalize text-skin-baliHai hover:border-skin-purple dark:bg-skin-mirage  "
+        >
+          <img src={plusIcon} alt="icon plus" />
+          Add new item
+        </button>
+      </div>
+    </>
   );
 }
 

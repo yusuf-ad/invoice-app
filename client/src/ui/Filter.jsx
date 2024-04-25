@@ -144,8 +144,6 @@ function Filter() {
             alt="check icon"
           />
         </li>
-
-        {/* pending, paid */}
       </ul>
     </div>
   );

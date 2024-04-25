@@ -22,6 +22,8 @@ function InvoiceDetails() {
 
   const { invoice: currentInvoice } = invoice ?? {};
 
+  console.log(currentInvoice);
+
   const navigate = useNavigate();
 
   useEffect(() => {

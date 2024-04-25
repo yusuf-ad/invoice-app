@@ -187,10 +187,6 @@ function EditInvoiceForm() {
         <FormInput register={register} name={"description"} />
       </FormCol>
 
-      <h3 className="mt-8 text-lg font-bold capitalize text-skin-baliHai">
-        Item list
-      </h3>
-
       <ItemsList
         watch={watch}
         register={register}

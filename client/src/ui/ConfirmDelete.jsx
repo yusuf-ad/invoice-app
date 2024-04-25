@@ -12,7 +12,7 @@ function ConfirmDelete() {
   function handleDelete() {
     deleteInvoice(invoiceId);
 
-    navigate("/");
+    navigate("/app");
   }
 
   if (isDeleting) return <p className="bg-red-400 text-4xl">deleting</p>;

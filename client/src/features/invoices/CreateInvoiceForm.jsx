@@ -16,8 +16,9 @@ import { useCreateInvoice } from "./useCreateInvoice";
 import Modal, { useModal } from "../../ui/Modal";
 
 function CreateInvoiceForm() {
+  // Hooks
   const { close: closeModal } = useModal();
-
+  const { createInvoice, isLoading: isCreating } = useCreateInvoice();
   const {
     register,
     handleSubmit,
@@ -27,14 +28,12 @@ function CreateInvoiceForm() {
     getValues,
     reset,
   } = useForm();
-
   const [paymentDue, setPaymentDue] = useState(
     // initial date is set to tomorrow
     new Date(Date.now() + millisecondsInADay),
   );
 
-  const { createInvoice, isLoading: isCreating } = useCreateInvoice();
-
+  // Function Definitions
   function createNewInvoice(data) {
     const items = getValues("items");
     const itemsArray = Object.values(items).map((item) => ({
@@ -190,10 +189,6 @@ function CreateInvoiceForm() {
       >
         <FormInput register={register} name={"description"} />
       </FormCol>
-
-      <h3 className="mt-8 text-lg font-bold capitalize text-skin-baliHai">
-        Item list
-      </h3>
 
       <ItemsList
         watch={watch}
