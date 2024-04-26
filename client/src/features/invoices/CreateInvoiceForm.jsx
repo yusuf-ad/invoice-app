@@ -35,21 +35,21 @@ function CreateInvoiceForm() {
 
   // Function Definitions
   function createNewInvoice(data) {
-    const items = getValues("items");
-    const itemsArray = Object.values(items).map((item) => ({
-      ...item,
-      totalPrice:
-        +item.itemQty.replace(",", ".") * +item.itemPrice.replace(",", "."),
-    }));
+    // const items = getValues("items");
+    // const itemsArray = Object.values(items).map((item) => ({
+    //   ...item,
+    //   totalPrice:
+    //     +item.itemQty.replace(",", ".") * +item.itemPrice.replace(",", "."),
+    // }));
 
-    const total = +itemsArray
-      .reduce((acc, item) => +acc + +item.totalPrice, 0)
-      .toFixed(2);
+    // const total = +itemsArray
+    //   .reduce((acc, item) => +acc + +item.totalPrice, 0)
+    //   .toFixed(2);
 
     const newInvoice = {
       ...data,
-      total,
-      items: itemsArray,
+      // total,
+      // items: itemsArray,
       paymentTerms: data.paymentTerms ? data.paymentTerms : "Net 1 day",
       paymentDue,
     };
@@ -74,7 +74,10 @@ function CreateInvoiceForm() {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="px-8 py-6 pb-12 ">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="overflow-x-hidden px-8 py-6 pb-12"
+    >
       <h2 className="text-2xl font-bold text-skin-black">New Invoice</h2>
 
       <h3 className="mt-8 text-xs font-bold capitalize text-skin-purple">
@@ -162,7 +165,7 @@ function CreateInvoiceForm() {
       </FormRow>
 
       <FormCol
-        classes={"mt-6"}
+        classes={"mt-6 w-full"}
         label={"Invoice date"}
         error={errors?.invoiceDate}
       >
@@ -190,13 +193,7 @@ function CreateInvoiceForm() {
         <FormInput register={register} name={"description"} />
       </FormCol>
 
-      <ItemsList
-        watch={watch}
-        register={register}
-        errors={errors}
-        setValue={setValue}
-        getValues={getValues}
-      />
+      <ItemsList />
 
       <FormRow classes={"justify-between mt-12"}>
         <Modal.Close>

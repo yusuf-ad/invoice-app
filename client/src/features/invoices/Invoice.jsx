@@ -18,7 +18,7 @@ export function Invoice({ invoice }) {
         <div className="flex flex-col gap-8 md:hidden">
           <div className="flex justify-between ">
             <p className="font-bold text-skin-shipCove">
-              #<span className="text-skin-mirage">{invoice.invoiceId}</span>
+              #<span className="text-skin-black">{invoice.invoiceId}</span>
             </p>
             <p className=" text-skin-baliHai">{invoice.clientName}</p>
           </div>
@@ -38,7 +38,7 @@ export function Invoice({ invoice }) {
         <div className="hidden items-center gap-12 md:flex ">
           <div className="flex items-center gap-6">
             <p className="font-bold text-skin-shipCove">
-              #<span className="text-skin-black ">{invoice.invoiceId}</span>
+              #<span className="text-skin-black">{invoice.invoiceId}</span>
             </p>
             <p className="text-skin-baliHai">
               Due {formatDate(new Date(invoice.paymentDue))}

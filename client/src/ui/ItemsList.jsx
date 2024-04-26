@@ -3,7 +3,6 @@ import plusIcon from "../../public/assets/icon-plus.svg";
 
 import { useRef, useState } from "react";
 import FormCol from "./FormCol";
-import FormInput from "./FormInput";
 import FormRow from "./FormRow";
 import generateUniqueId from "generate-unique-id";
 
@@ -11,16 +10,24 @@ const initialItem = {
   itemName: "New Item",
   itemQty: 1,
   itemPrice: 0,
+  totalPrice: 0,
 };
 
-function ItemsList({ register, errors, watch, getValues }) {
+function ItemsList() {
   const [items, setItems] = useState([
     { ...initialItem, id: generateUniqueId({ length: 2 }) },
   ]);
 
   const newItemButton = useRef(null);
 
+  function handleUpdateItems(id, updatedItem) {
+    const newItems = items.map((item) => (item.id === id ? updatedItem : item));
+
+    setItems(newItems);
+  }
+
   function handleAddItem() {
+    console.log(items);
     const newItems = [
       ...items,
       { ...initialItem, id: generateUniqueId({ length: 2 }) },
@@ -33,8 +40,6 @@ function ItemsList({ register, errors, watch, getValues }) {
 
   function handleRemoveItem(id) {
     const newItems = items.filter((item) => item.id !== id);
-
-    delete getValues("items")[`item${id}`];
 
     setItems(newItems);
   }
@@ -49,11 +54,10 @@ function ItemsList({ register, errors, watch, getValues }) {
         {items?.map((item) => (
           <ItemRow
             key={item.id}
-            watch={watch}
-            errors={errors}
-            register={register}
+            currentItem={item}
             id={item.id}
             removeItem={handleRemoveItem}
+            updateItems={handleUpdateItems}
           />
         ))}
         <button
@@ -72,11 +76,24 @@ function ItemsList({ register, errors, watch, getValues }) {
 
 export default ItemsList;
 
-function ItemRow({ errors, register, watch, id, removeItem }) {
-  const itemQty = watch(`items.item${id}.itemQty`)?.replace(",", ".");
-  const itemPrice = watch(`items.item${id}.itemPrice`)?.replace(",", ".");
+function ItemRow({ currentItem, id, removeItem, updateItems }) {
+  const [item, setItem] = useState(currentItem);
 
-  const total = +itemQty * +itemPrice || 0;
+  function handleItemChange(e, field) {
+    if (field === "itemQty" || field === "itemPrice") {
+      const newUnit = +e.target.value.replace(",", ".");
+
+      const total = +item.total + +newUnit || 0;
+
+      const updatedItem = { ...item, [field]: newUnit, totalPrice: total };
+      setItem(updatedItem);
+      updateItems(id, updatedItem);
+    } else {
+      const updatedItem = { ...item, [field]: e.target.value };
+      setItem(updatedItem);
+      updateItems(id, updatedItem);
+    }
+  }
 
   const formRow = useRef(null);
 
@@ -89,25 +106,33 @@ function ItemRow({ errors, register, watch, id, removeItem }) {
   return (
     <div ref={formRow}>
       <FormRow classes={"mt-4 gap-4"}>
-        <FormCol label={"Item name"} error={errors?.itemName}>
-          <FormInput
-            register={register}
-            name={`items.item${id}.itemName`}
-            defaultValue="New Item"
+        <FormCol label={"Item name"}>
+          <input
+            className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage"
+            value={item.itemName}
+            onChange={(e) => handleItemChange(e, "itemName")}
           />
         </FormCol>
         <FormCol classes={"w-24"} label={"Qty"}>
-          <FormInput
-            register={register}
-            name={`items.item${id}.itemQty`}
-            defaultValue={1}
+          <input
+            className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage "
+            value={item.itemQty}
+            onChange={(e) => {
+              if (e.target.value >= 0) {
+                handleItemChange(e, "itemQty");
+              }
+            }}
           />
         </FormCol>
         <FormCol classes={"w-24"} label={"Price"}>
-          <FormInput
-            register={register}
-            name={`items.item${id}.itemPrice`}
-            defaultValue={0}
+          <input
+            className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage "
+            value={item.itemPrice}
+            onChange={(e) => {
+              if (e.target.value >= 0) {
+                handleItemChange(e, "itemPrice");
+              }
+            }}
           />
         </FormCol>
         <div className="flex flex-1 justify-around  gap-6">
@@ -116,11 +141,11 @@ function ItemRow({ errors, register, watch, id, removeItem }) {
               Total
             </label>
             <span className="mb-3 font-bold text-skin-shipCove">
-              {total.toFixed(2)}
+              {item.totalPrice.toFixed(2)}
             </span>
           </div>
           <button onClick={handleRemoveItem} type="button">
-            <img className="w-4" src={deleteIcon} alt="icon trash" />
+            <img className="mt-4 w-4" src={deleteIcon} alt="icon trash" />
           </button>
         </div>
       </FormRow>

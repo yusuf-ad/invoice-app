@@ -131,3 +131,76 @@ Remove the default styles for checkbox
 ```html
 <input type="checkbox" className="appearance-none" />
 ```
+
+```js
+function ItemsList() {
+  // ...
+
+  function handleUpdateItem(id, updatedItem) {
+    const newItems = items.map((item) => item.id === id ? updatedItem : item);
+
+    setItems(newItems);
+  }
+
+  // ...
+
+  return (
+    <>
+      {/* ... */}
+      {items?.map((item) => (
+        <ItemRow
+          key={item.id}
+          currentItem={item}
+          id={item.id}
+          removeItem={handleRemoveItem}
+          updateItem={handleUpdateItem} // pass the new function as a prop
+        />
+      ))}
+      {/* ... */}
+    </>
+  );
+}
+
+function ItemRow({ currentItem, id, removeItem, updateItem }) { // add the new prop here
+  const [item, setItem] = useState(currentItem);
+
+  // ...
+
+  function handleItemChange(e, field) {
+    const updatedItem = { ...item, [field]: e.target.value };
+    setItem(updatedItem);
+    updateItem(id, updatedItem); // update the item in the parent component
+  }
+
+  // ...
+
+  return (
+    <div ref={formRow}>
+      {/* ... */}
+      <input
+        {/* ... */}
+        onChange={(e) => handleItemChange(e, 'itemName')}
+      />
+      {/* ... */}
+      <input
+        {/* ... */}
+        onChange={(e) => {
+          if (e.target.value >= 0) {
+            handleItemChange(e, 'itemQty');
+          }
+        }}
+      />
+      {/* ... */}
+      <input
+        {/* ... */}
+        onChange={(e) => {
+          if (e.target.value >= 0) {
+            handleItemChange(e, 'itemPrice');
+          }
+        }}
+      />
+      {/* ... */}
+    </div>
+  );
+}
+```

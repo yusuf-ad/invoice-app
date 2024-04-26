@@ -1,10 +1,10 @@
 function FormInput({
   name,
-  type = 'text',
-  autoComplete = 'off',
+  type = "text",
+  autoComplete = "off",
 
-  defaultValue = '',
-  register,
+  defaultValue = "",
+  register = () => {},
 }) {
   return (
     <input

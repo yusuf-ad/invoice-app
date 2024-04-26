@@ -187,13 +187,13 @@ function EditInvoiceForm() {
         <FormInput register={register} name={"description"} />
       </FormCol>
 
-      <ItemsList
+      {/* <ItemsList
         watch={watch}
         register={register}
         errors={errors}
         setValue={setValue}
         getValues={getValues}
-      />
+      /> */}
 
       <FormRow classes={"justify-between mt-12"}>
         <Modal.Close>
