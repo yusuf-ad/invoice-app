@@ -77,7 +77,6 @@ exports.updateInvoice = catchAsync(async (req, res, next) => {
     paymentDue: req.body.paymentDue,
     description: req.body.description,
     paymentTerms,
-    status: req.body.status,
     clientName: req.body.clientName,
     clientEmail: req.body.clientEmail,
     senderAddress: req.body.senderAddress,

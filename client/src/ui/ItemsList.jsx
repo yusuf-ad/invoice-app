@@ -13,11 +13,7 @@ const initialItem = {
   totalPrice: 0,
 };
 
-function ItemsList() {
-  const [items, setItems] = useState([
-    { ...initialItem, id: generateUniqueId({ length: 2 }) },
-  ]);
-
+function ItemsList({ items, setItems }) {
   const newItemButton = useRef(null);
 
   function handleUpdateItems(id, updatedItem) {
@@ -27,7 +23,8 @@ function ItemsList() {
   }
 
   function handleAddItem() {
-    console.log(items);
+    console.log("items", items);
+
     const newItems = [
       ...items,
       { ...initialItem, id: generateUniqueId({ length: 2 }) },
@@ -80,19 +77,38 @@ function ItemRow({ currentItem, id, removeItem, updateItems }) {
   const [item, setItem] = useState(currentItem);
 
   function handleItemChange(e, field) {
-    if (field === "itemQty" || field === "itemPrice") {
-      const newUnit = +e.target.value.replace(",", ".");
+    let updatedItem;
 
-      const total = +item.total + +newUnit || 0;
+    switch (field) {
+      case "itemPrice": {
+        const price = e.target.value.trim().replace(",", ".");
 
-      const updatedItem = { ...item, [field]: newUnit, totalPrice: total };
-      setItem(updatedItem);
-      updateItems(id, updatedItem);
-    } else {
-      const updatedItem = { ...item, [field]: e.target.value };
-      setItem(updatedItem);
-      updateItems(id, updatedItem);
+        updatedItem = { ...item, [field]: price };
+
+        updatedItem = {
+          ...updatedItem,
+          totalPrice: +item.itemQty * +updatedItem[field],
+        };
+        break;
+      }
+      case "itemQty": {
+        const qty = e.target.value.trim().replace(",", ".");
+
+        updatedItem = { ...item, [field]: qty };
+
+        updatedItem = {
+          ...updatedItem,
+          totalPrice: +item.itemPrice * +updatedItem[field],
+        };
+        break;
+      }
+      case "itemName":
+        updatedItem = { ...item, [field]: e.target.value.trim() };
+        break;
     }
+
+    setItem(updatedItem);
+    updateItems(id, updatedItem);
   }
 
   const formRow = useRef(null);
@@ -110,32 +126,25 @@ function ItemRow({ currentItem, id, removeItem, updateItems }) {
           <input
             className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage"
             value={item.itemName}
+            type="text"
             onChange={(e) => handleItemChange(e, "itemName")}
           />
         </FormCol>
-        <FormCol classes={"w-24"} label={"Qty"}>
+        <FormCol classes={"w-20"} label={"Qty"}>
           <input
             className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage "
             value={item.itemQty}
-            onChange={(e) => {
-              if (e.target.value >= 0) {
-                handleItemChange(e, "itemQty");
-              }
-            }}
+            onChange={(e) => handleItemChange(e, "itemQty")}
           />
         </FormCol>
-        <FormCol classes={"w-24"} label={"Price"}>
+        <FormCol classes={"w-20"} label={"Price"}>
           <input
             className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage "
             value={item.itemPrice}
-            onChange={(e) => {
-              if (e.target.value >= 0) {
-                handleItemChange(e, "itemPrice");
-              }
-            }}
+            onChange={(e) => handleItemChange(e, "itemPrice")}
           />
         </FormCol>
-        <div className="flex flex-1 justify-around  gap-6">
+        <div className="flex flex-1 justify-around gap-3">
           <div className="flex flex-col gap-5">
             <label className="text-xs font-medium capitalize text-gray-400">
               Total

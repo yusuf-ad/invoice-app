@@ -14,6 +14,7 @@ import SelectDate from "../../ui/SelectDate";
 import { millisecondsInADay } from "../../utils/millisecondsInADay";
 import { useCreateInvoice } from "./useCreateInvoice";
 import Modal, { useModal } from "../../ui/Modal";
+import generateUniqueId from "generate-unique-id";
 
 function CreateInvoiceForm() {
   // Hooks
@@ -23,7 +24,6 @@ function CreateInvoiceForm() {
     register,
     handleSubmit,
     formState: { errors },
-    watch,
     setValue,
     getValues,
     reset,
@@ -32,24 +32,20 @@ function CreateInvoiceForm() {
     // initial date is set to tomorrow
     new Date(Date.now() + millisecondsInADay),
   );
+  const [items, setItems] = useState([
+    { ...initialItem, id: generateUniqueId({ length: 2 }) },
+  ]);
 
   // Function Definitions
   function createNewInvoice(data) {
-    // const items = getValues("items");
-    // const itemsArray = Object.values(items).map((item) => ({
-    //   ...item,
-    //   totalPrice:
-    //     +item.itemQty.replace(",", ".") * +item.itemPrice.replace(",", "."),
-    // }));
-
-    // const total = +itemsArray
-    //   .reduce((acc, item) => +acc + +item.totalPrice, 0)
-    //   .toFixed(2);
+    const total = items
+      .reduce((acc, item) => +acc + +item.totalPrice, 0)
+      .toFixed(2);
 
     const newInvoice = {
       ...data,
-      // total,
-      // items: itemsArray,
+      total,
+      items,
       paymentTerms: data.paymentTerms ? data.paymentTerms : "Net 1 day",
       paymentDue,
     };
@@ -193,7 +189,7 @@ function CreateInvoiceForm() {
         <FormInput register={register} name={"description"} />
       </FormCol>
 
-      <ItemsList />
+      <ItemsList items={items} setItems={setItems} />
 
       <FormRow classes={"justify-between mt-12"}>
         <Modal.Close>
