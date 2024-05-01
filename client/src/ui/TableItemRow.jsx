@@ -1,6 +1,6 @@
 import { formatMoney } from "../utils/formatMoney";
 
-export function TableItem({ item }) {
+function TableItemRow({ item }) {
   return (
     <tr className="text-sm font-bold">
       <td className="pb-4 capitalize text-skin-black">{item.itemName}</td>
@@ -14,3 +14,5 @@ export function TableItem({ item }) {
     </tr>
   );
 }
+
+export default TableItemRow;

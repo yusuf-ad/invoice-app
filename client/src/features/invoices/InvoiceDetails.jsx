@@ -1,28 +1,25 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { useInvoice } from "./useInvoice";
-import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
-
 import { ArrowLeft } from "../../ui/ArrowLeft";
 import ConfirmDelete from "../../ui/ConfirmDelete";
 import Loader from "../../ui//Loader/Loader";
 import Modal from "../../ui/Modal";
-import { TableItem } from "../../ui/TableItem";
+
+import { useInvoice } from "./useInvoice";
+import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
 import { InvoiceStatus } from "./InvoiceStatus";
 import { InvoiceAddress } from "./InvoiceAddress";
 import EditInvoiceForm from "./EditInvoiceForm";
 
-import { formatMoney } from "../../utils/formatMoney";
-import { formatDate } from "../../utils/formatDate";
+import ItemsTable from "../../ui/ItemsTable";
+import CurrentInvoiceDetails from "./CurrentInvoiceDetails";
 
 function InvoiceDetails() {
-  const { invoice, isLoading, error, isError } = useInvoice();
+  const { invoice, isLoading, error } = useInvoice();
   const { updateStatus, isUpdatingStatus } = useUpdateInvoiceStatus();
 
   const { invoice: currentInvoice } = invoice ?? {};
-
-  console.log(currentInvoice);
 
   const navigate = useNavigate();
 
@@ -44,21 +41,25 @@ function InvoiceDetails() {
             </span>
           </button>
         </header>
-        <div>
-          {isLoading ? (
+
+        <section>
+          {isLoading && (
             <div className="flex h-[35vh] items-center justify-center">
               <Loader />
             </div>
-          ) : isError ? (
-            <p className="mt-8 ">{error.message}</p>
-          ) : (
+          )}
+
+          {error && <p className="mt-8 ">{error.message}</p>}
+
+          {!isLoading && !error && (
             <>
               <div className="mt-8 flex w-full justify-between rounded-md bg-white px-6 py-6 text-sm text-skin-baliHai dark:bg-skin-mirage">
-                <div className="flex items-center gap-6">
+                <div className="flex w-full items-center justify-between gap-6 md:justify-start">
                   <p>Status</p>
                   <InvoiceStatus status={currentInvoice.status} />
                 </div>
-                <div className="space-x-3">
+
+                <div className="hidden space-x-3 md:block">
                   <Modal>
                     <Modal.Open opens={"editInvoice"}>
                       <button className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70">
@@ -103,7 +104,9 @@ function InvoiceDetails() {
                     </button>
                   )}
                 </div>
+                <div className="fixed bottom-0 left-0 h-16 w-full bg-red-400"></div>
               </div>
+
               <div className="mt-4 rounded-md bg-white px-6 py-8 dark:bg-skin-mirage">
                 <div className="grid grid-cols-3 gap-8">
                   <div className="col-span-2">
@@ -122,68 +125,14 @@ function InvoiceDetails() {
                     address={currentInvoice.senderAddress}
                   />
                 </div>
-                <div className="mt-12 flex gap-4 capitalize">
-                  <div className="basis-1/4">
-                    <h3 className="mb-2 text-sm text-skin-baliHai">
-                      Invoice Date
-                    </h3>
-                    <p className="mb-6 text-lg font-bold text-skin-black">
-                      {formatDate(new Date(currentInvoice.createdAt))}
-                    </p>
-                    <h3 className="mb-2 text-sm text-skin-baliHai ">
-                      Payment due
-                    </h3>
-                    <p className="mb-6 text-lg font-bold text-skin-black">
-                      {formatDate(new Date(currentInvoice.paymentDue))}
-                    </p>
-                  </div>
-                  <div className="basis-1/4">
-                    <h3 className="mb-2 text-sm text-skin-baliHai">Bill to</h3>
-                    <p className="mb-6 text-lg font-bold text-skin-black">
-                      {currentInvoice.clientName}
-                    </p>
-                    <InvoiceAddress address={currentInvoice.clientAddress} />
-                  </div>
-                  <div className="flex flex-1 justify-center text-left ">
-                    <div>
-                      <h3 className="mb-2 text-sm text-skin-baliHai">
-                        Sent To
-                      </h3>
-                      <p className="mb-6 text-lg font-bold lowercase text-skin-black">
-                        {currentInvoice.clientEmail}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <div className="mt-12 overflow-hidden rounded-md shadow-sm">
-                  <div className="bg-skin-offWhite px-6 py-10 pb-6 dark:bg-skin-ebony">
-                    <table className="w-full">
-                      <thead className="text-xs text-skin-baliHai">
-                        <tr>
-                          <th className="pb-6 text-left">Item Name</th>
-                          <th className="pb-6 text-right">QTY.</th>
-                          <th className="pb-6 text-right">Price</th>
-                          <th className="pb-6 text-right">Total</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        {currentInvoice.items.map((item, index) => (
-                          <TableItem key={index} item={item} />
-                        ))}
-                      </tbody>
-                    </table>
-                  </div>
-                  <div className="flex items-center justify-between bg-skin-gray px-6 py-6 text-white dark:bg-skin-vulcan">
-                    <p className="text-sm">Amount Due</p>
-                    <h2 className="text-xl font-bold">
-                      ${formatMoney(currentInvoice.total)}
-                    </h2>
-                  </div>
-                </div>
+
+                <CurrentInvoiceDetails currentInvoice={currentInvoice} />
+
+                <ItemsTable currentInvoice={currentInvoice} />
               </div>
             </>
           )}
-        </div>
+        </section>
       </div>
     </>
   );
