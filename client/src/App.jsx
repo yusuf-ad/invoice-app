@@ -10,6 +10,7 @@ import ProtectedRoute from "./pages/ProtectedRoute";
 import InvoiceDetails from "./features/invoices/InvoiceDetails";
 import InvoicesApp from "./pages/InvoicesApp";
 import AppLayout from "./ui/AppLayout";
+import ProfilePage from "./pages/ProfilePage";
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <Route path="" element={<ProtectedRoute />}>
             <Route path="app" element={<InvoicesApp />} />
             <Route path="app/invoice/:id" element={<InvoiceDetails />} />
+            <Route path="app/profile" element={<ProfilePage />} />
           </Route>
         </Route>
       </Routes>

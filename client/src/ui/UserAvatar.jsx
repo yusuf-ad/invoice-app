@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 
 import { useLogout } from "../features/authentication/useLogout";
+import { Link } from "react-router-dom";
 
 export function UserAvatar({ photo }) {
   const [isActive, setIsActive] = useState(false);
@@ -33,20 +34,31 @@ export function UserAvatar({ photo }) {
 
   return (
     <div className="relative flex h-full items-center border-l-2 border-gray-500/50 px-8 xl:flex xl:w-full xl:justify-center xl:border-l-0 xl:border-t-2 xl:py-8">
-      <button
-        ref={logOutButton}
-        onClick={handleClick}
+      <div
         className={`${
           isActive
             ? "pointer-events-auto translate-y-8 opacity-100 xl:translate-x-8"
             : "pointer-events-none -translate-y-0 opacity-0 xl:-translate-x-0"
-        } peer absolute right-5 top-[40px] z-40
-          w-44 rounded-md bg-white px-12  
-          py-6 text-sm font-bold transition-all duration-200 hover:text-skin-purple hover:underline
-        xl:-right-32 xl:top-5 xl:translate-y-0 dark:bg-skin-mirage`}
+        } peer absolute right-5 top-[50px] z-40
+            flex w-44 flex-col justify-center gap-4 rounded-md
+            bg-white  py-6 text-sm font-bold xl:-right-32 xl:top-5 xl:translate-y-0 dark:bg-skin-mirage`}
       >
-        Log out
-      </button>
+        <button
+          className="border-b-[1px] border-gray-500/50 pb-4
+          transition-all duration-200 hover:text-skin-purple hover:underline"
+        >
+          <Link to={`/app/profile`}>Profile</Link>
+        </button>
+        <button
+          className="transition-all duration-200
+          hover:text-skin-purple hover:underline"
+          ref={logOutButton}
+          onClick={handleClick}
+        >
+          Log out
+        </button>
+      </div>
+
       <img
         ref={avatar}
         onClick={() => setIsActive(!isActive)}
