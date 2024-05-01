@@ -2,15 +2,14 @@ import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
 import { ArrowLeft } from "../../ui/ArrowLeft";
-import ConfirmDelete from "../../ui/ConfirmDelete";
 import Loader from "../../ui//Loader/Loader";
-import Modal from "../../ui/Modal";
 
 import { useInvoice } from "./useInvoice";
 import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
 import { InvoiceStatus } from "./InvoiceStatus";
 import { InvoiceAddress } from "./InvoiceAddress";
-import EditInvoiceForm from "./EditInvoiceForm";
+import EditInvoiceButton from "./EditInvoiceButton";
+import DeleteInvoiceButton from "./DeleteInvoiceButton";
 
 import ItemsTable from "../../ui/ItemsTable";
 import CurrentInvoiceDetails from "./CurrentInvoiceDetails";
@@ -42,7 +41,7 @@ function InvoiceDetails() {
           </button>
         </header>
 
-        <section>
+        <section className="mb-12 md:mb-4">
           {isLoading && (
             <div className="flex h-[35vh] items-center justify-center">
               <Loader />
@@ -59,52 +58,37 @@ function InvoiceDetails() {
                   <InvoiceStatus status={currentInvoice.status} />
                 </div>
 
-                <div className="hidden space-x-3 md:block">
-                  <Modal>
-                    <Modal.Open opens={"editInvoice"}>
-                      <button className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70">
-                        Edit
-                      </button>
-                    </Modal.Open>
+                <div className="hidden items-center space-x-3 md:flex">
+                  <EditInvoiceButton />
 
-                    <Modal.Window
-                      name={"editInvoice"}
-                      container={
-                        "fixed inset-0 top-20 z-20 w-full overflow-y-scroll bg-white transition-all duration-300 md:w-2/3 xl:top-0 xl:w-1/2 xl:pl-28 dark:bg-skin-mirage2 overflow-x-hidden"
-                      }
-                    >
-                      <EditInvoiceForm />
-                    </Modal.Window>
-                  </Modal>
-
-                  <Modal>
-                    <Modal.Open opens="confirmDelete">
-                      <button className="btn-sm bg-skin-burntSienna text-skin-offWhite hover:opacity-70">
-                        Delete
-                      </button>
-                    </Modal.Open>
-
-                    <Modal.Window
-                      name="confirmDelete"
-                      container={
-                        "center-xy fixed z-20 w-[480px] rounded-lg bg-white p-10 transition-all duration-300 dark:bg-skin-mirage"
-                      }
-                    >
-                      <ConfirmDelete />
-                    </Modal.Window>
-                  </Modal>
+                  <DeleteInvoiceButton />
 
                   {currentInvoice.status === "pending" && (
                     <button
                       onClick={() => updateStatus()}
-                      className="btn-sm bg-skin-purple text-white transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-70"
+                      className="btn-sm min-w-max bg-skin-purple text-white transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-70"
                       disabled={isUpdatingStatus}
                     >
                       Mark as Paid
                     </button>
                   )}
                 </div>
-                <div className="fixed bottom-0 left-0 h-16 w-full bg-red-400"></div>
+
+                <div className="fixed bottom-0 left-0 flex h-20 w-full items-center justify-center gap-3 bg-white md:hidden dark:bg-skin-mirage">
+                  <EditInvoiceButton />
+
+                  <DeleteInvoiceButton />
+
+                  {currentInvoice.status === "pending" && (
+                    <button
+                      onClick={() => updateStatus()}
+                      className="btn-sm min-w-max bg-skin-purple text-white transition-opacity hover:opacity-70 disabled:cursor-not-allowed disabled:opacity-70"
+                      disabled={isUpdatingStatus}
+                    >
+                      Mark as Paid
+                    </button>
+                  )}
+                </div>
               </div>
 
               <div className="mt-4 rounded-md bg-white px-6 py-8 dark:bg-skin-mirage">
