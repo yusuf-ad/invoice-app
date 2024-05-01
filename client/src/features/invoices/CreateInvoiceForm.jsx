@@ -16,6 +16,13 @@ import { useCreateInvoice } from "./useCreateInvoice";
 import Modal, { useModal } from "../../ui/Modal";
 import generateUniqueId from "generate-unique-id";
 
+const initialItem = {
+  itemName: "New Item",
+  itemQty: 1,
+  itemPrice: 0,
+  totalPrice: 0,
+};
+
 function CreateInvoiceForm() {
   // Hooks
   const { close: closeModal } = useModal();
@@ -191,17 +198,17 @@ function CreateInvoiceForm() {
 
       <ItemsList items={items} setItems={setItems} />
 
-      <FormRow classes={"justify-between mt-12"}>
+      <FormRow classes={"mt-10 justify-between items-center xs:mt-12"}>
         <Modal.Close>
           <button
             type="reset"
-            className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
+            className="btn-sm bg-skin-offWhite text-skin-baliHai hover:bg-gray-300 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70 "
           >
             Discard
           </button>
         </Modal.Close>
 
-        <div className="space-x-3">
+        <div className="flex flex-col gap-4 xs:flex-row">
           <button
             type="button"
             disabled={isCreating}
@@ -212,7 +219,7 @@ function CreateInvoiceForm() {
               clearForm();
               closeModal();
             }}
-            className="btn-sm bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
+            className="btn-sm order-2 bg-skin-gray font-bold text-skin-baliHai hover:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-70 dark:bg-skin-gray dark:hover:bg-skin-gray dark:hover:opacity-70"
           >
             Save as Draft
           </button>
@@ -220,7 +227,7 @@ function CreateInvoiceForm() {
           <button
             type="submit"
             disabled={isCreating}
-            className="btn-sm bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
+            className="btn-sm order-1 bg-skin-purple text-xs font-bold text-white disabled:cursor-not-allowed disabled:opacity-90"
           >
             {isCreating ? "Creating..." : "Save & Send"}
           </button>

@@ -120,9 +120,9 @@ function ItemRow({ currentItem, id, removeItem, updateItems }) {
   }
 
   return (
-    <div ref={formRow}>
-      <FormRow classes={"mt-4 gap-4"}>
-        <FormCol label={"Item name"}>
+    <div className="mb-6 last:mb-0" ref={formRow}>
+      <FormRow classes={"grid grid-cols-12 mt-4 gap-4"}>
+        <FormCol classes={"col-span-11"} label={"Item name"}>
           <input
             className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage"
             value={item.itemName}
@@ -130,32 +130,43 @@ function ItemRow({ currentItem, id, removeItem, updateItems }) {
             onChange={(e) => handleItemChange(e, "itemName")}
           />
         </FormCol>
-        <FormCol classes={"w-20"} label={"Qty"}>
+        <button
+          className="col-span-1 mt-4 flex items-center justify-center sm:hidden"
+          onClick={handleRemoveItem}
+          type="button"
+        >
+          <img className="mt-4 w-4" src={deleteIcon} alt="icon trash" />
+        </button>
+        <FormCol classes={"col-span-4"} label={"Qty"}>
           <input
             className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage "
             value={item.itemQty}
             onChange={(e) => handleItemChange(e, "itemQty")}
           />
         </FormCol>
-        <FormCol classes={"w-20"} label={"Price"}>
+        <FormCol classes={"col-span-4"} label={"Price"}>
           <input
             className="w-full rounded-md border-2 border-gray-300/50 bg-white px-4 py-3 text-sm font-bold text-skin-black placeholder:text-black/85 dark:border-transparent dark:bg-skin-mirage "
             value={item.itemPrice}
             onChange={(e) => handleItemChange(e, "itemPrice")}
           />
         </FormCol>
-        <div className="flex flex-1 justify-around gap-3">
-          <div className="flex flex-col gap-5">
+        <div className=" flex flex-1 justify-around gap-3">
+          <div className="flex flex-col  gap-5">
             <label className="text-xs font-medium capitalize text-gray-400">
               Total
             </label>
             <span className="mb-3 font-bold text-skin-shipCove">
               {item.totalPrice.toFixed(2)}
             </span>
+            <button
+              className="col-span-1 mt-4 flex hidden items-center justify-center"
+              onClick={handleRemoveItem}
+              type="button"
+            >
+              <img className="mt-4 w-4" src={deleteIcon} alt="icon trash" />
+            </button>
           </div>
-          <button onClick={handleRemoveItem} type="button">
-            <img className="mt-4 w-4" src={deleteIcon} alt="icon trash" />
-          </button>
         </div>
       </FormRow>
     </div>

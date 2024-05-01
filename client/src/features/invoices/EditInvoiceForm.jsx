@@ -16,14 +16,6 @@ import Modal, { useModal } from "../../ui/Modal";
 import { useQueryClient } from "react-query";
 import { useParams } from "react-router-dom";
 import { useEditInvoice } from "./useEditInvoice";
-import generateUniqueId from "generate-unique-id";
-
-const initialItem = {
-  itemName: "New Item",
-  itemQty: 1,
-  itemPrice: 0,
-  totalPrice: 0,
-};
 
 function EditInvoiceForm() {
   const queryClient = useQueryClient();
