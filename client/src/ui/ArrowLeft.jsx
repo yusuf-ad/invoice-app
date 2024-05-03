@@ -1,4 +1,4 @@
-export function ArrowLeft() {
+function ArrowLeft() {
   return (
     <svg
       className="mb-1"
@@ -16,3 +16,5 @@ export function ArrowLeft() {
     </svg>
   );
 }
+
+export default ArrowLeft;

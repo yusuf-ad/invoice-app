@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 
 import { useLogout } from "../features/authentication/useLogout";
 import { Link } from "react-router-dom";
+import toast from "react-hot-toast";
 
 export function UserAvatar({ photo }) {
   const [isActive, setIsActive] = useState(false);
@@ -9,6 +10,7 @@ export function UserAvatar({ photo }) {
   const { logout } = useLogout();
 
   const logOutButton = useRef(null);
+  const profileButton = useRef(null);
   const avatar = useRef(null);
 
   function handleClick() {
@@ -18,6 +20,8 @@ export function UserAvatar({ photo }) {
   useEffect(() => {
     function handleClickOutside(event) {
       if (
+        profileButton.current &&
+        !profileButton.current.contains(event.target) &&
         logOutButton.current &&
         !logOutButton.current.contains(event.target) &&
         !avatar.current.contains(event.target)
@@ -39,30 +43,26 @@ export function UserAvatar({ photo }) {
           isActive
             ? "pointer-events-auto translate-y-8 opacity-100 xl:translate-x-8"
             : "pointer-events-none -translate-y-0 opacity-0 xl:-translate-x-0"
-        } peer absolute right-5 top-[50px] z-40
-            flex w-44 flex-col justify-center gap-4 rounded-md
-            bg-white  py-6 text-sm font-bold xl:-right-32 xl:top-5 xl:translate-y-0 dark:bg-skin-mirage`}
+        } absolute right-5 top-[40px] z-30
+          flex w-40 flex-col   
+          overflow-hidden rounded-md bg-white px-3 text-sm font-bold transition-all 
+        duration-200 xl:-right-32 xl:-top-5 xl:translate-y-0 dark:bg-skin-mirage`}
       >
         <button
-          className="border-b-[1px] border-gray-500/50 pb-4
-          transition-all duration-200 hover:text-skin-purple hover:underline"
+          ref={profileButton}
+          onClick={() => toast.success("hello")}
+          className="border-b-[1px] border-b-gray-400 py-4"
         >
-          <Link to={`/app/profile`}>Profile</Link>
+          <Link to="/app/profile">Profile</Link>
         </button>
-        <button
-          className="transition-all duration-200
-          hover:text-skin-purple hover:underline"
-          ref={logOutButton}
-          onClick={handleClick}
-        >
+        <button className="py-4" ref={logOutButton} onClick={handleClick}>
           Log out
         </button>
       </div>
-
       <img
         ref={avatar}
         onClick={() => setIsActive(!isActive)}
-        className="h-10 w-10 cursor-pointer rounded-full border-transparent transition-all duration-100 hover:scale-105 hover:border-4 hover:border-skin-purple peer-hover:scale-105 peer-hover:border-4 peer-hover:border-skin-purple"
+        className="z-50 h-10 w-10 cursor-pointer rounded-full border-transparent  transition-all duration-100 hover:scale-105 hover:border-4 hover:border-skin-purple"
         src={photo}
         alt="user avatar"
       />

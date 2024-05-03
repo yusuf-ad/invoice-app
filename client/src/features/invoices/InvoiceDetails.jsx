@@ -1,26 +1,22 @@
 import { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 
-import { ArrowLeft } from "../../ui/ArrowLeft";
-import Loader from "../../ui//Loader/Loader";
+import Loader from "../../ui/Loader/Loader";
+import ItemsTable from "../../ui/ItemsTable";
+import BackButton from "../../ui/BackButton";
+import EditInvoiceButton from "./EditInvoiceButton";
+import DeleteInvoiceButton from "./DeleteInvoiceButton";
+import CurrentInvoiceDetails from "./CurrentInvoiceDetails";
 
 import { useInvoice } from "./useInvoice";
 import { useUpdateInvoiceStatus } from "./useUpdateInvoiceStatus";
 import { InvoiceStatus } from "./InvoiceStatus";
 import { InvoiceAddress } from "./InvoiceAddress";
-import EditInvoiceButton from "./EditInvoiceButton";
-import DeleteInvoiceButton from "./DeleteInvoiceButton";
-
-import ItemsTable from "../../ui/ItemsTable";
-import CurrentInvoiceDetails from "./CurrentInvoiceDetails";
 
 function InvoiceDetails() {
   const { invoice, isLoading, error } = useInvoice();
   const { updateStatus, isUpdatingStatus } = useUpdateInvoiceStatus();
 
   const { invoice: currentInvoice } = invoice ?? {};
-
-  const navigate = useNavigate();
 
   useEffect(() => {
     document.title = `Invoice #${currentInvoice?.invoiceId} | Invoice App`;
@@ -30,15 +26,7 @@ function InvoiceDetails() {
     <>
       <div className="container mt-4 max-w-2xl xl:mt-0">
         <header>
-          <button
-            onClick={() => navigate(-1)}
-            className="group flex items-center gap-4"
-          >
-            <ArrowLeft />
-            <span className="text-sm font-bold group-hover:text-skin-shipCove">
-              Go back
-            </span>
-          </button>
+          <BackButton />
         </header>
 
         <section className="mb-12 md:mb-4">
